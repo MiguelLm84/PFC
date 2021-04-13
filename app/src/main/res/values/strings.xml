@@ -1,0 +1,33 @@
+<resources>
+    <string name="app_name">Association Manager</string>
+    <string name="txt_tituloLogin">Tienes una cuenta?</string>
+    <string name="todo">TODO</string>
+    <string name="email">Email</string>
+    <string name="password">Contraseña</string>
+    <string name="login">LOGIN</string>
+    <string name="bt_registrar">Registrar cuenta</string>
+    <string name="registrar">REGISTRAR</string>
+    <string name="nombre">Nombre</string>
+    <string name="primer_apellido">Primer Apellido</string>
+    <string name="segundo_apellido">Segundo Apellido</string>
+    <string name="fecha_de_nacimiento">Fecha de Nacimiento</string>
+    <string name="registrar_cuenta">Registrar cuenta</string>
+    <string name="telefono">Teléfono</string>
+    <string name="title_activity_navigation_drawer">ActivityNavigationDrawer</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Asociation Manager</string>
+    <string name="nav_header_subtitle">asociation_manager@gmail.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
+    <string name="menu_home">Home</string>
+    <string name="menu_gallery">Gallery</string>
+    <string name="menu_slideshow">Slideshow</string>
+    <string name="bt_aceptar">Aceptar</string>
+    <string name="perfil_usuario">Perfil Usuario</string>
+    <string name="numero_afiliado">Número Afiliado</string>
+    <string name="cerrar_sesion">Cerrar Sesion</string>
+    <string name="titulo_salir_sesion">Salir de la sesión</string>
+    <string name="administradores">Administradores</string>
+    <string name="bt_guardar">Guardar</string>
+</resources>

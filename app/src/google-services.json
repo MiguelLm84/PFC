@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "956081230226",
+    "project_id": "mi-proyecto-pfc-89ba8",
+    "storage_bucket": "mi-proyecto-pfc-89ba8.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:956081230226:android:b00c9d6b1c64c22a22b14b",
+        "android_client_info": {
+          "package_name": "com.miguel_lm.pfc"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "956081230226-i2g5pe9vu4ca7ust85f7036r01sijhft.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB4aoydRSTOBTYN6geyjzj8Hekh-o_0z6k"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "956081230226-i2g5pe9vu4ca7ust85f7036r01sijhft.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
