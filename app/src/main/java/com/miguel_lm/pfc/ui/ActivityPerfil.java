@@ -143,21 +143,6 @@ public class ActivityPerfil extends AppCompatActivity {
     public void onClickEliminar(View view){
 
         mDatabase = FirebaseDatabase.getInstance().getReference("Users");
-        /*String id = mDatabase.push().getKey();
-
-        numSoci = tv_numSocio.getText().toString();
-        name = tv_nombre.getText().toString();
-        apell1 = tv_ap1.getText().toString();
-        apell2 = tv_ap2.getText().toString();
-        fechaNacim = tv_fechaNaci.getText().toString();
-        telf = tv_telefono.getText().toString();
-        mail = tv_email.getText().toString();
-        psswd = tv_password.getText().toString();
-        Usuario us = new Usuario("",numSoci,name,apell1,apell2,fechaNacim,telf,mail,psswd);
-
-        assert id != null;
-        mDatabase.child(id).setValue(us);*/
-
         numSoci = tv_numSocio.getText().toString();
 
         if (user != null) {
@@ -216,33 +201,6 @@ public class ActivityPerfil extends AppCompatActivity {
         } else {
             Toast.makeText(ActivityPerfil.this, "Error, no se ha podido eliminar la cuenta.",Toast.LENGTH_SHORT).show();
         }
-
-        /*if(id != null){
-            mDatabase.child(id).removeValue();
-
-            if(user != null){
-
-                user.delete().addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        if (task.isSuccessful()) {
-
-                            Intent intent = new Intent(ActivityPerfil.this, AuthActivity.class);
-                            startActivity(intent);
-                            finish();
-                            overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
-                            Toast.makeText(ActivityPerfil.this, "Cuenta eliminada correctamente.",Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                });
-
-            } else {
-                Toast.makeText(ActivityPerfil.this, "Error, no se ha podido eliminar la cuenta.",Toast.LENGTH_SHORT).show();
-            }
-
-        } else {
-            Toast.makeText(ActivityPerfil.this, "Error, no se ha podido eliminar la cuenta.",Toast.LENGTH_SHORT).show();
-        }*/
     }
 
     public void onClickModificar(View view){
@@ -302,8 +260,6 @@ public class ActivityPerfil extends AppCompatActivity {
                 } else {
                     Toast.makeText(ActivityPerfil.this, "No puede haber campos vacios.", Toast.LENGTH_SHORT).show();
                 }
-
-                //mostrarDatosUser();
 
                 bt_aceptar.setVisibility(View.VISIBLE);
                 btn_guardar.setVisibility(View.INVISIBLE);

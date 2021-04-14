@@ -22,7 +22,7 @@ public class AuthActivity extends AppCompatActivity {
     private long tiempoParaSalir = 0;
     EditText ed_email,ed_password;
     Button bt_login;
-    TextView bt_registrar;
+    TextView bt_registrar, btn_restablecer_password;
     String email = "";
     String password = "";
     boolean emailVerified;
@@ -40,7 +40,8 @@ public class AuthActivity extends AppCompatActivity {
         ed_email = findViewById(R.id.ed_email);
         ed_password = findViewById(R.id.ed_password);
         bt_registrar = findViewById(R.id.btn_registro);
-        bt_login = findViewById(R.id.btn_login);
+        btn_restablecer_password= findViewById(R.id.btn_restablecer_password);
+        bt_login = findViewById(R.id.btn_restablecerPassword);
     }
 
     public void OnClickRegistrar(View view){
@@ -50,46 +51,16 @@ public class AuthActivity extends AppCompatActivity {
         finish();
     }
 
+    public void OnClickRestablecerPassword(View view){
+
+        Intent intent = new Intent(AuthActivity.this, RestablecerPasswordActivity.class);
+        startActivity(intent);
+        finish();
+    }
+
     public void OnClickAcceder(View view){
 
         login();
-
-        /*email = ed_email.getText().toString();
-        password = ed_password.getText().toString();
-
-        user = FirebaseAuth.getInstance().getCurrentUser();
-
-        if (user != null) {
-            String emailUser = user.getEmail();
-            String passwordUser = user.getDisplayName();
-
-            emailVerified = user.isEmailVerified();
-
-            if(!email.isEmpty() && !password.isEmpty() || email.equals(emailUser) && password.equals(passwordUser)){
-
-                if(password.length() >= 6){
-
-                    Intent intent = new Intent(AuthActivity.this, ActivityNavigationDrawer.class);
-                    startActivity(intent);
-                    finish();
-                    overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
-
-                } else {
-                    Toast.makeText(this, "La contarseña debe tener al menos 6 caracteres.", Toast.LENGTH_SHORT).show();
-                }
-
-            } else {
-                if(password.length() < 6){
-                    Toast.makeText(this, "La contarseña debe tener al menos 6 caracteres.", Toast.LENGTH_SHORT).show();
-
-                } else {
-                    Toast.makeText(this, "El email o la contraseña no es correcta", Toast.LENGTH_SHORT).show();
-                }
-            }
-
-        } else {
-            Toast.makeText(this, "El email o la contraseña no es correcta", Toast.LENGTH_SHORT).show();
-        }*/
     }
 
     public void login(){

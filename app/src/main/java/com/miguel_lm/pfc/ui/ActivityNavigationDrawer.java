@@ -6,7 +6,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -15,7 +14,6 @@ import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
-
 import com.google.android.material.navigation.NavigationView;
 import com.miguel_lm.pfc.R;
 
@@ -62,7 +60,7 @@ public class ActivityNavigationDrawer extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
+
         getMenuInflater().inflate(R.menu.activity_navigation_drawer, menu);
         return true;
     }
@@ -70,25 +68,25 @@ public class ActivityNavigationDrawer extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
 
-        //Fragment fragmentMenu = null;
-        //boolean fragmentSeleccionado = false;
-
         if (item.getItemId() == R.id.accionCerrarSesion) {
             accionCerrarSesion();
-
-            //fragmentMenu = new FragmentCerrarSesion();
-            //fragmentSeleccionado = true;
         }
 
-        /*if(fragmentSeleccionado = true){
-            getSupportFragmentManager().beginTransaction().add(R.id.ContenedorFragments,fragmentMenu).commit();
-        }*/
+        if (item.getItemId() == R.id.accionAdmin) {
+            accionAdmin();
+        }
 
         return super.onOptionsItemSelected(item);
     }
 
     public void accionCerrarSesion(){
         Intent intent = new Intent(ActivityNavigationDrawer.this, LogoutActivity.class);
+        startActivity(intent);
+        finish();
+    }
+
+    public void accionAdmin(){
+        Intent intent = new Intent(ActivityNavigationDrawer.this, AdminActivity.class);
         startActivity(intent);
         finish();
     }

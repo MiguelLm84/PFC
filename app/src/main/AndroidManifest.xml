@@ -2,9 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.miguel_lm.pfc">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
-    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
 
     <application
         android:allowBackup="true"
@@ -13,43 +13,51 @@
         android:roundIcon="@mipmap/ic_asociation_manager_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.PFC">
-        <activity android:name=".ui.LogoutActivity"
+        <activity
+            android:name=".ui.RestablecerPasswordActivity"
             android:theme="@style/Theme.PFC.NoActionBar"/>
+        <activity android:name=".ui.ActivityInfo"/>
+        <activity android:name=".ui.AdminActivity"/>
+        <activity
+            android:name=".ui.LogoutActivity"
+            android:theme="@style/Theme.PFC.NoActionBar" />
         <activity
             android:name=".ui.ActivityNavigationDrawer"
             android:label="@string/title_activity_navigation_drawer"
             android:theme="@style/Theme.PFC.NoActionBar" />
         <activity
             android:name=".ui.ActivityPerfil"
-            android:theme="@style/Theme.PFC.NoActionBar"
-            android:parentActivityName=".ui.ActivityNavigationDrawer">
+            android:parentActivityName=".ui.ActivityNavigationDrawer"
+            android:theme="@style/Theme.PFC.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".ui.ActivityNavigationDrawer"/>
+                android:value=".ui.ActivityNavigationDrawer" />
         </activity>
         <activity
             android:name=".ui.RegistroActivity"
             android:theme="@style/Theme.PFC.NoActionBar" />
-
-        <activity android:name=".ui.ActivitySplash"
-            android:theme="@style/SplashTheme"
+        <activity
+            android:name=".ui.ActivitySplash"
             android:noHistory="true"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait"
+            android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".ui.AuthActivity"
             android:theme="@style/Theme.AppCompat.NoActionBar">
-            <!--intent-filter>
+
+            <!--
+            intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter-->
+            </intent-filter
+            -->
         </activity>
 
         <meta-data

@@ -63,27 +63,6 @@ public class LogoutActivity extends AppCompatActivity {
         overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
     }
 
-    /*public void getUserInfo(){
-        String id = mAuth.getCurrentUser().getUid();
-        mDatabase.child("Users").child(id).addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if(snapshot.exists()){
-                    String email = snapshot.child("email").getValue().toString();
-                    String password = snapshot.child("password").getValue().toString();
-
-                    tv_email.setText(email);
-                    tv_password.setText(password);
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-    }*/
-
     @Override
     public void onBackPressed(){
 
