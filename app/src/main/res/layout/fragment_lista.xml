@@ -6,8 +6,16 @@
     android:layout_height="match_parent"
     tools:context=".ui.FragmentLista" >
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/RecyclerViewUsers"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:ignore="UselessParent">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/RecyclerViewUsers"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </LinearLayout>
+
 </FrameLayout>

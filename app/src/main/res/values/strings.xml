@@ -43,4 +43,6 @@
     <string name="or">or</string>
     <string name="restablecer_password">Restablecer Password</string>
     <string name="tv_titulo_introducirEmailRegistrado">Introducir email registrado</string>
+    <string name="informacion_usuario">Información Usuario</string>
+    <string name="cuota_pagada">Cuota Pagada</string>
 </resources>

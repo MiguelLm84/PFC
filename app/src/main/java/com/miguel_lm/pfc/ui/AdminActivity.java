@@ -1,18 +1,22 @@
 package com.miguel_lm.pfc.ui;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.viewpager2.widget.ViewPager2;
 
 import android.os.Bundle;
 
 import com.google.android.material.tabs.TabLayout;
+import com.google.android.material.tabs.TabLayoutMediator;
 import com.miguel_lm.pfc.R;
 
 public class AdminActivity extends AppCompatActivity {
 
     private FragmentLista fragment_lista;
     private FragmentDatos fragment_datos;
+    private ViewPager2 viewPager2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,7 +26,25 @@ public class AdminActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
 
+        viewPager2 = findViewById(R.id.viewPage2_admin);
         TabLayout tabs = (TabLayout) findViewById(R.id.tabs);
+
+        ViewPagerAdapter adapter = new ViewPagerAdapter(this);
+        viewPager2.setAdapter(adapter);
+
+        new TabLayoutMediator(tabs, viewPager2, new TabLayoutMediator.TabConfigurationStrategy() {
+            @Override
+            public void onConfigureTab(@NonNull TabLayout.Tab tab, int position) {
+
+                if(position == 1){
+                    tab.setText("LISTA");
+
+                } else {
+                    tab.setText("DATOS");
+                }
+            }
+        }).attach();
+
         tabs.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {

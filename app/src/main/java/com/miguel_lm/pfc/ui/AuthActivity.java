@@ -41,7 +41,7 @@ public class AuthActivity extends AppCompatActivity {
         ed_password = findViewById(R.id.ed_password);
         bt_registrar = findViewById(R.id.btn_registro);
         btn_restablecer_password= findViewById(R.id.btn_restablecer_password);
-        bt_login = findViewById(R.id.btn_restablecerPassword);
+        bt_login = findViewById(R.id.btn_login);
     }
 
     public void OnClickRegistrar(View view){

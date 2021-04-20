@@ -4,18 +4,19 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/LinearLayoutUsers"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:orientation="vertical">
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:cardBackgroundColor="@color/ic_asociation_manager_2_background"
+        android:layout_margin="3dp"
         app:cardCornerRadius="8dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:background="@color/ic_asociation_manager_2_background">
 
             <ImageView
                 android:id="@+id/imagenPerfil_item"
@@ -63,27 +64,26 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
-                android:layout_marginBottom="12dp"
+                android:layout_marginTop="8dp"
                 android:fontFamily="@font/amaranth"
+                android:gravity="center_horizontal"
                 android:text="@string/nombre"
                 android:textColor="#FFFFFF"
                 android:textSize="16sp"
-                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/imagenPerfil_item"
-                app:layout_constraintTop_toBottomOf="@+id/tv_miembro_num"
-                app:layout_constraintVertical_bias="0.333" />
+                app:layout_constraintTop_toBottomOf="@+id/tv_miembro_num" />
 
             <TextView
                 android:id="@+id/tv_ap1_item"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginBottom="12dp"
+                android:layout_marginStart="4dp"
+                android:layout_marginTop="8dp"
                 android:fontFamily="@font/amaranth"
+                android:gravity="center_horizontal"
                 android:text="@string/apellido_1"
                 android:textColor="#FFFFFF"
                 android:textSize="16sp"
-                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/tv_nom_item"
                 app:layout_constraintTop_toBottomOf="@+id/tv_miembro_num" />
 
@@ -91,17 +91,15 @@
                 android:id="@+id/tv_ap2_item"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="4dp"
+                android:layout_marginTop="8dp"
                 android:layout_marginEnd="32dp"
-                android:layout_marginBottom="12dp"
                 android:fontFamily="@font/amaranth"
+                android:gravity="center_horizontal"
                 android:text="@string/apellido_2"
                 android:textColor="#FFFFFF"
                 android:textSize="16sp"
-                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintHorizontal_bias="0.046"
                 app:layout_constraintStart_toEndOf="@+id/tv_ap1_item"
                 app:layout_constraintTop_toBottomOf="@+id/tv_numSocio_item" />
 

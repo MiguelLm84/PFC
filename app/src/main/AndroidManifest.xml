@@ -4,7 +4,7 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
         android:allowBackup="true"
@@ -16,7 +16,10 @@
         <activity
             android:name=".ui.RestablecerPasswordActivity"
             android:theme="@style/Theme.PFC.NoActionBar"/>
-        <activity android:name=".ui.ActivityInfo"/>
+        <activity
+            android:name=".ui.ActivityInfo"
+            android:theme="@style/Theme.AppCompat.NoActionBar">
+        </activity>
         <activity android:name=".ui.AdminActivity"/>
         <activity
             android:name=".ui.LogoutActivity"
@@ -50,14 +53,6 @@
         <activity
             android:name=".ui.AuthActivity"
             android:theme="@style/Theme.AppCompat.NoActionBar">
-
-            <!--
-            intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter
-            -->
         </activity>
 
         <meta-data

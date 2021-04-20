@@ -35,7 +35,7 @@ public class RestablecerPasswordActivity extends AppCompatActivity {
         mDialog = new ProgressDialog(this);
 
         ed_email = findViewById(R.id.ed_email);
-        btn_restablecer_password = findViewById(R.id.btn_restablecerPassword);
+        btn_restablecer_password = findViewById(R.id.btn_login);
         btn_regresar = findViewById(R.id.btn_Regresar);
 
         btn_regresar.setOnClickListener(v -> onBackPressed());
@@ -87,7 +87,7 @@ public class RestablecerPasswordActivity extends AppCompatActivity {
 
     public void onBackPressed() {
 
-        Intent intent = new Intent(this, ActivityNavigationDrawer.class);
+        Intent intent = new Intent(this, AuthActivity.class);
         intent.addCategory(Intent.CATEGORY_HOME);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
