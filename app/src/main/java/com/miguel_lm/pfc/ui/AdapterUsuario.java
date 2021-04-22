@@ -65,9 +65,14 @@ public class AdapterUsuario extends RecyclerView.Adapter<AdapterUsuario.UsuarioV
             btn_info_user = itemView.findViewById(R.id.btn_info_user);
         }
 
-        public void mostrarContacto(final Usuario usuario,Context context) {
+        public void mostrarContacto(final Usuario usuario,final Context context) {
 
-            btn_info_user.setOnClickListener(v -> seleccionarUsuario.usuarioInfo(usuario));
+            btn_info_user.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    seleccionarUsuario.usuarioInfo(usuario);
+                }
+            });
         }
     }
 }

@@ -1,25 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:showIn="navigation_view">
 
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/nav_home"
-            android:icon="@drawable/ic_menu_camera"
-            android:title="@string/menu_home" />
+            android:id="@+id/nav_eventos"
+            android:icon="@drawable/ic_baseline_event_24"
+            android:title="@string/eventos" />
         <item
             android:id="@+id/nav_gallery"
             android:icon="@drawable/ic_menu_gallery"
-            android:title="@string/menu_gallery" />
+            android:title="@string/galeria" />
         <item
-            android:id="@+id/nav_slideshow"
+            android:id="@+id/nav_seguimiento"
             android:icon="@drawable/ic_menu_slideshow"
-            android:title="@string/menu_slideshow" />
+            android:title="@string/seguimiento" />
         <item
-            android:id="@+id/administradores"
+            android:id="@+id/nav_junta_directiva"
             android:icon="@drawable/ic_baseline_admin_panel_settings_24"
-            android:title="@string/administradores" />
+            android:title="@string/junta_directiva" />
     </group>
 </menu>

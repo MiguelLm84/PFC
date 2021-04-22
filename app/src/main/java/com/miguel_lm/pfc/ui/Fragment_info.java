@@ -1,4 +1,4 @@
-package com.miguel_lm.pfc.ui.ui;
+package com.miguel_lm.pfc.ui;
 
 import android.app.DatePickerDialog;
 import android.content.Intent;
@@ -39,8 +39,8 @@ public class Fragment_info extends Fragment {
     FragmentTransaction transaction;
 
     TextView tv_numSocio,tv_nombre, tv_ap1, tv_ap2, tv_fechaNaci, tv_telefono, tv_email, tv_password;
-    Button bt_aceptar;
-    //ImageView imageView_user, btn_eliminarUser, btn_editar;
+    Button bt_aceptar, btn_guardar;
+    ImageView imageView_user, btn_eliminarUser, btn_editar;
     DatabaseReference mDatabase;
     FirebaseAuth mAuth;
     FirebaseUser user;
@@ -57,6 +57,9 @@ public class Fragment_info extends Fragment {
 
         this.usuario = usuario;
     }
+    public Fragment_info() {
+
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -71,9 +74,10 @@ public class Fragment_info extends Fragment {
         tv_email = root.findViewById(R.id.ed_correo_infoUser);
         tv_password = root.findViewById(R.id.ed_Password_infoUser);
         bt_aceptar = root.findViewById(R.id.bt_aceptar_infoUser);
-        /*imageView_user = root.findViewById(R.id.imageView_user);
+        btn_guardar = root.findViewById(R.id.btn_guardar_infoUser);
+        imageView_user = root.findViewById(R.id.imageView_user);
         btn_eliminarUser = root.findViewById(R.id.btn_eliminar);
-        btn_editar = root.findViewById(R.id.btn_editar);*/
+        btn_editar = root.findViewById(R.id.btn_editar);
 
         mAuth = FirebaseAuth.getInstance();
         mDatabase = FirebaseDatabase.getInstance().getReference();
@@ -86,7 +90,7 @@ public class Fragment_info extends Fragment {
 
     public void mostrarDatosUser(Usuario usuario){
 
-        mAuth = FirebaseAuth.getInstance();
+        /*mAuth = FirebaseAuth.getInstance();
         mDatabase = FirebaseDatabase.getInstance().getReference();
         user = mAuth.getCurrentUser();
 
@@ -105,17 +109,19 @@ public class Fragment_info extends Fragment {
                             for(DataSnapshot dataSnapshot : snapshot.getChildren()){
 
                                 Usuario user = dataSnapshot.getValue(Usuario.class);
-                                assert user != null;
+                                assert user != null;*/
 
-                                if(emailUser.equals(user.getEmail())){
-                                    String numSocio = user.getNumSocio();
-                                    String nombre = user.getNombre();
-                                    String ap1 = user.getApellido1();
-                                    String ap2 = user.getApellido2();
-                                    String fNaci = user.getFechaNaci();
-                                    String telefono = user.getTelefono();
-                                    String email = user.getEmail();
-                                    String password = user.getPassword();
+                                 if(Fragment_info.this.getArguments() != null){
+
+                                   String numSocio = getArguments().getString("numSocio");
+                                    String nombre = getArguments().getString("nombre");
+                                    String ap1 = getArguments().getString("apellido1");
+                                    String ap2 = getArguments().getString("apellido2");
+                                    String fNaci = getArguments().getString("fechaNaci");
+                                    String telefono = getArguments().getString("telefono");
+                                    String email = getArguments().getString("email");
+                                    String password = getArguments().getString("password");
+
 
                                     tv_numSocio.setText(numSocio);
                                     tv_nombre.setText(nombre);
@@ -125,10 +131,13 @@ public class Fragment_info extends Fragment {
                                     tv_telefono.setText(telefono);
                                     tv_email.setText(email);
                                     tv_password.setText(password);
+
+                                } else {
+                                    Toast.makeText(getContext(),"ERROR, los datos no se han podido recuperar.",Toast.LENGTH_SHORT).show();
                                 }
                             }
 
-                        } else {
+                        /*} else {
                             Toast.makeText(getContext(),"ERROR, los datos no se han podido recuperar.",Toast.LENGTH_SHORT).show();
                         }
                     }
@@ -145,7 +154,7 @@ public class Fragment_info extends Fragment {
         } else {
             Toast.makeText(getContext(), "Error, no se han podido recuperar los datos.",Toast.LENGTH_SHORT).show();
         }
-    }
+    }*/
 
     public void onClickAceptarInfo(View view){
 
@@ -156,7 +165,7 @@ public class Fragment_info extends Fragment {
         transaction.addToBackStack(null);
     }
 
-    public void onClickEliminar(View view){
+    public void onClickEliminarInfo(View view){
 
         mDatabase = FirebaseDatabase.getInstance().getReference("Users");
         numSoci = tv_numSocio.getText().toString();
@@ -219,14 +228,14 @@ public class Fragment_info extends Fragment {
         }
     }
 
-    public void onClickModificar(View view){
+    public void onClickModificarInfo(View view){
 
-        /*habilitarFoco();
+        habilitarFoco();
 
-        //btn_guardar.setVisibility(View.VISIBLE);
+        btn_guardar.setVisibility(View.VISIBLE);
         bt_aceptar.setVisibility(View.INVISIBLE);
 
-        mostrarDatosUser();
+        mostrarDatosUser(usuario);
 
         View.OnClickListener onClickEtiquetaFecha= v -> {
 
@@ -278,11 +287,11 @@ public class Fragment_info extends Fragment {
                 }
 
                 bt_aceptar.setVisibility(View.VISIBLE);
-                //btn_guardar.setVisibility(View.INVISIBLE);
+                btn_guardar.setVisibility(View.INVISIBLE);
 
                 deshabilitarFoco();
             }
-        });*/
+        });
     }
 
     public void habilitarFoco(){

@@ -45,4 +45,8 @@
     <string name="tv_titulo_introducirEmailRegistrado">Introducir email registrado</string>
     <string name="informacion_usuario">Información Usuario</string>
     <string name="cuota_pagada">Cuota Pagada</string>
+    <string name="eventos">Eventos</string>
+    <string name="galeria">Galeria</string>
+    <string name="junta_directiva">Junta Directiva</string>
+    <string name="seguimiento">Seguimiento</string>
 </resources>

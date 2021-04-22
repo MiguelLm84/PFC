@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.viewpager2.widget.ViewPager2;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import com.google.android.material.tabs.TabLayout;
@@ -22,8 +23,9 @@ public class AdminActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin);
+        //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        //getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setTitle("Administración Usuarios");
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
         overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
 
         viewPager2 = findViewById(R.id.viewPage2_admin);
@@ -37,10 +39,10 @@ public class AdminActivity extends AppCompatActivity {
             public void onConfigureTab(@NonNull TabLayout.Tab tab, int position) {
 
                 if(position == 1){
-                    tab.setText("LISTA");
+                    tab.setText("DATOS");
 
                 } else {
-                    tab.setText("DATOS");
+                    tab.setText("LISTA");
                 }
             }
         }).attach();
@@ -83,5 +85,14 @@ public class AdminActivity extends AppCompatActivity {
         FragmentTransaction fragmentTransition = getSupportFragmentManager().beginTransaction().replace(R.id.frameLayoutFragments, fragment);
         fragmentTransition.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
         fragmentTransition.commit();
+    }
+
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(this, ActivityNavigationDrawer.class);
+        intent.addCategory(Intent.CATEGORY_HOME);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
+        overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
     }
 }

@@ -1,10 +1,9 @@
-package com.miguel_lm.pfc.ui.ui.home;
+package com.miguel_lm.pfc.ui.ui.evento;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -14,12 +13,12 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.miguel_lm.pfc.R;
 
-public class HomeFragment extends Fragment {
+public class EventoFragment extends Fragment {
 
-    private HomeViewModel homeViewModel;
+    private EventoViewModel homeViewModel;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        homeViewModel = new ViewModelProvider(this).get(HomeViewModel.class);
+        homeViewModel = new ViewModelProvider(this).get(EventoViewModel.class);
         View root = inflater.inflate(R.layout.fragment_home, container, false);
         homeViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override
