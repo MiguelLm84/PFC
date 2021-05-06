@@ -168,6 +168,8 @@ public class ActivityPerfil extends AppCompatActivity {
                             mDatabase.child(id).child("email").removeValue();
                             mDatabase.child(id).child("password").removeValue();
                             mDatabase.child(id).child("uid").removeValue();
+                            mDatabase.child(id).child("token").removeValue();
+                            mDatabase.child(id).removeValue();
 
                             if(user != null){
 

@@ -19,7 +19,7 @@ public class ViewPagerAdapter extends FragmentStateAdapter {
             case 0:
                 return  new FragmentLista();
             default:
-                return  new FragmentDatos();
+                return  new FragmentGestion();
         }
     }
     @Override

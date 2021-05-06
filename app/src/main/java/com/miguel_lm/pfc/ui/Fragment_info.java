@@ -25,10 +25,7 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.miguel_lm.pfc.R;
 import com.miguel_lm.pfc.modelo.Usuario;
-import com.miguel_lm.pfc.ui.ActivityNavigationDrawer;
-import com.miguel_lm.pfc.ui.ActivityPerfil;
-import com.miguel_lm.pfc.ui.AuthActivity;
-import com.miguel_lm.pfc.ui.FragmentLista;
+
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
@@ -76,8 +73,8 @@ public class Fragment_info extends Fragment {
         bt_aceptar = root.findViewById(R.id.bt_aceptar_infoUser);
         btn_guardar = root.findViewById(R.id.btn_guardar_infoUser);
         imageView_user = root.findViewById(R.id.imageView_user);
-        btn_eliminarUser = root.findViewById(R.id.btn_eliminar);
-        btn_editar = root.findViewById(R.id.btn_editar);
+        btn_eliminarUser = root.findViewById(R.id.btn_eliminar_infoUser);
+        btn_editar = root.findViewById(R.id.btn_editar_infoUser);
 
         mAuth = FirebaseAuth.getInstance();
         mDatabase = FirebaseDatabase.getInstance().getReference();
@@ -85,87 +82,75 @@ public class Fragment_info extends Fragment {
 
         mostrarDatosUser(usuario);
 
+        bt_aceptar.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                aceptarInfo();
+            }
+        });
+
+        btn_editar.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                editarInfo();
+            }
+        });
+
+        btn_eliminarUser.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                eliminarInfo();
+            }
+        });
+
         return root;
     }
 
     public void mostrarDatosUser(Usuario usuario){
 
-        /*mAuth = FirebaseAuth.getInstance();
-        mDatabase = FirebaseDatabase.getInstance().getReference();
-        user = mAuth.getCurrentUser();
+        if(Fragment_info.this.getArguments() != null){
 
-        if (user != null) {
-
-            String emailUser = user.getEmail();
-            assert emailUser != null;
-
-            if(emailUser.equals(usuario.getEmail())){
-                mDatabase.child("Users").addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-
-                        if(snapshot.exists()){
-
-                            for(DataSnapshot dataSnapshot : snapshot.getChildren()){
-
-                                Usuario user = dataSnapshot.getValue(Usuario.class);
-                                assert user != null;*/
-
-                                 if(Fragment_info.this.getArguments() != null){
-
-                                   String numSocio = getArguments().getString("numSocio");
-                                    String nombre = getArguments().getString("nombre");
-                                    String ap1 = getArguments().getString("apellido1");
-                                    String ap2 = getArguments().getString("apellido2");
-                                    String fNaci = getArguments().getString("fechaNaci");
-                                    String telefono = getArguments().getString("telefono");
-                                    String email = getArguments().getString("email");
-                                    String password = getArguments().getString("password");
+            String numSocio = getArguments().getString("numSocio");
+            String nombre = getArguments().getString("nombre");
+            String ap1 = getArguments().getString("apellido1");
+            String ap2 = getArguments().getString("apellido2");
+            String fNaci = getArguments().getString("fechaNaci");
+            String telefono = getArguments().getString("telefono");
+            String email = getArguments().getString("email");
+            String password = getArguments().getString("password");
 
 
-                                    tv_numSocio.setText(numSocio);
-                                    tv_nombre.setText(nombre);
-                                    tv_ap1.setText(ap1);
-                                    tv_ap2.setText(ap2);
-                                    tv_fechaNaci.setText(fNaci);
-                                    tv_telefono.setText(telefono);
-                                    tv_email.setText(email);
-                                    tv_password.setText(password);
-
-                                } else {
-                                    Toast.makeText(getContext(),"ERROR, los datos no se han podido recuperar.",Toast.LENGTH_SHORT).show();
-                                }
-                            }
-
-                        /*} else {
-                            Toast.makeText(getContext(),"ERROR, los datos no se han podido recuperar.",Toast.LENGTH_SHORT).show();
-                        }
-                    }
-
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError error) {
-
-                    }
-                });
-            }else {
-                Toast.makeText(getContext(), "Error, no se han podido cargar los datos.",Toast.LENGTH_SHORT).show();
-            }
+            tv_numSocio.setText(numSocio);
+            tv_nombre.setText(nombre);
+            tv_ap1.setText(ap1);
+            tv_ap2.setText(ap2);
+            tv_fechaNaci.setText(fNaci);
+            tv_telefono.setText(telefono);
+            tv_email.setText(email);
+            tv_password.setText(password);
 
         } else {
-            Toast.makeText(getContext(), "Error, no se han podido recuperar los datos.",Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(),"ERROR, los datos no se han podido recuperar.",Toast.LENGTH_SHORT).show();
         }
-    }*/
-
-    public void onClickAceptarInfo(View view){
-
-        Fragment fragLista = new FragmentLista();
-        getChildFragmentManager().beginTransaction().add(R.id.FragmentLayoutLista, fragLista).commit();
-        transaction = getChildFragmentManager().beginTransaction().setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
-        transaction.replace(R.id.FragmentLayoutLista,fragLista).commit();
-        transaction.addToBackStack(null);
     }
 
-    public void onClickEliminarInfo(View view){
+    public void aceptarInfo(){
+
+        Fragment fragLista = new FragmentLista();
+        /*getChildFragmentManager().beginTransaction().replace(R.id.FragmentLayoutLista, fragLista).commit();
+        transaction = getChildFragmentManager().beginTransaction().setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
+        transaction.replace(R.id.FragmentLayoutLista,fragLista).commit();
+        transaction.addToBackStack(null);*/
+
+        FragmentTransaction fragmentTransition = getChildFragmentManager().beginTransaction().replace(R.id.FrameLayoutInfo, fragLista);
+        fragmentTransition.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
+        fragmentTransition.commit();
+    }
+
+    public void eliminarInfo(){
 
         mDatabase = FirebaseDatabase.getInstance().getReference("Users");
         numSoci = tv_numSocio.getText().toString();
@@ -228,7 +213,7 @@ public class Fragment_info extends Fragment {
         }
     }
 
-    public void onClickModificarInfo(View view){
+    public void editarInfo(){
 
         habilitarFoco();
 
@@ -372,12 +357,11 @@ public class Fragment_info extends Fragment {
         }
     }
 
-    /*@Override
     public void onBackPressed() {
         Intent intent = new Intent(getContext(), ActivityNavigationDrawer.class);
         intent.addCategory(Intent.CATEGORY_HOME);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
         getActivity().overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
-    }*/
+    }
 }

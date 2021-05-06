@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.ImageButton;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -20,6 +19,7 @@ import com.miguel_lm.pfc.R;
 public class ActivityNavigationDrawer extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
+    ImageButton btn_perfil;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,27 +28,24 @@ public class ActivityNavigationDrawer extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        btn_perfil = findViewById(R.id.btn_perfil);
+
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_eventos, R.id.nav_gallery, R.id.nav_seguimiento)
+                R.id.nav_eventos, R.id.nav_gallery, R.id.nav_seguimiento,R.id.juntaDirectivaFragment)
                 .setDrawerLayout(drawer)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
 
-        ImageButton btn_perfil = findViewById(R.id.btn_perfil);
-
-        btn_perfil.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(ActivityNavigationDrawer.this, ActivityPerfil.class);
-                startActivity(intent);
-                finish();
-            }
+        btn_perfil.setOnClickListener(v -> {
+            Intent intent = new Intent(ActivityNavigationDrawer.this, ActivityPerfil.class);
+            startActivity(intent);
+            finish();
         });
     }
 

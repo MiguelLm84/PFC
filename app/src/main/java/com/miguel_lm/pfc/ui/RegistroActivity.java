@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -17,6 +18,10 @@ import com.miguel_lm.pfc.modelo.Usuario;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
+import javax.crypto.Cipher;
+import javax.crypto.KeyGenerator;
+import javax.crypto.SecretKey;
+import javax.crypto.spec.SecretKeySpec;
 
 public class RegistroActivity extends AppCompatActivity {
 
@@ -33,6 +38,9 @@ public class RegistroActivity extends AppCompatActivity {
     String tel = "";
     String email = "";
     String password = "";
+    String passwordEncriptado = "";
+
+    private final static String AES ="AES";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -105,18 +113,42 @@ public class RegistroActivity extends AppCompatActivity {
 
     public void registrarUser(){
 
-        String id = mDatabase.push().getKey();
-        Usuario user = new Usuario(id, numSocio,nom, ap1,ap2, fNaci,tel,email, password);
+        try{
+            String id = mDatabase.push().getKey();
+            Usuario user = new Usuario(id, numSocio,nom, ap1,ap2, fNaci,tel,email, encriptar(password));
 
-        assert id != null;
-        mDatabase.child("Users").push().setValue(user);
-        mAuth.createUserWithEmailAndPassword(email, password);
-        Toast.makeText(RegistroActivity.this, "Usuario registrado correctamente.", Toast.LENGTH_SHORT).show();
+            assert id != null;
+            mDatabase.child("Users").push().setValue(user);
+            mAuth.createUserWithEmailAndPassword(email, password);
+            Toast.makeText(RegistroActivity.this, "Usuario registrado correctamente.", Toast.LENGTH_SHORT).show();
 
-        Intent intent = new Intent(RegistroActivity.this, AuthActivity.class);
-        startActivity(intent);
-        finish();
-        overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+            Intent intent = new Intent(RegistroActivity.this, AuthActivity.class);
+            startActivity(intent);
+            finish();
+            overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+
+        } catch(Exception e){
+            Log.e("TAG_ERROR","Error al encriptar el password");
+        }
+    }
+
+    private String encriptar(String password) throws Exception {
+
+        KeyGenerator keyGenerator = KeyGenerator.getInstance(AES);
+        keyGenerator.init(128);
+        SecretKey secretKey = keyGenerator.generateKey();
+        byte[] bytesSecretKey = secretKey.getEncoded();
+        SecretKeySpec secretKeySpec = new SecretKeySpec(bytesSecretKey,AES);
+        Cipher cipher = Cipher.getInstance(AES);
+        cipher.init(Cipher.ENCRYPT_MODE,secretKeySpec);
+        byte[] passwordEncript = cipher.doFinal(password.getBytes());
+        String pswd = new String(passwordEncript);
+        Log.d("PASSWOR_ENCRIPTADO", pswd);
+
+        ed_password.setText(pswd);
+        passwordEncriptado = ed_password.getText().toString();
+
+        return passwordEncriptado;
     }
 
     @Override

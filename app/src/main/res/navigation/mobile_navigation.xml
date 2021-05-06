@@ -22,4 +22,9 @@
         android:name="com.miguel_lm.pfc.ui.ui.seguimiento.SeguimientoFragment"
         android:label="@string/menu_slideshow"
         tools:layout="@layout/fragment_slideshow" />
+    <fragment
+        android:id="@+id/juntaDirectivaFragment"
+        android:name="com.miguel_lm.pfc.ui.ui.juntaDirectiva.JuntaDirectivaFragment"
+        android:label="@string/menu_junta_directiva"
+        tools:layout="@layout/fragment_junta_directiva" />
 </navigation>

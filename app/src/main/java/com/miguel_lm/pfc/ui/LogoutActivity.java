@@ -1,5 +1,6 @@
 package com.miguel_lm.pfc.ui;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -11,9 +12,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.miguel_lm.pfc.R;
+import com.miguel_lm.pfc.modelo.Usuario;
 
 public class LogoutActivity extends AppCompatActivity {
 
@@ -23,8 +28,8 @@ public class LogoutActivity extends AppCompatActivity {
     FirebaseAuth mAuth;
     DatabaseReference mDatabase;
     FirebaseUser user;
-    String emailUser;
-    String passwordUser;
+    //String emailUser;
+    //String passwordUser;
     ImageView btn_regresar;
 
     @Override
@@ -42,17 +47,7 @@ public class LogoutActivity extends AppCompatActivity {
 
         btn_regresar.setOnClickListener(v -> onBackPressed2());
 
-        user = mAuth.getCurrentUser();
-
-        if (user != null) {
-            emailUser = user.getEmail();
-            passwordUser = user.getDisplayName();    //.getProviderId();
-            tv_email.setText(emailUser);
-            tv_password.setText(passwordUser);
-
-        } else {
-            Toast.makeText(this, "Error, no se han podido recuperar los datos.",Toast.LENGTH_SHORT).show();
-        }
+        mostrarDatosUser();
     }
 
     public void cerrarSesion(View view){
@@ -61,6 +56,54 @@ public class LogoutActivity extends AppCompatActivity {
         startActivity(new Intent(LogoutActivity.this, AuthActivity.class));
         finish();
         overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+    }
+
+    public void mostrarDatosUser(){
+
+        mAuth = FirebaseAuth.getInstance();
+        mDatabase = FirebaseDatabase.getInstance().getReference();
+        user = mAuth.getCurrentUser();
+        String password;
+
+        if (user != null) {
+
+            String emailUser = user.getEmail();
+            assert emailUser != null;
+
+            mDatabase.child("Users").addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                    if(snapshot.exists()){
+
+                        for(DataSnapshot dataSnapshot : snapshot.getChildren()){
+
+                            Usuario user = dataSnapshot.getValue(Usuario.class);
+                            assert user != null;
+
+                            if(emailUser.equals(user.getEmail())){
+                                String email = user.getEmail();
+                                String password = user.getPassword();
+
+                                tv_email.setText(email);
+                                tv_password.setText(password);
+                            }
+                        }
+
+                    } else {
+                        Toast.makeText(LogoutActivity.this,"ERROR, los datos no se han podido recuperar.",Toast.LENGTH_SHORT).show();
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
+                }
+            });
+
+        } else {
+            Toast.makeText(this, "Error, no se han podido recuperar los datos.",Toast.LENGTH_SHORT).show();
+        }
     }
 
     @Override

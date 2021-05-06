@@ -52,7 +52,6 @@ public class RestablecerPasswordActivity extends AppCompatActivity {
                     mDialog.setCanceledOnTouchOutside(false);
                     mDialog.show();
                     resetPassword();
-                    //Toast.makeText(RestablecerPasswordActivity.this,"",Toast.LENGTH_SHORT).show();
                     startActivity(new Intent(RestablecerPasswordActivity.this, AuthActivity.class));
                     finish();
                     overridePendingTransition(R.anim.fade_in, R.anim.fade_out);

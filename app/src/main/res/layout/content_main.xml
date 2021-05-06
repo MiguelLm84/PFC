@@ -30,4 +30,5 @@
         android:src="@drawable/ic_round_account_button_with_user_inside"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

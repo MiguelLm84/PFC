@@ -327,7 +327,6 @@
         android:background="@drawable/round_background"
         android:backgroundTint="@color/primary"
         android:fontFamily="@font/amaranth"
-        android:onClick="onClickAceptar"
         android:text="@string/bt_guardar"
         android:textColor="#FFFFFF"
         android:textSize="15sp"

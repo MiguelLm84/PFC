@@ -25,7 +25,7 @@
             style="@style/Theme.PFC.EtiquetaSeleccion"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/datos" />
+            android:text="@string/gestion" />
 
     </com.google.android.material.tabs.TabLayout>
 

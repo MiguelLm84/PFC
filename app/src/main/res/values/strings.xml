@@ -31,7 +31,7 @@
     <string name="administradores">Administradores</string>
     <string name="bt_guardar">Guardar</string>
     <string name="listado">Listado</string>
-    <string name="datos">Datos</string>
+    <string name="gestion">Gestión</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="admin">Admin</string>
@@ -47,6 +47,7 @@
     <string name="cuota_pagada">Cuota Pagada</string>
     <string name="eventos">Eventos</string>
     <string name="galeria">Galeria</string>
-    <string name="junta_directiva">Junta Directiva</string>
+    <string name="menu_junta_directiva">Junta Directiva</string>
     <string name="seguimiento">Seguimiento</string>
+    <string name="area_gestion">Área de Gestión</string>
 </resources>
