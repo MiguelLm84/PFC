@@ -1,7 +1,10 @@
 package com.miguel_lm.pfc.modelo;
 
+import androidx.annotation.NonNull;
+
 public class Usuario {
 
+    private String token;
     private String uid;
     private String numSocio;
     private String nombre;
@@ -25,6 +28,39 @@ public class Usuario {
         this.telefono = telefono;
         this.email = email;
         this.password = password;
+    }
+
+    public Usuario(String token,String uid, String numSocio, String nombre, String apellido1, String apellido2, String fechaNaci, String telefono, String email, String password) {
+        this.token = token;
+        this.uid = uid;
+        this.numSocio = numSocio;
+        this.nombre = nombre;
+        this.apellido1 = apellido1;
+        this.apellido2 = apellido2;
+        this.fechaNaci = fechaNaci;
+        this.telefono = telefono;
+        this.email = email;
+        this.password = password;
+    }
+
+    /*public Usuario(String token,String uid,String nombre){
+        this.token = token;
+        this.uid = uid;
+        this.nombre = nombre;
+    }*/
+
+    public Usuario(String nombre,String apellido1, String apellido2){
+        this.nombre = nombre;
+        this.apellido1 = apellido1;
+        this.apellido2 = apellido2;
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
     }
 
     public String getUid() {
@@ -115,5 +151,12 @@ public class Usuario {
         this.password = password;
 
         return password;
+    }
+
+    @NonNull
+    @Override
+    public String toString() {
+
+        return nombre + " " + apellido1 + " " + apellido2;
     }
 }

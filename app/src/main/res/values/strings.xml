@@ -50,4 +50,6 @@
     <string name="menu_junta_directiva">Junta Directiva</string>
     <string name="seguimiento">Seguimiento</string>
     <string name="area_gestion">Área de Gestión</string>
+    <string name="notificaciones">Notificaciones</string>
+    <string name="enviar_notificacion">Enviar Notificación</string>
 </resources>

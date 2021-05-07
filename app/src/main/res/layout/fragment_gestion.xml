@@ -2,13 +2,28 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/FrameLayoutGestion"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     tools:context=".ui.FragmentGestion">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
+        <ImageButton
+            android:id="@+id/bt_volver_gestion"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="40dp"
+            android:layout_marginTop="32dp"
+            android:background="@null"
+            android:contentDescription="@string/todo"
+            android:src="@drawable/flecha"
+            android:tint="@color/black"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <View
             android:id="@+id/view_gestion"
@@ -47,7 +62,7 @@
             tools:ignore="MissingConstraints" />
 
         <androidx.cardview.widget.CardView
-            android:id="@+id/cardView"
+            android:id="@+id/cardViewLogo"
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:layout_marginTop="24dp"
@@ -84,7 +99,7 @@
             android:textSize="20sp"
             android:textStyle="bold"
             android:visibility="gone"
-            app:layout_constraintEnd_toStartOf="@+id/cardView"
+            app:layout_constraintEnd_toStartOf="@+id/cardViewLogo"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/view_gestion" />
 
@@ -92,14 +107,14 @@
             android:id="@+id/btn_personalizacion_app"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="40dp"
-            android:layout_marginTop="29dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="32dp"
             android:background="@null"
             android:backgroundTint="@android:color/transparent"
             android:contentDescription="@string/todo"
             app:layout_constrainedHeight="false"
             app:layout_constrainedWidth="false"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/bt_volver_gestion"
             app:layout_constraintTop_toBottomOf="@+id/view_inferior_getion"
             app:srcCompat="@drawable/settings" />
 
@@ -112,6 +127,7 @@
             android:background="@null"
             android:backgroundTint="@android:color/transparent"
             android:contentDescription="@string/todo"
+            android:visibility="gone"
             app:layout_constrainedHeight="false"
             app:layout_constrainedWidth="false"
             app:layout_constraintEnd_toStartOf="@+id/btn_notificacion_individual"
@@ -148,18 +164,19 @@
             app:layout_constraintTop_toBottomOf="@+id/view_inferior_getion"
             app:srcCompat="@drawable/notificacion" />
 
-        <ImageView
+        <ImageButton
             android:id="@+id/btn_campanhas"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
             android:layout_marginEnd="40dp"
+            android:background="@null"
             android:clickable="true"
             android:contentDescription="@string/todo"
             android:focusable="true"
+            android:src="@drawable/correo_de_propaganda"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/view_inferior_getion"
-            app:srcCompat="@drawable/correo_de_propaganda" />
+            app:layout_constraintTop_toBottomOf="@+id/view_inferior_getion" />
 
         <EditText
             android:id="@+id/tv_num_socio3"
