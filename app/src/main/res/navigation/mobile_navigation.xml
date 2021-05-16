@@ -39,6 +39,6 @@
     <fragment
         android:id="@+id/YouTube"
         android:name="com.miguel_lm.pfc.ui.ui.youtube.WebViewYouTubeFragment"
-        android:label="fragment_web_view_you_tube"
+        android:label="YouTube"
         tools:layout="@layout/fragment_web_view_you_tube" />
 </navigation>
