@@ -1,4 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="ic_asociation_manager_background">#252932</color>
+    <color name="ic_asociation_manager_background">@color/color_splash</color>
 </resources>

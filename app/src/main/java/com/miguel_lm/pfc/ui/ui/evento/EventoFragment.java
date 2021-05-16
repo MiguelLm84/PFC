@@ -15,17 +15,10 @@ import com.miguel_lm.pfc.R;
 
 public class EventoFragment extends Fragment {
 
-    private EventoViewModel homeViewModel;
-
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        homeViewModel = new ViewModelProvider(this).get(EventoViewModel.class);
         View root = inflater.inflate(R.layout.fragment_home, container, false);
-        homeViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
-            @Override
-            public void onChanged(@Nullable String s) {
 
-            }
-        });
+
         return root;
     }
 }

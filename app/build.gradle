@@ -9,7 +9,7 @@ android {
 
     defaultConfig {
         applicationId "com.miguel_lm.pfc"
-        minSdkVersion 21
+        minSdkVersion 24
         targetSdkVersion 30
         versionCode 1
         versionName "1.0"
@@ -53,6 +53,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-database:19.7.0'
     //implementation 'com.google.firebase:firebase-messaging'
     implementation 'com.android.volley:volley:1.2.0'
+    implementation 'com.google.firebase:firebase-messaging-directboot:21.1.0'
 }
 
 apply plugin: 'com.google.gms.google-services'

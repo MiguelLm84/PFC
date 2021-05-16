@@ -25,13 +25,14 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         super.onMessageReceived(remoteMessage);
 
         String from = remoteMessage.getFrom();
+        String titulo = remoteMessage.getData().get("titulo");
+        String detalle = remoteMessage.getData().get("detalle");
 
-        Log.e("TAG_MENSAJE_RECIBIDO", "Mensaje recibido de: "+from);
+        Log.e("TAG_FROM", "Mensaje recibido de: "+from);
+        Log.e("TAG_TITULO", "Titulo: "+titulo);
+        Log.e("TAG_DETALLE", "Detalle: "+detalle);
 
-        if(remoteMessage.getNotification() != null){
-
-            String titulo = remoteMessage.getNotification().getTitle();
-            String detalle = remoteMessage.getNotification().getBody();
+        if(remoteMessage.getData() != null){
 
             if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
                 versionMayorQueOreo(titulo,detalle);
@@ -63,11 +64,13 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         }
         builder.setAutoCancel(true)
                 .setSound(soundUri)
-                .setWhen(System.currentTimeMillis())
                 .setContentTitle(titulo)
                 .setSmallIcon(R.mipmap.ic_asociation_manager_notificaciones)
+                .setTicker("Association Manager")
+                .setPriority(NotificationCompat.PRIORITY_HIGH)
+                .setWhen(System.currentTimeMillis())
                 .setContentText(detalle)
-                .setContentIntent(clickNotify())
+                .setContentIntent(clickNotify(titulo,detalle))
                 .setContentInfo("nuevo");
         Random random = new Random();
         int idNotify = random.nextInt(8000);
@@ -80,15 +83,20 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
         String id = "mensaje";
 
+        Uri soundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+
         NotificationManager nm = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this,id);
 
         builder.setAutoCancel(true)
-                .setWhen(System.currentTimeMillis())
+                .setSound(soundUri)
                 .setContentTitle(titulo)
-                .setSmallIcon(R.mipmap.ic_asociation_manager)
+                .setSmallIcon(R.mipmap.ic_asociation_manager_notificaciones)
+                .setTicker("Association Manager")
+                .setPriority(NotificationCompat.PRIORITY_HIGH)
+                .setWhen(System.currentTimeMillis())
                 .setContentText(detalle)
-                .setContentIntent(clickNotify())
+                .setContentIntent(clickNotify(titulo,detalle))
                 .setContentInfo("nuevo");
         Random random = new Random();
         int idNotify = random.nextInt(8000);
@@ -97,10 +105,11 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         nm.notify(idNotify,builder.build());
     }
 
-    public PendingIntent clickNotify(){
+    public PendingIntent clickNotify(String titulo, String detalle){
 
-        Intent nf = new Intent(getApplicationContext(),ActivityNavigationDrawer.class);
-        nf.putExtra("color", "rojo");
+        Intent nf = new Intent(getApplicationContext(),NotificacionActivity.class);
+        nf.putExtra("titulo", titulo);
+        nf.putExtra("detalle", detalle);
         nf.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
 
         return PendingIntent.getActivity(this,0,nf,0);

@@ -28,6 +28,7 @@
         android:backgroundTint="@android:color/transparent"
         android:contentDescription="@string/todo"
         android:src="@drawable/ic_round_account_button_with_user_inside"
+        android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

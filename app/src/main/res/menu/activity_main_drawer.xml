@@ -9,16 +9,38 @@
             android:icon="@drawable/ic_baseline_event_24"
             android:title="@string/eventos" />
         <item
-            android:id="@+id/nav_gallery"
-            android:icon="@drawable/ic_menu_gallery"
-            android:title="@string/galeria" />
-        <item
-            android:id="@+id/nav_seguimiento"
-            android:icon="@drawable/ic_menu_slideshow"
-            android:title="@string/seguimiento" />
+            android:id="@+id/Perfil"
+            android:icon="@drawable/ic_round_account_button_with_user_inside"
+            android:title="@string/perfil" />
         <item
             android:id="@+id/juntaDirectivaFragment"
             android:icon="@drawable/ic_baseline_admin_panel_settings_24"
             android:title="@string/menu_junta_directiva" />
+        <item
+
+            android:id="@+id/Direccion"
+            android:icon="@drawable/pin_de_ubicacion"
+            android:title="@string/direccion" />
+
     </group>
+    <item android:title="@string/redes_sociales">
+        <menu>
+            <item
+                android:id="@+id/Facebook"
+                android:icon="@drawable/facebook"
+                android:title="@string/facebook" />
+            <item
+                android:id="@+id/Twitter"
+                android:icon="@drawable/twitter"
+                android:title="@string/twitter" />
+            <item
+                android:id="@+id/Instagram"
+                android:icon="@drawable/instagram"
+                android:title="@string/instagram" />
+            <item
+                android:id="@+id/YouTube"
+                android:icon="@drawable/youtube"
+                android:title="@string/youtube" />
+        </menu>
+    </item>
 </menu>

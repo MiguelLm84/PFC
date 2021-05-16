@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ImageButton;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -19,7 +20,7 @@ import com.miguel_lm.pfc.R;
 public class ActivityNavigationDrawer extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
-    ImageButton btn_perfil;
+    static ImageButton btn_perfil = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,12 +33,15 @@ public class ActivityNavigationDrawer extends AppCompatActivity {
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
+        navigationView.setItemIconTintList(null);
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_eventos, R.id.nav_gallery, R.id.nav_seguimiento,R.id.juntaDirectivaFragment)
+                R.id.nav_eventos,R.id.juntaDirectivaFragment,R.id.WebViewFacebook,
+                R.id.WebViewTwitter,R.id.WebViewInstagram,R.id.WebViewYouTube)
                 .setDrawerLayout(drawer)
                 .build();
+
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);

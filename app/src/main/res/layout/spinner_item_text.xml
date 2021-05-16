@@ -9,11 +9,12 @@
     android:drawablePadding="16dp"
     android:ellipsize="marquee"
     android:fontFamily="@font/russo_one"
+    android:gravity="center|start"
     android:marqueeRepeatLimit="marquee_forever"
     android:paddingStart="16dp"
     android:scrollHorizontally="true"
     android:singleLine="true"
-    android:textColor="@color/black"
+    android:textColor="@color/color_app"
     android:textSize="14sp"
     app:drawableStartCompat="@drawable/ic_baseline_person"
     tools:ignore="RtlSymmetry" />

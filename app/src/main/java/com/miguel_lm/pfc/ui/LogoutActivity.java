@@ -28,8 +28,6 @@ public class LogoutActivity extends AppCompatActivity {
     FirebaseAuth mAuth;
     DatabaseReference mDatabase;
     FirebaseUser user;
-    //String emailUser;
-    //String passwordUser;
     ImageView btn_regresar;
 
     @Override

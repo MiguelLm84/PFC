@@ -9,4 +9,8 @@
     <color name="white">#FFFFFFFF</color>
     <color name="primary">#273036</color>
     <color name="primary_dark">#273036</color>
+    <color name="color_splash">#252932</color>
+    <color name="color_app">#FF000000</color>
+    <color name="track_tint_switch">#C1BFBF</color>
+
 </resources>

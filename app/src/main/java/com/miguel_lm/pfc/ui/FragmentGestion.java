@@ -32,7 +32,7 @@ public class FragmentGestion extends Fragment {
 
         btn_recordatorios.setOnClickListener(v -> accederActivityNotificacion());
 
-        btn_campanhas.setOnClickListener(v -> accederActivityNotificacion());
+        btn_campanhas.setOnClickListener(v -> accederActivityNotificacionPorSegmentos());
 
         btn_personalizacion_app.setOnClickListener(v -> personalizacionApp());
 
@@ -44,6 +44,14 @@ public class FragmentGestion extends Fragment {
     public void accederActivityNotificacion(){
 
         Intent intent = new Intent(getContext(), NotificacionActivity.class);
+        startActivity(intent);
+        getActivity().finish();
+        getActivity().overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+    }
+
+    public void accederActivityNotificacionPorSegmentos(){
+
+        Intent intent = new Intent(getContext(), WebViewActivity.class);
         startActivity(intent);
         getActivity().finish();
         getActivity().overridePendingTransition(R.anim.fade_in, R.anim.fade_out);

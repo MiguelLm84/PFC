@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_gravity="center"
-    android:background="#252932"
+    android:background="@color/color_splash"
     tools:context=".ui.ActivitySplash">
 
     <ImageView
@@ -23,51 +23,5 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/logo" />
-
-    <ImageView
-        android:id="@+id/imageViewLogo"
-        android:layout_width="190dp"
-        android:layout_height="208dp"
-        android:layout_marginTop="156dp"
-        android:background="@null"
-        android:contentDescription="@string/todo"
-        android:visibility="gone"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/horizontal_on_white_by_logaster" />
-
-    <TextView
-        android:id="@+id/tv_tituloSlash"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:layout_marginTop="308dp"
-        android:fontFamily="@font/domino"
-        android:gravity="center_horizontal"
-        android:textAllCaps="false"
-        android:textColor="#FFFFFF"
-        android:textSize="50sp"
-        android:visibility="gone"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/tv_tituloSlash2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/crkdownr"
-        android:gravity="center_horizontal"
-        android:textColor="#FFFFFF"
-        android:textSize="35sp"
-        android:textStyle="bold"
-        android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.499" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -140,12 +140,8 @@ public class Fragment_info extends Fragment {
     public void aceptarInfo(){
 
         Fragment fragLista = new FragmentLista();
-        /*getChildFragmentManager().beginTransaction().replace(R.id.FragmentLayoutLista, fragLista).commit();
-        transaction = getChildFragmentManager().beginTransaction().setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
-        transaction.replace(R.id.FragmentLayoutLista,fragLista).commit();
-        transaction.addToBackStack(null);*/
 
-        FragmentTransaction fragmentTransition = getChildFragmentManager().beginTransaction().replace(R.id.FrameLayoutInfo, fragLista);
+        FragmentTransaction fragmentTransition = getChildFragmentManager().beginTransaction().add(R.id.FrameLayoutInfo, fragLista);
         fragmentTransition.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
         fragmentTransition.commit();
     }

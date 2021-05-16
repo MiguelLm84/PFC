@@ -52,4 +52,25 @@
     <string name="area_gestion">Área de Gestión</string>
     <string name="notificaciones">Notificaciones</string>
     <string name="enviar_notificacion">Enviar Notificación</string>
+    <string name="cargos_junta_directiva">Cargos Junta Directiva</string>
+    <string name="presidente">Presidente</string>
+    <string name="vicepresidente">Vicepresidente</string>
+    <string name="secretario_general">Secretario General</string>
+    <string name="tesorero">Tesorero</string>
+    <string name="vocales">Vocales</string>
+    <string name="aceptar">Aceptar</string>
+    <string name="facebook">Facebook</string>
+    <string name="perfil">Perfil</string>
+    <string name="twitter">Twitter</string>
+    <string name="instagram">Instagram</string>
+    <string name="youtube">YouTube</string>
+    <string name="redes_sociales">Redes Sociales</string>
+    <string name="direccion">Dirección</string>
+    <string name="customizacion_app">Customización App</string>
+    <string name="azul_celeste">Azul Celeste</string>
+    <string name="rojo">Rojo</string>
+    <string name="verde">Verde</string>
+    <string name="morado">Morado</string>
+    <string name="negro">Negro</string>
+    <string name="azul">Azul</string>
 </resources>

@@ -370,13 +370,14 @@
                     android:fontFamily="@font/amaranth"
                     android:padding="10dp"
                     android:text="@string/cuota_pagada"
-                    android:textColor="@color/primary"
+                    android:textColor="@color/color_app"
                     android:textSize="16sp"
                     android:textStyle="bold"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/ed_Password_infoUser"
-                    app:thumbTint="@color/primary"
+                    app:thumbTint="@color/color_app"
+                    app:trackTint="@color/track_tint_switch"
                     tools:ignore="UseSwitchCompatOrMaterialXml" />
 
                 <Button

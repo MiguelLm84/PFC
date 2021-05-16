@@ -11,8 +11,8 @@
         android:id="@+id/tabs"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:tabIndicatorColor="@color/black"
-        app:tabSelectedTextColor="@color/black"
+        app:tabIndicatorColor="@color/color_app"
+        app:tabSelectedTextColor="@color/color_app"
         app:tabTextAppearance="@style/Theme.PFC.EtiquetaSeleccion"
         app:tabTextColor="@color/primary">
 

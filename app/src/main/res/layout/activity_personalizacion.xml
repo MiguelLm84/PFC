@@ -1,15 +1,116 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/FrameLayoutPersonalizacion"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.PersonalizacionActivity">
 
-    <FrameLayout
-        android:id="@+id/FrameLayoutPersonalizacion"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-    </FrameLayout>
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <TextView
+            android:id="@+id/tv_cambioColorApp"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="32dp"
+            android:layout_marginEnd="32dp"
+            android:fontFamily="@font/amaranth"
+            android:gravity="center"
+            android:text="@string/customizacion_app"
+            android:textColor="@color/color_app"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="32dp"
+            android:orientation="vertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_cambioColorApp">
+
+            <com.google.android.material.switchmaterial.SwitchMaterial
+                android:id="@+id/switch_azul"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawableStart="@drawable/common_google_signin_btn_icon_dark_normal_background"
+                android:drawablePadding="16dp"
+                android:drawableTint="#82B1FF"
+                android:fontFamily="@font/amaranth"
+                android:text="@string/azul"
+                android:textColor="@color/color_app"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                app:thumbTint="@color/color_app"
+                app:trackTint="@color/track_tint_switch" />
+
+            <com.google.android.material.switchmaterial.SwitchMaterial
+                android:id="@+id/switch_rojo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawableStart="@drawable/common_google_signin_btn_icon_dark_normal_background"
+                android:drawablePadding="16dp"
+                android:drawableTint="#D50000"
+                android:fontFamily="@font/amaranth"
+                android:text="@string/rojo"
+                android:textColor="@color/color_app"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                app:thumbTint="@color/color_app"
+                app:trackTint="@color/track_tint_switch" />
+
+            <com.google.android.material.switchmaterial.SwitchMaterial
+                android:id="@+id/switch_verde"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawableStart="@drawable/common_google_signin_btn_icon_dark_normal_background"
+                android:drawablePadding="16dp"
+                android:drawableTint="@color/teal_200"
+                android:fontFamily="@font/amaranth"
+                android:text="@string/verde"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                app:thumbTint="@color/color_app"
+                app:trackTint="@color/track_tint_switch" />
+
+            <com.google.android.material.switchmaterial.SwitchMaterial
+                android:id="@+id/switch_morado"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawableStart="@drawable/common_google_signin_btn_icon_dark_normal_background"
+                android:drawablePadding="16dp"
+                android:drawableTint="#6A1B9A"
+                android:fontFamily="@font/amaranth"
+                android:text="@string/morado"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                app:thumbTint="@color/color_app"
+                app:trackTint="@color/track_tint_switch" />
+
+            <com.google.android.material.switchmaterial.SwitchMaterial
+                android:id="@+id/switch_negro"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:drawableStart="@drawable/common_google_signin_btn_icon_dark_normal_background"
+                android:drawablePadding="16dp"
+                android:drawableTint="@color/color_app"
+                android:fontFamily="@font/amaranth"
+                android:text="@string/negro"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                app:thumbTint="@color/color_app"
+                app:trackTint="@color/track_tint_switch" />
+        </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</FrameLayout>
