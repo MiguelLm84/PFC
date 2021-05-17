@@ -37,7 +37,7 @@ public class ActivityNavigationDrawer extends AppCompatActivity {
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_eventos,R.id.juntaDirectivaFragment,R.id.WebViewFacebook,
+                R.id.nav_eventos,R.id.Organigrama,R.id.WebViewFacebook,
                 R.id.WebViewTwitter,R.id.WebViewInstagram,R.id.WebViewYouTube)
                 .setDrawerLayout(drawer)
                 .build();
@@ -98,4 +98,39 @@ public class ActivityNavigationDrawer extends AppCompatActivity {
         return NavigationUI.navigateUp(navController, mAppBarConfiguration)
                 || super.onSupportNavigateUp();
     }
+
+    /*public static void customWindow(){
+
+        PersonalizacionActivity customActivity = new PersonalizacionActivity();
+        if(PersonalizacionActivity.TEMA == R.style.Theme_Azul){
+            String colorApp = "#FFBBDEFB";
+            String primary = "#82B1FF";
+            String backgraund = "#FFFFFF";
+            customActivity.cambiarColor(colorApp,primary,backgraund);
+
+        } else if(PersonalizacionActivity.TEMA == R.style.Theme_Rojo){
+            String colorApp = "#D50000";
+            String primary = "90D50000";
+            String backgraund = "#FFFFFF";
+            customActivity.cambiarColor(colorApp,primary,backgraund);
+
+        } else if(PersonalizacionActivity.TEMA == R.style.Theme_Verde){
+            String colorApp = "#FF03DAC5";
+            String primary = "8B26DAB0";
+            String backgraund = "#FFFFFF";
+            customActivity.cambiarColor(colorApp,primary,backgraund);
+
+        } else if(PersonalizacionActivity.TEMA == R.style.Theme_Morado){
+            String colorApp = "#6A1B9A";
+            String primary = "FF7E57C2";
+            String backgraund = "#FFFFFF";
+            customActivity.cambiarColor(colorApp,primary,backgraund);
+
+        } else if(PersonalizacionActivity.TEMA == R.style.Theme_PFC){
+            String colorApp = "#FF000000";
+            String primary = "#273036";
+            String backgraund = "#FFFFFF";
+            customActivity.cambiarColor(colorApp,primary,backgraund);
+        }
+    }*/
 }

@@ -19,7 +19,7 @@ public class WebViewActivity extends AppCompatActivity {
 
         getSupportActionBar().setTitle("Notificaciones de comunicación");
 
-        WebView webViewFirebase = findViewById(R.id.WebViewFacebook);
+        WebView webViewFirebase = findViewById(R.id.WebViewFirebase);
 
         webViewFirebase.getSettings().setJavaScriptEnabled(true);
         webViewFirebase.getSettings().setBuiltInZoomControls(true);

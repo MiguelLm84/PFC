@@ -18,6 +18,19 @@
             android:layout_height="match_parent"
             android:background="@color/color_app">
 
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/foto_user2"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                android:contentDescription="@string/todo"
+                android:src="@drawable/imagenperfilpfc"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
             <ImageView
                 android:id="@+id/imagenPerfil_item"
                 android:layout_width="wrap_content"
@@ -26,6 +39,7 @@
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="8dp"
                 android:contentDescription="@string/todo"
+                android:visibility="gone"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -42,7 +56,7 @@
                 android:textColor="#FFFFFF"
                 android:textSize="16sp"
                 android:textStyle="bold"
-                app:layout_constraintStart_toEndOf="@+id/imagenPerfil_item"
+                app:layout_constraintStart_toEndOf="@+id/foto_user2"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
@@ -65,12 +79,14 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
                 android:fontFamily="@font/amaranth"
                 android:gravity="center_horizontal"
                 android:text="@string/nombre"
                 android:textColor="#FFFFFF"
                 android:textSize="16sp"
-                app:layout_constraintStart_toEndOf="@+id/imagenPerfil_item"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/foto_user2"
                 app:layout_constraintTop_toBottomOf="@+id/tv_miembro_num" />
 
             <TextView
@@ -79,11 +95,13 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="4dp"
                 android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
                 android:fontFamily="@font/amaranth"
                 android:gravity="center_horizontal"
                 android:text="@string/apellido_1"
                 android:textColor="#FFFFFF"
                 android:textSize="16sp"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/tv_nom_item"
                 app:layout_constraintTop_toBottomOf="@+id/tv_miembro_num" />
 
@@ -93,11 +111,13 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="32dp"
+                android:layout_marginBottom="8dp"
                 android:fontFamily="@font/amaranth"
                 android:gravity="center_horizontal"
                 android:text="@string/apellido_2"
                 android:textColor="#FFFFFF"
                 android:textSize="16sp"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.046"
                 app:layout_constraintStart_toEndOf="@+id/tv_ap1_item"

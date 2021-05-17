@@ -1,0 +1,303 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/FrameLayoutJuntaDirectiva"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.JuntaDirectivaActivity">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardViewLogo"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="24dp"
+            android:contentDescription="@string/nav_header_desc"
+            android:paddingTop="@dimen/nav_header_vertical_spacing"
+            app:cardBackgroundColor="#FFFFFF"
+            app:contentPadding="1dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardView_logo"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:background="@drawable/logo"
+                android:foreground="@drawable/logo"
+                app:cardBackgroundColor="@android:color/transparent" />
+        </androidx.cardview.widget.CardView>
+
+        <View
+            android:id="@+id/view_juntaDirectiva"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@color/primary"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <View
+            android:id="@+id/view_inferior_junta_directiva"
+            android:layout_width="wrap_content"
+            android:layout_height="70dp"
+            android:layout_marginTop="45dp"
+            android:background="@drawable/wave"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/view_juntaDirectiva" />
+
+        <TextView
+            android:id="@+id/tv_titulo_juntaDirectiva"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="16dp"
+            android:fontFamily="@font/amaranth"
+            android:text="@string/junta_directiva"
+            android:textColor="#FFFFFF"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toStartOf="@+id/cardViewLogo"
+            app:layout_constraintStart_toEndOf="@+id/bt_volver_juntaDirectiva"
+            app:layout_constraintTop_toTopOf="@+id/view_juntaDirectiva" />
+
+        <ImageButton
+            android:id="@+id/bt_volver_juntaDirectiva"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="30dp"
+            android:background="@null"
+            android:contentDescription="@string/todo"
+            android:src="@drawable/flecha"
+            app:layout_constraintStart_toStartOf="@+id/view_juntaDirectiva"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_presidente"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="2dp"
+            android:layout_marginEnd="32dp"
+            android:fontFamily="@font/amaranth"
+            android:text="@string/presidente"
+            android:textColor="@color/color_app"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/view_inferior_junta_directiva" />
+
+        <Spinner
+            android:id="@+id/spinner_presidente"
+            android:layout_width="match_parent"
+            android:layout_height="42dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="2dp"
+            android:layout_marginEnd="32dp"
+            android:foreground="@drawable/round_border"
+            android:spinnerMode="dropdown"
+            android:theme="@style/Theme.PFC.Spinner"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_presidente" />
+
+        <TextView
+            android:id="@+id/tv_vicepresidente"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="2dp"
+            android:layout_marginEnd="32dp"
+            android:fontFamily="@font/amaranth"
+            android:text="@string/vicepresidente"
+            android:textColor="@color/color_app"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/spinner_presidente" />
+
+        <Spinner
+            android:id="@+id/spinner_vicepresidente"
+            android:layout_width="match_parent"
+            android:layout_height="42dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="2dp"
+            android:layout_marginEnd="32dp"
+            android:foreground="@drawable/round_border"
+            android:gravity="center_vertical"
+            android:spinnerMode="dropdown"
+            android:theme="@style/Theme.PFC.Spinner"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_vicepresidente" />
+
+        <TextView
+            android:id="@+id/tv_secretario_general"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="2dp"
+            android:layout_marginEnd="32dp"
+            android:fontFamily="@font/amaranth"
+            android:text="@string/secretario_general"
+            android:textColor="@color/color_app"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/spinner_vicepresidente" />
+
+        <Spinner
+            android:id="@+id/spinner_secretario_general"
+            android:layout_width="match_parent"
+            android:layout_height="42dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="2dp"
+            android:layout_marginEnd="32dp"
+            android:foreground="@drawable/round_border"
+            android:gravity="center_vertical"
+            android:spinnerMode="dropdown"
+            android:theme="@style/Theme.PFC.Spinner"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_secretario_general" />
+
+        <TextView
+            android:id="@+id/tv_tesorero"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="2dp"
+            android:layout_marginEnd="32dp"
+            android:fontFamily="@font/amaranth"
+            android:text="@string/tesorero"
+            android:textColor="@color/color_app"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/spinner_secretario_general" />
+
+        <Spinner
+            android:id="@+id/spinner_tesorero"
+            android:layout_width="match_parent"
+            android:layout_height="42dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="2dp"
+            android:layout_marginEnd="32dp"
+            android:foreground="@drawable/round_border"
+            android:gravity="center_vertical"
+            android:spinnerMode="dropdown"
+            android:theme="@style/Theme.PFC.Spinner"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_tesorero" />
+
+        <TextView
+            android:id="@+id/tv_vocales"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="2dp"
+            android:layout_marginEnd="32dp"
+            android:fontFamily="@font/amaranth"
+            android:text="@string/vocales"
+            android:textColor="@color/color_app"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/spinner_tesorero" />
+
+        <Spinner
+            android:id="@+id/spinner_vocal1"
+            android:layout_width="match_parent"
+            android:layout_height="42dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="2dp"
+            android:layout_marginEnd="32dp"
+            android:foreground="@drawable/round_border"
+            android:gravity="center_vertical"
+            android:spinnerMode="dropdown"
+            android:theme="@style/Theme.PFC.Spinner"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_vocales" />
+
+        <Spinner
+            android:id="@+id/spinner_vocal2"
+            android:layout_width="match_parent"
+            android:layout_height="42dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="32dp"
+            android:foreground="@drawable/round_border"
+            android:gravity="center_vertical"
+            android:spinnerMode="dropdown"
+            android:theme="@style/Theme.PFC.Spinner"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/spinner_vocal1" />
+
+        <Spinner
+            android:id="@+id/spinner_vocal3"
+            android:layout_width="match_parent"
+            android:layout_height="42dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="32dp"
+            android:foreground="@drawable/round_border"
+            android:gravity="center_vertical"
+            android:spinnerMode="dropdown"
+            android:theme="@style/Theme.PFC.Spinner"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/spinner_vocal2" />
+
+        <Spinner
+            android:id="@+id/spinner_vocal4"
+            android:layout_width="match_parent"
+            android:layout_height="42dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="32dp"
+            android:foreground="@drawable/round_border"
+            android:gravity="center_vertical"
+            android:spinnerMode="dropdown"
+            android:theme="@style/Theme.PFC.Spinner"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/spinner_vocal3" />
+
+        <Button
+            android:id="@+id/btn_aceptar_juntaDirectiva"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="32dp"
+            android:layout_marginBottom="16dp"
+            android:background="@drawable/round_background"
+            android:fontFamily="@font/amaranth"
+            android:text="@string/aceptar"
+            android:textColor="@color/white"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/spinner_vocal4"
+            app:layout_constraintVertical_bias="0.0" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</FrameLayout>

@@ -26,7 +26,7 @@ public class WebViewYouTubeFragment extends Fragment {
         webViewYouTube.getSettings().setBuiltInZoomControls(true);
         webViewYouTube.getSettings().setDisplayZoomControls(false);
 
-        webViewYouTube.setWebViewClient(new WebViewClient() {
+        /*webViewYouTube.setWebViewClient(new WebViewClient() {
 
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
@@ -36,7 +36,7 @@ public class WebViewYouTubeFragment extends Fragment {
                 startActivity(intent);
                 return true;
             }
-        });
+        });*/
         webViewYouTube.loadUrl("https://www.youtube.com/");
 
         return root;

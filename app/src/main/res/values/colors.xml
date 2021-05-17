@@ -12,5 +12,10 @@
     <color name="color_splash">#252932</color>
     <color name="color_app">#FF000000</color>
     <color name="track_tint_switch">#C1BFBF</color>
+    <color name="azul">#82B1FF</color>
+    <color name="rojo">#90D50000</color>
+    <color name="verde">#8B26DAB0</color>
+    <color name="morado">#7E57C2</color>
 
+    <color name="prueba">#FFBBDEFB</color>
 </resources>

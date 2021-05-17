@@ -14,7 +14,6 @@ public class ActivitySplash extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
-
         new Handler().postDelayed(() -> startActivity(new Intent(com.miguel_lm.pfc.ui.ActivitySplash.this, AuthActivity.class)), 2500);
 
         Explode explode = new Explode();

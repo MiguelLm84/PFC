@@ -10,8 +10,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -26,11 +24,14 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 public class ActivityPerfil extends AppCompatActivity {
 
     TextView tv_numSocio,tv_nombre, tv_ap1, tv_ap2, tv_fechaNaci, tv_telefono, tv_email, tv_password;
     Button bt_aceptar, btn_guardar;
-    ImageView btn_volver, imageView_user, btn_eliminarUser, btn_editar;
+    ImageView btn_volver, btn_eliminarUser, btn_editar;
+    CircleImageView fotoUsuario;
     DatabaseReference mDatabase;
     FirebaseAuth mAuth;
     FirebaseUser user;
@@ -58,7 +59,7 @@ public class ActivityPerfil extends AppCompatActivity {
         tv_email = findViewById(R.id.tv_email_perfil);
         tv_password = findViewById(R.id.tv_password_perfil);
         bt_aceptar = findViewById(R.id.btn_aceptar);
-        imageView_user = findViewById(R.id.imageView_user);
+        fotoUsuario = findViewById(R.id.foto_user);
         btn_volver = findViewById(R.id.bt_volver);
         btn_eliminarUser = findViewById(R.id.btn_eliminar);
         btn_editar = findViewById(R.id.btn_editar);
@@ -72,6 +73,7 @@ public class ActivityPerfil extends AppCompatActivity {
 
         btn_volver.setOnClickListener(v -> onBackPressed());
 
+        fotoUsuario.setOnClickListener(v -> cambiarFotoPerfil());
     }
 
     public void mostrarDatosUser(){
@@ -173,17 +175,14 @@ public class ActivityPerfil extends AppCompatActivity {
 
                             if(user != null){
 
-                                user.delete().addOnCompleteListener(new OnCompleteListener<Void>() {
-                                    @Override
-                                    public void onComplete(@NonNull Task<Void> task) {
-                                        if (task.isSuccessful()) {
+                                user.delete().addOnCompleteListener(task -> {
+                                    if (task.isSuccessful()) {
 
-                                            Intent intent = new Intent(ActivityPerfil.this, AuthActivity.class);
-                                            startActivity(intent);
-                                            finish();
-                                            overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
-                                            Toast.makeText(ActivityPerfil.this, "Cuenta eliminada correctamente.",Toast.LENGTH_SHORT).show();
-                                        }
+                                        Intent intent = new Intent(ActivityPerfil.this, AuthActivity.class);
+                                        startActivity(intent);
+                                        finish();
+                                        overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+                                        Toast.makeText(ActivityPerfil.this, "Cuenta eliminada correctamente.",Toast.LENGTH_SHORT).show();
                                     }
                                 });
 
@@ -234,40 +233,36 @@ public class ActivityPerfil extends AppCompatActivity {
 
         tv_fechaNaci.setOnClickListener(onClickEtiquetaFecha);
 
-        btn_guardar.setOnClickListener(new View.OnClickListener() {
+        btn_guardar.setOnClickListener(v -> {
 
-            @Override
-            public void onClick(View v) {
+            numSoci = tv_numSocio.getText().toString();
+            name = tv_nombre.getText().toString();
+            apell1 = tv_ap1.getText().toString();
+            apell2 = tv_ap2.getText().toString();
+            fechaNacim = tv_fechaNaci.getText().toString();
+            telf = tv_telefono.getText().toString();
+            mail = tv_email.getText().toString();
+            psswd = tv_password.getText().toString();
+            Usuario usuario = new Usuario("",numSoci,name,apell1,apell2,fechaNacim,telf,mail,psswd);
 
-                numSoci = tv_numSocio.getText().toString();
-                name = tv_nombre.getText().toString();
-                apell1 = tv_ap1.getText().toString();
-                apell2 = tv_ap2.getText().toString();
-                fechaNacim = tv_fechaNaci.getText().toString();
-                telf = tv_telefono.getText().toString();
-                mail = tv_email.getText().toString();
-                psswd = tv_password.getText().toString();
-                Usuario usuario = new Usuario("",numSoci,name,apell1,apell2,fechaNacim,telf,mail,psswd);
+            if(!numSoci.isEmpty() && !name.isEmpty() && !apell1.isEmpty() && !apell2.isEmpty()
+                    && !fechaNacim.isEmpty() && !telf.isEmpty() && !mail.isEmpty() && !psswd.isEmpty()){
 
-                if(!numSoci.isEmpty() && !name.isEmpty() && !apell1.isEmpty() && !apell2.isEmpty()
-                        && !fechaNacim.isEmpty() && !telf.isEmpty() && !mail.isEmpty() && !psswd.isEmpty()){
+                if(psswd.length() >= 6){
+                    modificarUser(usuario);
 
-                    if(psswd.length() >= 6){
-                        modificarUser(usuario);
-
-                    } else{
-                        Toast.makeText(ActivityPerfil.this, "La contarseña debe tener al menos 6 caracteres.", Toast.LENGTH_SHORT).show();
-                    }
-
-                } else {
-                    Toast.makeText(ActivityPerfil.this, "No puede haber campos vacios.", Toast.LENGTH_SHORT).show();
+                } else{
+                    Toast.makeText(ActivityPerfil.this, "La contarseña debe tener al menos 6 caracteres.", Toast.LENGTH_SHORT).show();
                 }
 
-                bt_aceptar.setVisibility(View.VISIBLE);
-                btn_guardar.setVisibility(View.INVISIBLE);
-
-                deshabilitarFoco();
+            } else {
+                Toast.makeText(ActivityPerfil.this, "No puede haber campos vacios.", Toast.LENGTH_SHORT).show();
             }
+
+            bt_aceptar.setVisibility(View.VISIBLE);
+            btn_guardar.setVisibility(View.INVISIBLE);
+
+            deshabilitarFoco();
         });
     }
 
@@ -347,6 +342,12 @@ public class ActivityPerfil extends AppCompatActivity {
                 }
             });
         }
+    }
+
+    public void cambiarFotoPerfil(){
+
+        //TODO: implementar método para que al pulsar sobre el circulo se acceda a la memoria interna del teléfono y acceda a las fotos.
+        //TODO: Una vez seleccionada la foto se guardará en Storage de Firebase y se mostrará en el circulo.
     }
 
     @Override

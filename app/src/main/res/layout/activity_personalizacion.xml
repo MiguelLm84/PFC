@@ -29,6 +29,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <LinearLayout
+            android:id="@+id/linearLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="32dp"
@@ -110,7 +111,9 @@
                 android:textStyle="bold"
                 app:thumbTint="@color/color_app"
                 app:trackTint="@color/track_tint_switch" />
+
         </LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
 </FrameLayout>

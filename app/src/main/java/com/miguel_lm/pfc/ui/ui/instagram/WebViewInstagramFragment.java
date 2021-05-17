@@ -26,7 +26,7 @@ public class WebViewInstagramFragment extends Fragment {
         webViewInstagram.getSettings().setBuiltInZoomControls(true);
         webViewInstagram.getSettings().setDisplayZoomControls(false);
 
-        webViewInstagram.setWebViewClient(new WebViewClient() {
+        /*webViewInstagram.setWebViewClient(new WebViewClient() {
 
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
@@ -36,7 +36,7 @@ public class WebViewInstagramFragment extends Fragment {
                 startActivity(intent);
                 return true;
             }
-        });
+        });*/
         webViewInstagram.loadUrl("https://www.instagram.com/");
 
         return root;

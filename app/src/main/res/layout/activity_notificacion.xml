@@ -166,7 +166,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <androidx.cardview.widget.CardView
-            android:id="@+id/cardViewLogo2"
+            android:id="@+id/cardView_logo"
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:background="@drawable/logo"

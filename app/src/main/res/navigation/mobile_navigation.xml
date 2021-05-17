@@ -12,11 +12,6 @@
         tools:layout="@layout/fragment_home" />
 
     <fragment
-        android:id="@+id/juntaDirectivaFragment"
-        android:name="com.miguel_lm.pfc.ui.ui.juntaDirectiva.JuntaDirectivaFragment"
-        android:label="Junta Directiva"
-        tools:layout="@layout/fragment_junta_directiva" />
-    <fragment
         android:id="@+id/Facebook"
         android:name="com.miguel_lm.pfc.ui.ui.facebook.WebViewFacebookFragment"
         android:label="Facebook"
@@ -41,4 +36,9 @@
         android:name="com.miguel_lm.pfc.ui.ui.youtube.WebViewYouTubeFragment"
         android:label="YouTube"
         tools:layout="@layout/fragment_web_view_you_tube" />
+    <fragment
+        android:id="@+id/Organigrama"
+        android:name="com.miguel_lm.pfc.ui.ui.organigrama.OrganigramaFragment"
+        android:label="@string/organigrama"
+        tools:layout="@layout/fragment_organigrama" />
 </navigation>

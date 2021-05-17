@@ -26,7 +26,7 @@ public class WebViewTwitterFragment extends Fragment {
         webViewTwitter.getSettings().setBuiltInZoomControls(true);
         webViewTwitter.getSettings().setDisplayZoomControls(false);
 
-        webViewTwitter.setWebViewClient(new WebViewClient() {
+        /*webViewTwitter.setWebViewClient(new WebViewClient() {
 
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
@@ -36,7 +36,7 @@ public class WebViewTwitterFragment extends Fragment {
                 startActivity(intent);
                 return true;
             }
-        });
+        });*/
         webViewTwitter.loadUrl("https://twitter.com/home");
 
         return root;

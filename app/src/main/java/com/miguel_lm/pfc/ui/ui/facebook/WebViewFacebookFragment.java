@@ -27,7 +27,7 @@ public class WebViewFacebookFragment extends Fragment {
         webViewFacebook.getSettings().setBuiltInZoomControls(true);
         webViewFacebook.getSettings().setDisplayZoomControls(false);
 
-        webViewFacebook.setWebViewClient(new WebViewClient() {
+        /*webViewFacebook.setWebViewClient(new WebViewClient() {
 
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
@@ -37,7 +37,7 @@ public class WebViewFacebookFragment extends Fragment {
                 startActivity(intent);
                 return true;
             }
-        });
+        });*/
         webViewFacebook.loadUrl("https://www.facebook.com/miguel.lopezmartins");
 
         return root;

@@ -73,4 +73,6 @@
     <string name="morado">Morado</string>
     <string name="negro">Negro</string>
     <string name="azul">Azul</string>
+    <string name="organigrama">Organigrama</string>
+    <string name="junta_directiva">Junta Directiva</string>
 </resources>

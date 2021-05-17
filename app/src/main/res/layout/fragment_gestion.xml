@@ -178,6 +178,18 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/view_inferior_getion" />
 
+        <ImageButton
+            android:id="@+id/btn_junta_directiva"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="26dp"
+            android:layout_marginEnd="16dp"
+            android:background="@null"
+            android:contentDescription="@string/todo"
+            android:src="@drawable/administrador_de_grupo"
+            app:layout_constraintEnd_toStartOf="@+id/btn_notificacion_individual"
+            app:layout_constraintTop_toTopOf="parent" />
+
         <EditText
             android:id="@+id/tv_num_socio3"
             android:layout_width="0dp"

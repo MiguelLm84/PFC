@@ -28,23 +28,22 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/tv_perfil" />
 
-    <ImageView
-        android:id="@+id/imageView_user"
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/foto_user"
         android:layout_width="83dp"
         android:layout_height="68dp"
         android:layout_marginTop="30dp"
         android:layout_marginEnd="32dp"
         android:contentDescription="@string/todo"
+        android:src="@drawable/user_round"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/user_round"
-        tools:ignore="MissingConstraints" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/tv_perfil"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="50dp"
+        android:layout_marginStart="70dp"
         android:layout_marginTop="30dp"
         android:fontFamily="@font/amaranth"
         android:padding="10dp"
@@ -54,7 +53,7 @@
         android:textColor="#FFFFFF"
         android:textSize="20sp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toStartOf="@+id/imageView_user"
+        app:layout_constraintEnd_toStartOf="@+id/foto_user"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/view" />
 

@@ -73,7 +73,7 @@ public class NotificacionActivity extends AppCompatActivity {
         getSupportActionBar().hide();
 
         cardViewLogo = findViewById(R.id.cardViewLogo);
-        cardViewLogo2 = findViewById(R.id.cardViewLogo2);
+        cardViewLogo2 = findViewById(R.id.cardView_logo);
         bt_volver_notificaciones = findViewById(R.id.bt_volver_notificaciones);
         ed_titulo_notificacion = findViewById(R.id.ed_titulo_notificacion);
         ed_detalle_notificacion = findViewById(R.id.ed_detalle_notificacion);

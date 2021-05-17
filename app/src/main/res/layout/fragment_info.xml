@@ -24,17 +24,18 @@
                 android:background="#FFFFFF"
                 tools:context=".ui.ActivityInfo">
 
-                <ImageView
-                    android:id="@+id/imageView_infoUser"
-                    android:layout_width="wrap_content"
-                    android:layout_height="50dp"
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/foto_perfil"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:layout_marginTop="32dp"
                     android:layout_marginEnd="44dp"
-                    android:layout_marginBottom="8dp"
+                    android:layout_marginBottom="32dp"
                     android:contentDescription="@string/todo"
+                    android:src="@drawable/ic_round_account_button_with_user_inside"
                     app:layout_constraintBottom_toTopOf="@+id/ed_nombre_infoUser"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:srcCompat="@drawable/ic_round_account_button_with_user_inside"
-                    tools:ignore="MissingConstraints" />
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <View
                     android:id="@+id/waveTop_infoUser"
@@ -128,7 +129,7 @@
                     android:contentDescription="@string/todo"
                     android:focusable="true"
                     app:layout_constraintBottom_toTopOf="@+id/ed_nombre_infoUser"
-                    app:layout_constraintEnd_toStartOf="@+id/imageView_infoUser"
+                    app:layout_constraintEnd_toStartOf="@+id/foto_perfil"
                     app:srcCompat="@drawable/eliminar__1_" />
 
                 <ImageButton
@@ -151,7 +152,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="32dp"
-                    android:layout_marginTop="16dp"
+                    android:layout_marginTop="32dp"
                     android:layout_marginEnd="16dp"
                     android:autofillHints=""
                     android:background="@drawable/round_border"

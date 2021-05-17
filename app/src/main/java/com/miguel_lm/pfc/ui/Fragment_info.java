@@ -30,6 +30,8 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 public class Fragment_info extends Fragment {
 
     Usuario usuario;
@@ -37,7 +39,8 @@ public class Fragment_info extends Fragment {
 
     TextView tv_numSocio,tv_nombre, tv_ap1, tv_ap2, tv_fechaNaci, tv_telefono, tv_email, tv_password;
     Button bt_aceptar, btn_guardar;
-    ImageView imageView_user, btn_eliminarUser, btn_editar;
+    ImageView btn_eliminarUser, btn_editar;
+    CircleImageView fotoPerfil;
     DatabaseReference mDatabase;
     FirebaseAuth mAuth;
     FirebaseUser user;
@@ -70,9 +73,9 @@ public class Fragment_info extends Fragment {
         tv_telefono = root.findViewById(R.id.ed_telefono_infoUser);
         tv_email = root.findViewById(R.id.ed_correo_infoUser);
         tv_password = root.findViewById(R.id.ed_Password_infoUser);
+        fotoPerfil = root.findViewById(R.id.foto_perfil);
         bt_aceptar = root.findViewById(R.id.bt_aceptar_infoUser);
         btn_guardar = root.findViewById(R.id.btn_guardar_infoUser);
-        imageView_user = root.findViewById(R.id.imageView_user);
         btn_eliminarUser = root.findViewById(R.id.btn_eliminar_infoUser);
         btn_editar = root.findViewById(R.id.btn_editar_infoUser);
 
@@ -131,6 +134,7 @@ public class Fragment_info extends Fragment {
             tv_telefono.setText(telefono);
             tv_email.setText(email);
             tv_password.setText(password);
+            fotoPerfil.setImageResource(verFotoPerfil());
 
         } else {
             Toast.makeText(getContext(),"ERROR, los datos no se han podido recuperar.",Toast.LENGTH_SHORT).show();
@@ -351,6 +355,14 @@ public class Fragment_info extends Fragment {
                 }
             });
         }
+    }
+
+    public int verFotoPerfil(){
+
+        //fotoPerfil
+        //TODO: obtener foto de perfíl del usuario de Storege de Firebase y mostrarla.
+
+        return R.drawable.imagenperfilpfc;
     }
 
     public void onBackPressed() {

@@ -13,9 +13,9 @@
             android:icon="@drawable/ic_round_account_button_with_user_inside"
             android:title="@string/perfil" />
         <item
-            android:id="@+id/juntaDirectivaFragment"
-            android:icon="@drawable/ic_baseline_admin_panel_settings_24"
-            android:title="@string/menu_junta_directiva" />
+            android:id="@+id/Organigrama"
+            android:icon="@drawable/administrador_de_grupo"
+            android:title="@string/organigrama" />
         <item
 
             android:id="@+id/Direccion"
