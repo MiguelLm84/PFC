@@ -1,10 +1,13 @@
 package com.miguel_lm.pfc.ui;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.ImageButton;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -17,17 +20,28 @@ import androidx.navigation.ui.NavigationUI;
 import com.google.android.material.navigation.NavigationView;
 import com.miguel_lm.pfc.R;
 
+import static com.miguel_lm.pfc.ui.PersonalizacionActivity.BACKGRAUND;
+import static com.miguel_lm.pfc.ui.PersonalizacionActivity.COLOR_APP;
+import static com.miguel_lm.pfc.ui.PersonalizacionActivity.COLOR_PRIMARY;
+import static com.miguel_lm.pfc.ui.PersonalizacionActivity.PREF_FICHERO;
+
 public class ActivityNavigationDrawer extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
     static ImageButton btn_perfil = null;
+    Toolbar toolbar;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_navigation_drawer);
-        Toolbar toolbar = findViewById(R.id.toolbar);
+
+        toolbar = findViewById(R.id.toolbar);
+        toolbar.setTitleTextColor(Color.WHITE);
         setSupportActionBar(toolbar);
+        setTheme(PersonalizacionActivity.TEMA);
+        customWindow();
 
         btn_perfil = findViewById(R.id.btn_perfil);
 
@@ -57,6 +71,7 @@ public class ActivityNavigationDrawer extends AppCompatActivity {
     public void onResume() {
 
         super.onResume();
+        leerSharedPreferences();
     }
 
     @Override
@@ -99,38 +114,51 @@ public class ActivityNavigationDrawer extends AppCompatActivity {
                 || super.onSupportNavigateUp();
     }
 
-    /*public static void customWindow(){
+    public void customWindow(){
 
-        PersonalizacionActivity customActivity = new PersonalizacionActivity();
         if(PersonalizacionActivity.TEMA == R.style.Theme_Azul){
-            String colorApp = "#FFBBDEFB";
-            String primary = "#82B1FF";
-            String backgraund = "#FFFFFF";
-            customActivity.cambiarColor(colorApp,primary,backgraund);
+
+            setTheme(PersonalizacionActivity.TEMA);
+            toolbar.setBackgroundResource(R.color.azul);
+            leerSharedPreferences();
 
         } else if(PersonalizacionActivity.TEMA == R.style.Theme_Rojo){
-            String colorApp = "#D50000";
-            String primary = "90D50000";
-            String backgraund = "#FFFFFF";
-            customActivity.cambiarColor(colorApp,primary,backgraund);
+
+            setTheme(PersonalizacionActivity.TEMA);
+            toolbar.setBackgroundResource(R.color.rojoOscuro);
+            leerSharedPreferences();
 
         } else if(PersonalizacionActivity.TEMA == R.style.Theme_Verde){
-            String colorApp = "#FF03DAC5";
-            String primary = "8B26DAB0";
-            String backgraund = "#FFFFFF";
-            customActivity.cambiarColor(colorApp,primary,backgraund);
+
+            setTheme(PersonalizacionActivity.TEMA);
+            toolbar.setBackgroundResource(R.color.verde);
+            leerSharedPreferences();
 
         } else if(PersonalizacionActivity.TEMA == R.style.Theme_Morado){
-            String colorApp = "#6A1B9A";
-            String primary = "FF7E57C2";
-            String backgraund = "#FFFFFF";
-            customActivity.cambiarColor(colorApp,primary,backgraund);
+
+            setTheme(PersonalizacionActivity.TEMA);
+            toolbar.setBackgroundResource(R.color.purple_700);
+            leerSharedPreferences();
 
         } else if(PersonalizacionActivity.TEMA == R.style.Theme_PFC){
-            String colorApp = "#FF000000";
-            String primary = "#273036";
-            String backgraund = "#FFFFFF";
-            customActivity.cambiarColor(colorApp,primary,backgraund);
+
+            setTheme(PersonalizacionActivity.TEMA);
+            toolbar.setBackgroundResource(R.color.color_app);
+            leerSharedPreferences();
         }
-    }*/
+    }
+
+    public void leerSharedPreferences(){
+
+        SharedPreferences preferencias = this.getSharedPreferences(PREF_FICHERO, Context.MODE_PRIVATE);
+        String colorApp = preferencias.getString(COLOR_APP, "");
+        getWindow().setStatusBarColor(Color.parseColor(colorApp));
+
+        String colorPrimary = preferencias.getString(COLOR_PRIMARY,"");
+        getSupportActionBar().setBackgroundDrawable(new ColorDrawable(Color.parseColor(colorPrimary)));
+        getWindow().setNavigationBarColor(Color.parseColor(colorPrimary));
+
+        String backgraund = preferencias.getString(BACKGRAUND,"");
+        getWindow().setBackgroundDrawable(new ColorDrawable(Color.parseColor(backgraund)));
+    }
 }

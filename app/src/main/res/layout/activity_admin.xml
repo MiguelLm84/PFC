@@ -11,10 +11,10 @@
         android:id="@+id/tabs"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:tabIndicatorColor="@color/color_app"
-        app:tabSelectedTextColor="@color/color_app"
+        app:tabIndicatorColor="?attr/colorPrimaryDark"
+        app:tabSelectedTextColor="?attr/colorPrimaryDark"
         app:tabTextAppearance="@style/Theme.PFC.EtiquetaSeleccion"
-        app:tabTextColor="@color/primary">
+        app:tabTextColor="?attr/colorPrimary">
 
         <com.google.android.material.tabs.TabItem
             android:layout_width="wrap_content"

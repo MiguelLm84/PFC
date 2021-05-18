@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="purple_200">#FFBB86FC</color>
-    <color name="purple_500">#FF6200EE</color>
+    <color name="purple_500">#2D0091</color>
+    <color name="purple_200">#FF6200EE</color>
     <color name="purple_700">#FF3700B3</color>
     <color name="teal_200">#FF03DAC5</color>
     <color name="teal_700">#FF018786</color>
@@ -13,9 +13,10 @@
     <color name="color_app">#FF000000</color>
     <color name="track_tint_switch">#C1BFBF</color>
     <color name="azul">#82B1FF</color>
-    <color name="rojo">#90D50000</color>
+    <color name="rojo">#B71C1C</color>
     <color name="verde">#8B26DAB0</color>
     <color name="morado">#7E57C2</color>
-
-    <color name="prueba">#FFBBDEFB</color>
+    <color name="rojoOscuro">#B71C1C</color>
+    <color name="colorPrimaryDarkRojo">#D50000</color>
+    <color name="colorPrimaryDarkVerde">#B0018786</color>
 </resources>

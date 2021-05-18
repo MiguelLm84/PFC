@@ -1,5 +1,9 @@
 package com.miguel_lm.pfc.ui;
 
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -21,6 +25,11 @@ import com.miguel_lm.pfc.modelo.Usuario;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.miguel_lm.pfc.ui.PersonalizacionActivity.BACKGRAUND;
+import static com.miguel_lm.pfc.ui.PersonalizacionActivity.COLOR_APP;
+import static com.miguel_lm.pfc.ui.PersonalizacionActivity.COLOR_PRIMARY;
+import static com.miguel_lm.pfc.ui.PersonalizacionActivity.PREF_FICHERO;
+
 public class FragmentLista extends Fragment implements SeleccionarUsuario {
 
     private List<Usuario> listaUsuarios;
@@ -38,6 +47,12 @@ public class FragmentLista extends Fragment implements SeleccionarUsuario {
     String tel = "";
     String mail = "";
     String psswrd = "";
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+
+        super.onCreate(savedInstanceState);
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
