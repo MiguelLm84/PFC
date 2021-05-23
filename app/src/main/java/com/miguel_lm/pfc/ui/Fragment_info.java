@@ -13,8 +13,6 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -25,25 +23,21 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.miguel_lm.pfc.R;
 import com.miguel_lm.pfc.modelo.Usuario;
-
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
-
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class Fragment_info extends Fragment {
 
     Usuario usuario;
-    FragmentTransaction transaction;
-
     TextView tv_numSocio,tv_nombre, tv_ap1, tv_ap2, tv_fechaNaci, tv_telefono, tv_email, tv_password;
     Button bt_aceptar, btn_guardar;
     ImageView btn_eliminarUser, btn_editar;
     CircleImageView fotoPerfil;
-    DatabaseReference mDatabase;
-    FirebaseAuth mAuth;
-    FirebaseUser user;
+    DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
+    FirebaseAuth mAuth = FirebaseAuth.getInstance();
+    FirebaseUser user = mAuth.getCurrentUser();
     String numSoci = "";
     String name = "";
     String apell1 = "";
@@ -79,35 +73,10 @@ public class Fragment_info extends Fragment {
         btn_eliminarUser = root.findViewById(R.id.btn_eliminar_infoUser);
         btn_editar = root.findViewById(R.id.btn_editar_infoUser);
 
-        mAuth = FirebaseAuth.getInstance();
-        mDatabase = FirebaseDatabase.getInstance().getReference();
-        user = mAuth.getCurrentUser();
-
         mostrarDatosUser(usuario);
-
-        bt_aceptar.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                aceptarInfo();
-            }
-        });
-
-        btn_editar.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                editarInfo();
-            }
-        });
-
-        btn_eliminarUser.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-                eliminarInfo();
-            }
-        });
+        bt_aceptar.setOnClickListener(v -> aceptarInfo());
+        btn_editar.setOnClickListener(v -> editarInfo());
+        btn_eliminarUser.setOnClickListener(v -> eliminarInfo());
 
         return root;
     }
@@ -181,17 +150,14 @@ public class Fragment_info extends Fragment {
 
                             if(user != null){
 
-                                user.delete().addOnCompleteListener(new OnCompleteListener<Void>() {
-                                    @Override
-                                    public void onComplete(@NonNull Task<Void> task) {
-                                        if (task.isSuccessful()) {
+                                user.delete().addOnCompleteListener(task -> {
+                                    if (task.isSuccessful()) {
 
-                                            Intent intent = new Intent(getContext(), AuthActivity.class);
-                                            startActivity(intent);
-                                            getActivity().finish();
-                                            getActivity().overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
-                                            Toast.makeText(getContext(), "Cuenta eliminada correctamente.",Toast.LENGTH_SHORT).show();
-                                        }
+                                        Intent intent = new Intent(getContext(), AuthActivity.class);
+                                        startActivity(intent);
+                                        getActivity().finish();
+                                        getActivity().overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+                                        Toast.makeText(getContext(), "Cuenta eliminada correctamente.",Toast.LENGTH_SHORT).show();
                                     }
                                 });
 
@@ -242,40 +208,36 @@ public class Fragment_info extends Fragment {
 
         tv_fechaNaci.setOnClickListener(onClickEtiquetaFecha);
 
-        btn_guardar.setOnClickListener(new View.OnClickListener() {
+        btn_guardar.setOnClickListener(v -> {
 
-            @Override
-            public void onClick(View v) {
+            numSoci = tv_numSocio.getText().toString();
+            name = tv_nombre.getText().toString();
+            apell1 = tv_ap1.getText().toString();
+            apell2 = tv_ap2.getText().toString();
+            fechaNacim = tv_fechaNaci.getText().toString();
+            telf = tv_telefono.getText().toString();
+            mail = tv_email.getText().toString();
+            psswd = tv_password.getText().toString();
+            Usuario usuario = new Usuario("",numSoci,name,apell1,apell2,fechaNacim,telf,mail,psswd);
 
-                numSoci = tv_numSocio.getText().toString();
-                name = tv_nombre.getText().toString();
-                apell1 = tv_ap1.getText().toString();
-                apell2 = tv_ap2.getText().toString();
-                fechaNacim = tv_fechaNaci.getText().toString();
-                telf = tv_telefono.getText().toString();
-                mail = tv_email.getText().toString();
-                psswd = tv_password.getText().toString();
-                Usuario usuario = new Usuario("",numSoci,name,apell1,apell2,fechaNacim,telf,mail,psswd);
+            if(!numSoci.isEmpty() && !name.isEmpty() && !apell1.isEmpty() && !apell2.isEmpty()
+                    && !fechaNacim.isEmpty() && !telf.isEmpty() && !mail.isEmpty() && !psswd.isEmpty()){
 
-                if(!numSoci.isEmpty() && !name.isEmpty() && !apell1.isEmpty() && !apell2.isEmpty()
-                        && !fechaNacim.isEmpty() && !telf.isEmpty() && !mail.isEmpty() && !psswd.isEmpty()){
+                if(psswd.length() >= 6){
+                    modificarUser(usuario);
 
-                    if(psswd.length() >= 6){
-                        modificarUser(usuario);
-
-                    } else{
-                        Toast.makeText(getContext(), "La contarseña debe tener al menos 6 caracteres.", Toast.LENGTH_SHORT).show();
-                    }
-
-                } else {
-                    Toast.makeText(getContext(), "No puede haber campos vacios.", Toast.LENGTH_SHORT).show();
+                } else{
+                    Toast.makeText(getContext(), "La contarseña debe tener al menos 6 caracteres.", Toast.LENGTH_SHORT).show();
                 }
 
-                bt_aceptar.setVisibility(View.VISIBLE);
-                btn_guardar.setVisibility(View.INVISIBLE);
-
-                deshabilitarFoco();
+            } else {
+                Toast.makeText(getContext(), "No puede haber campos vacios.", Toast.LENGTH_SHORT).show();
             }
+
+            bt_aceptar.setVisibility(View.VISIBLE);
+            btn_guardar.setVisibility(View.INVISIBLE);
+
+            deshabilitarFoco();
         });
     }
 

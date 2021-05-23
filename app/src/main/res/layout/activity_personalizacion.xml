@@ -21,7 +21,7 @@
             android:fontFamily="@font/amaranth"
             android:gravity="center"
             android:text="@string/customizacion_app"
-            android:textColor="@color/color_app"
+            android:textColor="?attr/colorPrimary"
             android:textSize="16sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
@@ -49,11 +49,12 @@
                 android:drawableTint="#82B1FF"
                 android:fontFamily="@font/amaranth"
                 android:text="@string/azul"
-                android:textColor="@color/color_app"
+                android:textColor="?attr/colorPrimary"
                 android:textSize="14sp"
                 android:textStyle="bold"
-                app:thumbTint="@color/color_app"
-                app:trackTint="@color/track_tint_switch" />
+                android:theme="@style/Theme.PFC.Switch"
+                app:thumbTint="?attr/colorPrimary"
+                app:trackTint="?attr/colorSecondary" />
 
             <com.google.android.material.switchmaterial.SwitchMaterial
                 android:id="@+id/switch_rojo"
@@ -64,11 +65,12 @@
                 android:drawableTint="#D50000"
                 android:fontFamily="@font/amaranth"
                 android:text="@string/rojo"
-                android:textColor="@color/color_app"
+                android:textColor="?attr/colorPrimary"
                 android:textSize="14sp"
                 android:textStyle="bold"
-                app:thumbTint="@color/color_app"
-                app:trackTint="@color/track_tint_switch" />
+                android:theme="@style/Theme.PFC.Switch"
+                app:thumbTint="?attr/colorPrimary"
+                app:trackTint="?attr/colorSecondary" />
 
             <com.google.android.material.switchmaterial.SwitchMaterial
                 android:id="@+id/switch_verde"
@@ -79,10 +81,12 @@
                 android:drawableTint="@color/teal_200"
                 android:fontFamily="@font/amaranth"
                 android:text="@string/verde"
+                android:textColor="?attr/colorPrimary"
                 android:textSize="14sp"
                 android:textStyle="bold"
-                app:thumbTint="@color/color_app"
-                app:trackTint="@color/track_tint_switch" />
+                android:theme="@style/Theme.PFC.Switch"
+                app:thumbTint="?attr/colorPrimary"
+                app:trackTint="?attr/colorSecondary" />
 
             <com.google.android.material.switchmaterial.SwitchMaterial
                 android:id="@+id/switch_morado"
@@ -93,10 +97,12 @@
                 android:drawableTint="#6A1B9A"
                 android:fontFamily="@font/amaranth"
                 android:text="@string/morado"
+                android:textColor="?attr/colorPrimary"
                 android:textSize="14sp"
                 android:textStyle="bold"
-                app:thumbTint="@color/color_app"
-                app:trackTint="@color/track_tint_switch" />
+                android:theme="@style/Theme.PFC.Switch"
+                app:thumbTint="?attr/colorPrimary"
+                app:trackTint="?attr/colorSecondary" />
 
             <com.google.android.material.switchmaterial.SwitchMaterial
                 android:id="@+id/switch_negro"
@@ -107,10 +113,12 @@
                 android:drawableTint="@color/color_app"
                 android:fontFamily="@font/amaranth"
                 android:text="@string/negro"
+                android:textColor="?attr/colorPrimary"
                 android:textSize="14sp"
                 android:textStyle="bold"
-                app:thumbTint="@color/color_app"
-                app:trackTint="@color/track_tint_switch" />
+                android:theme="@style/Theme.PFC.Switch"
+                app:thumbTint="?attr/colorPrimary"
+                app:trackTint="?attr/colorSecondary" />
 
         </LinearLayout>
 

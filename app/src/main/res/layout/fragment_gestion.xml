@@ -21,7 +21,7 @@
             android:background="@null"
             android:contentDescription="@string/todo"
             android:src="@drawable/flecha"
-            android:tint="@color/black"
+            android:tint="?attr/colorPrimary"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 

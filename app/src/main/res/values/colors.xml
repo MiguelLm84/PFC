@@ -17,6 +17,8 @@
     <color name="verde">#8B26DAB0</color>
     <color name="morado">#7E57C2</color>
     <color name="rojoOscuro">#B71C1C</color>
+    <color name="colorPrimaryDarkAzul">#039BE5</color>
     <color name="colorPrimaryDarkRojo">#D50000</color>
     <color name="colorPrimaryDarkVerde">#B0018786</color>
+
 </resources>

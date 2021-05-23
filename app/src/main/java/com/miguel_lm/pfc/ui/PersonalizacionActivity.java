@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -16,11 +17,11 @@ import com.miguel_lm.pfc.R;
 
 public class PersonalizacionActivity extends AppCompatActivity {
 
-    SwitchMaterial switchAzul;
-    SwitchMaterial switchRojo;
-    SwitchMaterial switchVerde;
-    SwitchMaterial switchMorado;
-    SwitchMaterial switchNegro;
+    static SwitchMaterial switchAzul;
+    static SwitchMaterial switchRojo;
+    static SwitchMaterial switchVerde;
+    static SwitchMaterial switchMorado;
+    static SwitchMaterial switchNegro;
     SharedPreferences preferencias;
 
     public static final String PREF_FICHERO = "preferencias";
@@ -28,16 +29,15 @@ public class PersonalizacionActivity extends AppCompatActivity {
     public static final String COLOR_PRIMARY = "color primary";
     public static final String BACKGRAUND = "backgraund";
     public static final String CHECKED = "checked";
-    public static boolean SELECCIONADO = false;
+    public static boolean SELECCIONADO = true;
     public static final String THEME = "tema";
     public static int TEMA = R.style.Theme_PFC;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
-        leerSharedPreferences();
         aplicarTema();
+        setTheme(TEMA);
         setContentView(R.layout.activity_personalizacion);
         getSupportActionBar().setTitle("Personalización App");
         overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
@@ -48,13 +48,22 @@ public class PersonalizacionActivity extends AppCompatActivity {
         switchMorado = findViewById(R.id.switch_morado);
         switchNegro = findViewById(R.id.switch_negro);
 
-        switchAzul.setChecked(false);
-        switchRojo.setChecked(false);
-        switchVerde.setChecked(false);
-        switchMorado.setChecked(false);
-        switchNegro.setChecked(false);
-
         seleccionTemaConSwitch();
+        leerSharedPreferences();
+    }
+
+    @Override
+    public void onStart() {
+
+        super.onStart();
+        leerSharedPreferences();
+    }
+
+    @Override
+    public void onRestart() {
+
+        super.onRestart();
+        leerSharedPreferences();
     }
 
     @Override
@@ -74,39 +83,49 @@ public class PersonalizacionActivity extends AppCompatActivity {
         //getWindow().setLogo();
     }
 
-    public void guardarEnSheredPreferences(String colorApp, String colorPrimary, String backgraund, int tema, boolean checked){
+    public void colorSwitch(String colorApp){
 
-        preferencias = PersonalizacionActivity.this.getSharedPreferences(PREF_FICHERO, Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = preferencias.edit();
+        int colorAzul = R.color.colorPrimaryDarkAzul;
+        int colorRojo = R.color.rojoOscuro;
+        int colorVerde = R.color.teal_700;
+        int colorMorado = R.color.purple_500;
+        int colorNegro = R.color.black;
 
-        editor.putString(COLOR_APP, colorApp);
-        editor.putString(COLOR_PRIMARY, colorPrimary);
-        editor.putString(BACKGRAUND, backgraund);
-        editor.putInt(THEME, tema);
-        editor.putBoolean(CHECKED, checked);
-        editor.apply();
-    }
-
-    public void leerSharedPreferences(){
-
-        SharedPreferences preferencias = this.getSharedPreferences(PREF_FICHERO, Context.MODE_PRIVATE);
-        String colorApp = preferencias.getString(COLOR_APP, "");
-        getWindow().setStatusBarColor(Color.parseColor(colorApp));
-
-        String colorPrimary = preferencias.getString(COLOR_PRIMARY,"");
-        getSupportActionBar().setBackgroundDrawable(new ColorDrawable(Color.parseColor(colorPrimary)));
-        getWindow().setNavigationBarColor(Color.parseColor(colorPrimary));
-
-        String backgraund = preferencias.getString(BACKGRAUND,"");
-        getWindow().setBackgroundDrawable(new ColorDrawable(Color.parseColor(backgraund)));
-    }
-
-    public void eliminarDatosSheredPreferences(){
-
-        SharedPreferences preferencias = this.getSharedPreferences(PREF_FICHERO, Context.MODE_PRIVATE);
-        preferencias.edit().remove(COLOR_APP).apply();
-        preferencias.edit().remove(COLOR_PRIMARY).apply();
-        preferencias.edit().remove(BACKGRAUND).apply();
+        if(colorApp.equals("#039BE5")){
+            switchAzul.setThumbResource(colorAzul);
+            switchRojo.setThumbResource(colorAzul);
+            switchVerde.setThumbResource(colorAzul);
+            switchMorado.setThumbResource(colorAzul);
+            switchNegro.setThumbResource(colorAzul);
+        }
+        if(colorApp.equals("#B71C1C")){
+            switchAzul.setThumbResource(colorRojo);
+            switchRojo.setThumbResource(colorRojo);
+            switchVerde.setThumbResource(colorRojo);
+            switchMorado.setThumbResource(colorRojo);
+            switchNegro.setThumbResource(colorRojo);
+        }
+        if(colorApp.equals("#FF018786")){
+            switchAzul.setThumbResource(colorVerde);
+            switchRojo.setThumbResource(colorVerde);
+            switchVerde.setThumbResource(colorVerde);
+            switchMorado.setThumbResource(colorVerde);
+            switchNegro.setThumbResource(colorVerde);
+        }
+        if(colorApp.equals("#2D0091")){
+            switchAzul.setThumbResource(colorMorado);
+            switchRojo.setThumbResource(colorMorado);
+            switchVerde.setThumbResource(colorMorado);
+            switchMorado.setThumbResource(colorMorado);
+            switchNegro.setThumbResource(colorMorado);
+        }
+        if(colorApp.equals("#FF000000")){
+            switchAzul.setThumbResource(colorNegro);
+            switchRojo.setThumbResource(colorNegro);
+            switchVerde.setThumbResource(colorNegro);
+            switchMorado.setThumbResource(colorNegro);
+            switchNegro.setThumbResource(colorNegro);
+        }
     }
 
     public void aplicarTema(){
@@ -142,10 +161,15 @@ public class PersonalizacionActivity extends AppCompatActivity {
                     if (isChecked) {
 
                         TEMA = R.style.Theme_Azul;
-                        SELECCIONADO = true;
                         guardarEnSheredPreferences("#039BE5", "#82B1FF", "#FFFFFF", TEMA, SELECCIONADO);
                         setTheme(TEMA);
                         cambiarColor("#039BE5", "#82B1FF", "#FFFFFF");
+                        //colorSwitch("#039BE5");
+                        leerSharedPreferences();
+                        switchRojo.setChecked(false);
+                        switchVerde.setChecked(false);
+                        switchMorado.setChecked(false);
+                        switchNegro.setChecked(false);
 
                     } else {
 
@@ -156,11 +180,7 @@ public class PersonalizacionActivity extends AppCompatActivity {
                     }
                 }
             });
-            switchAzul.setChecked(SELECCIONADO);
-            switchRojo.setChecked(false);
-            switchVerde.setChecked(false);
-            switchMorado.setChecked(false);
-            switchNegro.setChecked(false);
+            leerSharedPreferences();
         }
 
         if (switchRojo != null) {
@@ -172,10 +192,15 @@ public class PersonalizacionActivity extends AppCompatActivity {
                     if (isChecked) {
 
                         TEMA = R.style.Theme_Rojo;
-                        SELECCIONADO = true;
                         guardarEnSheredPreferences("#B71C1C", "#D50000", "#FFFFFF", TEMA, SELECCIONADO);
                         setTheme(TEMA);
                         cambiarColor("#B71C1C", "#D50000", "#FFFFFF");
+                        //colorSwitch("#B71C1C");
+                        leerSharedPreferences();
+                        switchAzul.setChecked(false);
+                        switchVerde.setChecked(false);
+                        switchMorado.setChecked(false);
+                        switchNegro.setChecked(false);
 
                     } else {
 
@@ -186,11 +211,7 @@ public class PersonalizacionActivity extends AppCompatActivity {
                     }
                 }
             });
-            switchRojo.setChecked(SELECCIONADO);
-            switchAzul.setChecked(false);
-            switchVerde.setChecked(false);
-            switchMorado.setChecked(false);
-            switchNegro.setChecked(false);
+            leerSharedPreferences();
         }
 
         if (switchVerde != null) {
@@ -202,10 +223,15 @@ public class PersonalizacionActivity extends AppCompatActivity {
                     if (isChecked) {
 
                         TEMA = R.style.Theme_Verde;
-                        SELECCIONADO = true;
                         guardarEnSheredPreferences("#FF018786", "#B0018786", "#FFFFFF", TEMA, SELECCIONADO);
                         setTheme(TEMA);
                         cambiarColor("#FF018786", "#B0018786", "#FFFFFF");
+                        //colorSwitch("#FF018786");
+                        leerSharedPreferences();
+                        switchAzul.setChecked(false);
+                        switchRojo.setChecked(false);
+                        switchMorado.setChecked(false);
+                        switchNegro.setChecked(false);
 
                     } else {
 
@@ -216,11 +242,7 @@ public class PersonalizacionActivity extends AppCompatActivity {
                     }
                 }
             });
-            switchVerde.setChecked(SELECCIONADO);
-            switchAzul.setChecked(false);
-            switchRojo.setChecked(false);
-            switchMorado.setChecked(false);
-            switchNegro.setChecked(false);
+            leerSharedPreferences();
         }
 
         if (switchMorado != null) {
@@ -232,10 +254,15 @@ public class PersonalizacionActivity extends AppCompatActivity {
                     if (isChecked) {
 
                         TEMA = R.style.Theme_Morado;
-                        SELECCIONADO = true;
                         guardarEnSheredPreferences("#2D0091", "#FF3700B3", "#FFFFFF", TEMA, SELECCIONADO);
                         setTheme(TEMA);
                         cambiarColor("#2D0091", "#FF3700B3", "#FFFFFF");
+                        //colorSwitch("#2D0091");
+                        leerSharedPreferences();
+                        switchAzul.setChecked(false);
+                        switchRojo.setChecked(false);
+                        switchVerde.setChecked(false);
+                        switchNegro.setChecked(false);
 
                     } else {
 
@@ -246,11 +273,7 @@ public class PersonalizacionActivity extends AppCompatActivity {
                     }
                 }
             });
-            switchMorado.setChecked(SELECCIONADO);
-            switchAzul.setChecked(false);
-            switchRojo.setChecked(false);
-            switchVerde.setChecked(false);
-            switchNegro.setChecked(false);
+            leerSharedPreferences();
         }
 
         if (switchNegro != null) {
@@ -262,10 +285,15 @@ public class PersonalizacionActivity extends AppCompatActivity {
                     if (isChecked) {
 
                         TEMA = R.style.Theme_PFC;
-                        SELECCIONADO = true;
                         guardarEnSheredPreferences("#FF000000", "#273036", "#FFFFFF", TEMA, SELECCIONADO);
                         setTheme(TEMA);
                         cambiarColor("#FF000000", "#273036", "#FFFFFF");
+                        //colorSwitch("#FF000000");
+                        leerSharedPreferences();
+                        switchAzul.setChecked(false);
+                        switchRojo.setChecked(false);
+                        switchVerde.setChecked(false);
+                        switchMorado.setChecked(false);
 
                     } else {
 
@@ -276,12 +304,112 @@ public class PersonalizacionActivity extends AppCompatActivity {
                     }
                 }
             });
-            switchNegro.setChecked(SELECCIONADO);
+            leerSharedPreferences();
+
+            /*if(switchAzul.isChecked()){
+                switchAzul.setChecked(SELECCIONADO);
+
+            }else{
+                switchAzul.setChecked(false);
+            }
+            if(switchRojo.isChecked()){
+                switchRojo.setChecked(SELECCIONADO);
+
+            } else{
+                switchRojo.setChecked(false);
+            }
+            if(switchVerde.isChecked()){
+                switchVerde.setChecked(SELECCIONADO);
+
+            } else {
+                switchVerde.setChecked(false);
+            }
+            if(switchMorado.isChecked()){
+                switchMorado.setChecked(SELECCIONADO);
+
+            } else {
+                switchMorado.setChecked(false);
+            }
+            if(switchNegro.isChecked()){
+                switchNegro.setChecked(SELECCIONADO);
+
+            } else{
+                switchNegro.setChecked(false);
+            }*/
+        }
+    }
+
+    public void guardarEnSheredPreferences(String colorApp, String colorPrimary, String backgraund, int tema, boolean checked){
+
+        preferencias = PersonalizacionActivity.this.getSharedPreferences(PREF_FICHERO, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferencias.edit();
+
+        editor.putString(COLOR_APP, colorApp);
+        editor.putString(COLOR_PRIMARY, colorPrimary);
+        editor.putString(BACKGRAUND, backgraund);
+        editor.putInt(THEME, tema);
+        editor.putBoolean(CHECKED, checked);
+        editor.apply();
+    }
+
+    public void leerSharedPreferences(){
+
+        SharedPreferences preferencias = this.getSharedPreferences(PREF_FICHERO, Context.MODE_PRIVATE);
+        String colorApp = preferencias.getString(COLOR_APP, "#FF000000");
+        getWindow().setStatusBarColor(Color.parseColor(colorApp));
+
+        String colorPrimary = preferencias.getString(COLOR_PRIMARY,"#273036");
+        getSupportActionBar().setBackgroundDrawable(new ColorDrawable(Color.parseColor(colorPrimary)));
+        getWindow().setNavigationBarColor(Color.parseColor(colorPrimary));
+
+        String backgraund = preferencias.getString(BACKGRAUND,"#FFFFFF");
+        getWindow().setBackgroundDrawable(new ColorDrawable(Color.parseColor(backgraund)));
+
+        boolean checked = preferencias.getBoolean(CHECKED,SELECCIONADO);
+
+        if(switchAzul.isChecked()){
+            switchAzul.setChecked(checked);
+            switchRojo.setChecked(false);
+            switchVerde.setChecked(false);
+            switchMorado.setChecked(false);
+            switchNegro.setChecked(false);
+
+        } else if(switchRojo.isChecked()){
+            switchAzul.setChecked(false);
+            switchRojo.setChecked(checked);
+            switchVerde.setChecked(false);
+            switchMorado.setChecked(false);
+            switchNegro.setChecked(false);
+
+        } else if(switchVerde.isChecked()){
+            switchAzul.setChecked(false);
+            switchRojo.setChecked(false);
+            switchVerde.setChecked(checked);
+            switchMorado.setChecked(false);
+            switchNegro.setChecked(false);
+
+        } else if(switchMorado.isChecked()){
+            switchAzul.setChecked(false);
+            switchRojo.setChecked(false);
+            switchVerde.setChecked(false);
+            switchMorado.setChecked(checked);
+            switchNegro.setChecked(false);
+
+        } else if(switchNegro.isChecked()){
             switchAzul.setChecked(false);
             switchRojo.setChecked(false);
             switchVerde.setChecked(false);
             switchMorado.setChecked(false);
+            switchNegro.setChecked(checked);
         }
+    }
+
+    public void eliminarDatosSheredPreferences(){
+
+        SharedPreferences preferencias = this.getSharedPreferences(PREF_FICHERO, Context.MODE_PRIVATE);
+        preferencias.edit().remove(COLOR_APP).apply();
+        preferencias.edit().remove(COLOR_PRIMARY).apply();
+        preferencias.edit().remove(BACKGRAUND).apply();
     }
 
     public void onBackPressed() {

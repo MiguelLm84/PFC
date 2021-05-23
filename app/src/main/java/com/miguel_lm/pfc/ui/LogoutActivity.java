@@ -61,7 +61,6 @@ public class LogoutActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         mDatabase = FirebaseDatabase.getInstance().getReference();
         user = mAuth.getCurrentUser();
-        String password;
 
         if (user != null) {
 

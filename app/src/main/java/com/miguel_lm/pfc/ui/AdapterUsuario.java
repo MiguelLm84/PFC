@@ -39,7 +39,7 @@ public class AdapterUsuario extends RecyclerView.Adapter<AdapterUsuario.UsuarioV
         holder.tv_ap1_item.setText(user.getApellido1());
         holder.tv_ap2_item.setText(user.getApellido2());
 
-        holder.mostrarContacto(user,context);
+        holder.mostrarContacto(user);
     }
 
     @Override
@@ -51,7 +51,7 @@ public class AdapterUsuario extends RecyclerView.Adapter<AdapterUsuario.UsuarioV
 
         private final TextView tv_numSocio_item,tv_nom_item,tv_ap1_item,tv_ap2_item;
         ImageButton btn_info_user;
-        private SeleccionarUsuario seleccionarUsuario;
+        private final SeleccionarUsuario seleccionarUsuario;
 
         public UsuarioViewHolder(@NonNull View itemView, SeleccionarUsuario seleccionarUsuario) {
             super(itemView);
@@ -65,14 +65,9 @@ public class AdapterUsuario extends RecyclerView.Adapter<AdapterUsuario.UsuarioV
             btn_info_user = itemView.findViewById(R.id.btn_info_user);
         }
 
-        public void mostrarContacto(final Usuario usuario,final Context context) {
+        public void mostrarContacto(final Usuario usuario) {
 
-            btn_info_user.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    seleccionarUsuario.usuarioInfo(usuario);
-                }
-            });
+            btn_info_user.setOnClickListener(v -> seleccionarUsuario.usuarioInfo(usuario));
         }
     }
 }

@@ -32,9 +32,9 @@ public class ActivityPerfil extends AppCompatActivity {
     Button bt_aceptar, btn_guardar;
     ImageView btn_volver, btn_eliminarUser, btn_editar;
     CircleImageView fotoUsuario;
-    DatabaseReference mDatabase;
-    FirebaseAuth mAuth;
-    FirebaseUser user;
+    DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
+    FirebaseAuth mAuth = FirebaseAuth.getInstance();
+    FirebaseUser user = mAuth.getCurrentUser();
     String numSoci = "";
     String name = "";
     String apell1 = "";
@@ -65,70 +65,61 @@ public class ActivityPerfil extends AppCompatActivity {
         btn_editar = findViewById(R.id.btn_editar);
         btn_guardar = findViewById(R.id.btn_guardar);
 
-        mAuth = FirebaseAuth.getInstance();
-        mDatabase = FirebaseDatabase.getInstance().getReference();
-        user = mAuth.getCurrentUser();
-
         mostrarDatosUser();
 
         btn_volver.setOnClickListener(v -> onBackPressed());
-
         fotoUsuario.setOnClickListener(v -> cambiarFotoPerfil());
     }
 
     public void mostrarDatosUser(){
 
-        mAuth = FirebaseAuth.getInstance();
-        mDatabase = FirebaseDatabase.getInstance().getReference();
-        user = mAuth.getCurrentUser();
-
         if (user != null) {
 
             String emailUser = user.getEmail();
-            assert emailUser != null;
+            if (emailUser != null) {
 
-            mDatabase.child("Users").addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                mDatabase.child("Users").addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
 
-                    if(snapshot.exists()){
+                        if(snapshot.exists()){
 
-                        for(DataSnapshot dataSnapshot : snapshot.getChildren()){
+                            for(DataSnapshot dataSnapshot : snapshot.getChildren()){
 
-                            Usuario user = dataSnapshot.getValue(Usuario.class);
-                            assert user != null;
+                                Usuario user = dataSnapshot.getValue(Usuario.class);
 
-                            if(emailUser.equals(user.getEmail())){
-                                String numSocio = user.getNumSocio();
-                                String nombre = user.getNombre();
-                                String ap1 = user.getApellido1();
-                                String ap2 = user.getApellido2();
-                                String fNaci = user.getFechaNaci();
-                                String telefono = user.getTelefono();
-                                String email = user.getEmail();
-                                String password = user.getPassword();
+                                if(user != null && emailUser.equals(user.getEmail())){
+                                    String numSocio = user.getNumSocio();
+                                    String nombre = user.getNombre();
+                                    String ap1 = user.getApellido1();
+                                    String ap2 = user.getApellido2();
+                                    String fNaci = user.getFechaNaci();
+                                    String telefono = user.getTelefono();
+                                    String email = user.getEmail();
+                                    String password = user.getPassword();
 
-                                tv_numSocio.setText(numSocio);
-                                tv_nombre.setText(nombre);
-                                tv_ap1.setText(ap1);
-                                tv_ap2.setText(ap2);
-                                tv_fechaNaci.setText(fNaci);
-                                tv_telefono.setText(telefono);
-                                tv_email.setText(email);
-                                tv_password.setText(password);
+                                    tv_numSocio.setText(numSocio);
+                                    tv_nombre.setText(nombre);
+                                    tv_ap1.setText(ap1);
+                                    tv_ap2.setText(ap2);
+                                    tv_fechaNaci.setText(fNaci);
+                                    tv_telefono.setText(telefono);
+                                    tv_email.setText(email);
+                                    tv_password.setText(password);
+                                }
                             }
+
+                        } else {
+                            Toast.makeText(ActivityPerfil.this,"ERROR, los datos no se han podido recuperar.",Toast.LENGTH_SHORT).show();
                         }
-
-                    } else {
-                        Toast.makeText(ActivityPerfil.this,"ERROR, los datos no se han podido recuperar.",Toast.LENGTH_SHORT).show();
                     }
-                }
 
-                @Override
-                public void onCancelled(@NonNull DatabaseError error) {
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
 
-                }
-            });
+                    }
+                });
+            }
 
         } else {
             Toast.makeText(this, "Error, no se han podido recuperar los datos.",Toast.LENGTH_SHORT).show();
@@ -323,15 +314,16 @@ public class ActivityPerfil extends AppCompatActivity {
                         for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
 
                             String id = dataSnapshot.getKey();
-                            assert id != null;
-                            mDatabase.child(id).child("numSocio").setValue(numSoci);
-                            mDatabase.child(id).child("nombre").setValue(name);
-                            mDatabase.child(id).child("apellido1").setValue(apell1);
-                            mDatabase.child(id).child("apellido2").setValue(apell2);
-                            mDatabase.child(id).child("fechaNaci").setValue(fechaNacim);
-                            mDatabase.child(id).child("telefono").setValue(telf);
-                            mDatabase.child(id).child("email").setValue(mail);
-                            mDatabase.child(id).child("password").setValue(psswd);
+                            if(id != null){
+                                mDatabase.child(id).child("numSocio").setValue(numSoci);
+                                mDatabase.child(id).child("nombre").setValue(name);
+                                mDatabase.child(id).child("apellido1").setValue(apell1);
+                                mDatabase.child(id).child("apellido2").setValue(apell2);
+                                mDatabase.child(id).child("fechaNaci").setValue(fechaNacim);
+                                mDatabase.child(id).child("telefono").setValue(telf);
+                                mDatabase.child(id).child("email").setValue(mail);
+                                mDatabase.child(id).child("password").setValue(psswd);
+                            }
                         }
                     }
                 }

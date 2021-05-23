@@ -3,7 +3,6 @@ package com.miguel_lm.pfc.ui;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -14,11 +13,11 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.Toast;
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.miguel_lm.pfc.R;
 import java.util.ArrayList;
@@ -29,8 +28,7 @@ public class JuntaDirectivaActivity extends AppCompatActivity {
     Spinner spinner_presidente,spinner_vicepresidente,spinner_secretario_general,spinner_tesorero,spinner_vocal1,spinner_vocal2,spinner_vocal3,spinner_vocal4;
     Button btn_aceptarJuntaDirectiva;
     ImageButton bt_volver_juntaDirectiva;
-    FirebaseAuth mAuth;
-    DatabaseReference mDatabase;
+    DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference("Users");
     String nombre;
     String ap1;
     String ap2;
@@ -42,20 +40,7 @@ public class JuntaDirectivaActivity extends AppCompatActivity {
         overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
         getSupportActionBar().hide();
 
-        spinner_presidente = findViewById(R.id.spinner_presidente);
-        spinner_vicepresidente = findViewById(R.id.spinner_vicepresidente);
-        spinner_secretario_general = findViewById(R.id.spinner_secretario_general);
-        spinner_tesorero = findViewById(R.id.spinner_tesorero);
-        spinner_vocal1 = findViewById(R.id.spinner_vocal1);
-        spinner_vocal2 = findViewById(R.id.spinner_vocal2);
-        spinner_vocal3 = findViewById(R.id.spinner_vocal3);
-        spinner_vocal4 = findViewById(R.id.spinner_vocal4);
-        btn_aceptarJuntaDirectiva = findViewById(R.id.btn_aceptar_juntaDirectiva);
-        bt_volver_juntaDirectiva = findViewById(R.id.bt_volver_juntaDirectiva);
-
-        mAuth = FirebaseAuth.getInstance();
-        mDatabase = FirebaseDatabase.getInstance().getReference();
-
+        init();
         cargarDatosSpinnerPresidente();
         cargarDatosSpinnerVicepresidente();
         cargarDatosSpinnerSecretarioGeneral();
@@ -66,20 +51,27 @@ public class JuntaDirectivaActivity extends AppCompatActivity {
         cargarDatosSpinnerVocal4();
 
         btn_aceptarJuntaDirectiva.setOnClickListener(v -> registrarCargosJuntaDirectiva());
+        bt_volver_juntaDirectiva.setOnClickListener(v -> onBackPressed());
+    }
 
-        bt_volver_juntaDirectiva.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onBackPressed();
-            }
-        });
+    public void init(){
 
+        spinner_presidente = findViewById(R.id.spinner_presidente);
+        spinner_vicepresidente = findViewById(R.id.spinner_vicepresidente);
+        spinner_secretario_general = findViewById(R.id.spinner_secretario_general);
+        spinner_tesorero = findViewById(R.id.spinner_tesorero);
+        spinner_vocal1 = findViewById(R.id.spinner_vocal1);
+        spinner_vocal2 = findViewById(R.id.spinner_vocal2);
+        spinner_vocal3 = findViewById(R.id.spinner_vocal3);
+        spinner_vocal4 = findViewById(R.id.spinner_vocal4);
+        btn_aceptarJuntaDirectiva = findViewById(R.id.btn_aceptar_juntaDirectiva);
+        bt_volver_juntaDirectiva = findViewById(R.id.bt_volver_juntaDirectiva);
     }
 
     public List<CharSequence> obtenerDatosBD(){
 
         List<CharSequence> listaUsuarios = new ArrayList<>();
-        mDatabase.child("Users").addListenerForSingleValueEvent(new ValueEventListener() {
+        mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
 
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -110,9 +102,11 @@ public class JuntaDirectivaActivity extends AppCompatActivity {
 
     public void cargarDatosSpinnerPresidente() {
 
-        ArrayAdapter<CharSequence> arrayAdapterPresidente = new ArrayAdapter<>(JuntaDirectivaActivity.this, R.layout.spinner_item_text, obtenerDatosBD());
+        List<CharSequence> listaPresidente = obtenerDatosBD();
+        ArrayAdapter<CharSequence> arrayAdapterPresidente = new ArrayAdapter<>(JuntaDirectivaActivity.this, R.layout.spinner_item_text,listaPresidente);
         spinner_presidente.setAdapter(arrayAdapterPresidente);
-        /*spinner_presidente.setPrompt("Presidente");
+
+        spinner_presidente.setPrompt("Presidente");
         spinner_presidente.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -123,7 +117,7 @@ public class JuntaDirectivaActivity extends AppCompatActivity {
             public void onNothingSelected(AdapterView<?> parent) {
 
             }
-        });*/
+        });
 
     }
 
@@ -248,24 +242,110 @@ public class JuntaDirectivaActivity extends AppCompatActivity {
         });*/
     }
 
+    public void UserSeleccionSpinners(){
+
+
+    }
+
     public void registrarCargosJuntaDirectiva(){
 
+        String cargo = null;
+
+        switch(cargo) {
+
+            case "presidente":
+                asignarRolEnBD("presidente");
+                break;
+
+            case "vicepresidente":
+                asignarRolEnBD("vicepresidente");
+                break;
+
+            case "secretario general":
+                asignarRolEnBD("secretario general");
+                break;
+
+            case "tesorero":
+                asignarRolEnBD("tesorero");
+                break;
+
+            case "vocal 1":
+                asignarRolEnBD("vocal 1");
+                break;
+
+            case "vocal 2":
+                asignarRolEnBD("vocal 2");
+                break;
+
+            case "vocal 3":
+                asignarRolEnBD("vocal 3");
+                break;
+
+            case "vocal 4":
+                asignarRolEnBD("vocal 4");
+                break;
+
+            default:
+                Toast.makeText(JuntaDirectivaActivity.this, "Error, no se ha podido registrar la Junta Directiva.", Toast.LENGTH_SHORT).show();
+                break;
+        }
+    }
+
+    public void comprobarCargoEnBD(String cargo){
+
+        Query query = mDatabase.orderByChild("rol").equalTo(cargo);
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
+
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                if (snapshot.exists()) {
+
+                    for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+
+                        String id = dataSnapshot.getKey();
+                        if(id != null){
+                            mDatabase.child(id).child("rol").setValue("user");
+                            mDatabase.child(id).child("isAdmin").setValue(false);
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+
+    public void asignarRolEnBD(String cargo){
+
         try{
-            //String id = mDatabase.push().getKey();
-            //Administrador admin = new Administrador(id, numSocio,nom, ap1,ap2, fNaci,tel,email, encriptar(password));
+            String id = mDatabase.push().getKey();
 
-            //assert id != null;
-            mDatabase.child("Admins").push().setValue("admin");
-            Toast.makeText(JuntaDirectivaActivity.this, "Junta Directiva registrada correctamente.", Toast.LENGTH_SHORT).show();
+            if(id != null){
+                comprobarCargoEnBD(cargo);
+                mDatabase.child("rol").setValue(cargo);
+                mDatabase.child("isAdmin").setValue(true);
+                Toast.makeText(JuntaDirectivaActivity.this, "Junta Directiva registrada correctamente.", Toast.LENGTH_SHORT).show();
+                volverActivityAnterior();
 
-            /*Intent intent = new Intent(getContext(), ActivityNavigationDrawer.class);
-            startActivity(intent);
-            getActivity().finish();
-            getActivity().overridePendingTransition(R.anim.fade_in, R.anim.fade_out);*/
+            } else {
+                Log.e("TAG_ERROR_JUNTA_DIRECTIVA", "ERROR JUNTA DIRECTIVA: " + id);
+            }
 
         } catch(Exception e){
             Log.e("TAG_ERROR","Error al encriptar el password");
         }
+    }
+
+    public void volverActivityAnterior() {
+
+        Intent intent = new Intent(JuntaDirectivaActivity.this, ActivityNavigationDrawer.class);
+        startActivity(intent);
+        finish();
+        overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
     }
 
     public void onBackPressed() {

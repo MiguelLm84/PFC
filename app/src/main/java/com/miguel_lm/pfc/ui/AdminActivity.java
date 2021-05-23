@@ -157,14 +157,14 @@ public class AdminActivity extends AppCompatActivity {
     public void leerSharedPreferences(){
 
         SharedPreferences preferencias = getSharedPreferences(PREF_FICHERO, Context.MODE_PRIVATE);
-        String colorApp = preferencias.getString(COLOR_APP, "");
+        String colorApp = preferencias.getString(COLOR_APP, "#FF000000");
         getWindow().setStatusBarColor(Color.parseColor(colorApp));
 
-        String colorPrimary = preferencias.getString(COLOR_PRIMARY,"");
+        String colorPrimary = preferencias.getString(COLOR_PRIMARY,"#273036");
         getSupportActionBar().setBackgroundDrawable(new ColorDrawable(Color.parseColor(colorPrimary)));
-       getWindow().setNavigationBarColor(Color.parseColor(colorPrimary));
+        getWindow().setNavigationBarColor(Color.parseColor(colorPrimary));
 
-        String backgraund = preferencias.getString(BACKGRAUND,"");
+        String backgraund = preferencias.getString(BACKGRAUND,"#FFFFFF");
         getWindow().setBackgroundDrawable(new ColorDrawable(Color.parseColor(backgraund)));
     }
 

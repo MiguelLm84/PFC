@@ -13,10 +13,14 @@
         android:roundIcon="@mipmap/ic_asociation_manager_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.PFC">
-        <activity android:name=".ui.JuntaDirectivaActivity"/>
-        <activity android:name=".ui.WebViewActivity"/>
+        <activity android:name=".ui.InfoEventosActivity"
+            android:theme="@style/Theme.PFC.NoActionBar" />
         <activity
-            android:name=".ui.PersonalizacionActivity" />
+            android:name=".ui.AddEventosActivity"
+            android:theme="@style/Theme.PFC.NoActionBar" />
+        <activity android:name=".ui.JuntaDirectivaActivity" />
+        <activity android:name=".ui.WebViewActivity" />
+        <activity android:name=".ui.PersonalizacionActivity" />
         <activity
             android:name=".ui.NotificacionActivity"
             android:theme="@style/Theme.PFC.ActionBarActive" />

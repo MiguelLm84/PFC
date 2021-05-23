@@ -13,6 +13,11 @@ public class FragmentGestion extends Fragment {
 
     ImageButton btn_notificacion_individual,btn_recordatorios,btn_campanhas,btn_personalizacion_app,bt_volver_gestion,btn_juntaDirectiva;
 
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        getActivity().setTheme(PersonalizacionActivity.TEMA);
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {

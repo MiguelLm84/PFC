@@ -28,8 +28,8 @@ public class RegistroActivity extends AppCompatActivity {
     EditText ed_numSocio,ed_nombre,ed_ap1,ed_ap2,ed_fechaNaci,ed_telefono,ed_email,ed_password;
     Button bt_registrar;
     ImageView btn_volver;
-    FirebaseAuth mAuth;
-    DatabaseReference mDatabase;
+    FirebaseAuth mAuth = FirebaseAuth.getInstance();
+    DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
     String numSocio = "";
     String nom = "";
     String ap1 = "";
@@ -48,9 +48,6 @@ public class RegistroActivity extends AppCompatActivity {
         setContentView(R.layout.activity_registro);
         overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
 
-        mAuth = FirebaseAuth.getInstance();
-        mDatabase = FirebaseDatabase.getInstance().getReference();
-
         ed_numSocio = findViewById(R.id.ed_numSocio);
         ed_nombre = findViewById(R.id.ed_nombre);
         ed_ap1 = findViewById(R.id.ed_ap1);
@@ -63,6 +60,11 @@ public class RegistroActivity extends AppCompatActivity {
         btn_volver = findViewById(R.id.btn_volver);
 
         btn_volver.setOnClickListener(v -> onBackPressed());
+        DatePickerFecha();
+        botonRegistrar();
+    }
+
+    public void DatePickerFecha(){
 
         View.OnClickListener onClickEtiquetaFecha= v -> {
 
@@ -81,8 +83,10 @@ public class RegistroActivity extends AppCompatActivity {
             }, year, month, day);
             dpd.show();
         };
-
         ed_fechaNaci.setOnClickListener(onClickEtiquetaFecha);
+    }
+
+    public void botonRegistrar(){
 
         bt_registrar.setOnClickListener(v -> {
 
@@ -115,17 +119,21 @@ public class RegistroActivity extends AppCompatActivity {
 
         try{
             String id = mDatabase.push().getKey();
-            Usuario user = new Usuario(id, numSocio,nom, ap1,ap2, fNaci,tel,email, encriptar(password));
+            Usuario user = new Usuario(id, numSocio,nom, ap1,ap2, fNaci,tel,email, encriptar(password),"user",false);
 
-            assert id != null;
-            mDatabase.child("Users").push().setValue(user);
-            mAuth.createUserWithEmailAndPassword(email, password);
-            Toast.makeText(RegistroActivity.this, "Usuario registrado correctamente.", Toast.LENGTH_SHORT).show();
+            if(id != null){
+                mDatabase.child("Users").push().setValue(user);
+                mAuth.createUserWithEmailAndPassword(email, password);
+                Toast.makeText(RegistroActivity.this, "Usuario registrado correctamente.", Toast.LENGTH_SHORT).show();
 
-            Intent intent = new Intent(RegistroActivity.this, AuthActivity.class);
-            startActivity(intent);
-            finish();
-            overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+                Intent intent = new Intent(RegistroActivity.this, AuthActivity.class);
+                startActivity(intent);
+                finish();
+                overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+
+            } else {
+                Toast.makeText(RegistroActivity.this, "Error, el usuario no se ha podido registrar.", Toast.LENGTH_SHORT).show();
+            }
 
         } catch(Exception e){
             Log.e("TAG_ERROR","Error al encriptar el password");
@@ -143,7 +151,7 @@ public class RegistroActivity extends AppCompatActivity {
         cipher.init(Cipher.ENCRYPT_MODE,secretKeySpec);
         byte[] passwordEncript = cipher.doFinal(password.getBytes());
         String pswd = new String(passwordEncript);
-        Log.d("PASSWOR_ENCRIPTADO", pswd);
+        Log.d("PASSWORD_ENCRIPTADO", pswd);
 
         ed_password.setText(pswd);
         passwordEncriptado = ed_password.getText().toString();

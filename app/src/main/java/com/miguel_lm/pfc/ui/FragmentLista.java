@@ -1,9 +1,5 @@
 package com.miguel_lm.pfc.ui;
 
-import android.content.Context;
-import android.content.SharedPreferences;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -11,6 +7,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,16 +22,11 @@ import com.miguel_lm.pfc.modelo.Usuario;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.miguel_lm.pfc.ui.PersonalizacionActivity.BACKGRAUND;
-import static com.miguel_lm.pfc.ui.PersonalizacionActivity.COLOR_APP;
-import static com.miguel_lm.pfc.ui.PersonalizacionActivity.COLOR_PRIMARY;
-import static com.miguel_lm.pfc.ui.PersonalizacionActivity.PREF_FICHERO;
-
 public class FragmentLista extends Fragment implements SeleccionarUsuario {
 
     private List<Usuario> listaUsuarios;
     private AdapterUsuario adapterUsuario;
-    DatabaseReference mDatabase;
+    DatabaseReference  mDatabase = FirebaseDatabase.getInstance().getReference();
     FragmentTransaction transaction;
     Usuario user;
     Fragment_info fragInfo;
@@ -66,7 +58,6 @@ public class FragmentLista extends Fragment implements SeleccionarUsuario {
         adapterUsuario = new AdapterUsuario(listaUsuarios, getContext(), this);
         recyclerViewUsers.setAdapter(adapterUsuario);
 
-        mDatabase = FirebaseDatabase.getInstance().getReference();
         mDatabase.child("Users").addValueEventListener(new ValueEventListener() {
 
             @Override
@@ -121,29 +112,33 @@ public class FragmentLista extends Fragment implements SeleccionarUsuario {
                         for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
 
                             String id = dataSnapshot.getKey();
-                            assert id != null;
-                            String sSubCadena = id.substring(0,5);
 
-                            String idUser = usuario.getUid();
-                            String subCadenaUser = idUser.substring(0,5);
+                            if(id != null){
+                                String sSubCadena = id.substring(0,5);
 
-                            if (sSubCadena.equals(subCadenaUser)) {
+                                String idUser = usuario.getUid();
+                                String subCadenaUser = idUser.substring(0,5);
 
-                                bundle.putString("numSocio", usuario.getNumSocio());
-                                bundle.putString("nombre", usuario.getNombre());
-                                bundle.putString("apellido1", usuario.getApellido1());
-                                bundle.putString("apellido2", usuario.getApellido2());
-                                bundle.putString("fechaNaci", usuario.getFechaNaci());
-                                bundle.putString("telefono", usuario.getTelefono());
-                                bundle.putString("email", usuario.getEmail());
-                                bundle.putString("password", usuario.getPassword());
+                                if (sSubCadena.equals(subCadenaUser)) {
 
-                                fragInfo.setArguments(bundle);
+                                    bundle.putString("numSocio", usuario.getNumSocio());
+                                    bundle.putString("nombre", usuario.getNombre());
+                                    bundle.putString("apellido1", usuario.getApellido1());
+                                    bundle.putString("apellido2", usuario.getApellido2());
+                                    bundle.putString("fechaNaci", usuario.getFechaNaci());
+                                    bundle.putString("telefono", usuario.getTelefono());
+                                    bundle.putString("email", usuario.getEmail());
+                                    bundle.putString("password", usuario.getPassword());
 
-                                FragmentManager fragmentManager = getChildFragmentManager();
-                                transaction = fragmentManager.beginTransaction();
-                                transaction.add(R.id.FragmentLayoutLista, fragInfo, null).commit();
-                                return;
+                                    fragInfo.setArguments(bundle);
+
+                                    FragmentManager fragmentManager = getChildFragmentManager();
+                                    transaction = fragmentManager.beginTransaction();
+                                    transaction.add(R.id.FragmentLayoutLista, fragInfo, null).commit();
+                                    return;
+                                }
+                            } else {
+                                Log.e("TAG_ERROR_ID_USER", "ERROR_ID_USER: " + id );
                             }
                         }
                     }

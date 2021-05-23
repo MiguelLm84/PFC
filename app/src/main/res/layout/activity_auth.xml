@@ -79,13 +79,13 @@
         android:hint="@string/email"
         android:inputType="textEmailAddress"
         android:padding="10dp"
-        android:textColor="@color/primary"
+        android:textColor="?attr/colorPrimary"
         android:textColorHint="#C5C5C5"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/wave_top"
-        tools:ignore="LabelFor"/>
+        tools:ignore="LabelFor" />
 
     <EditText
         android:id="@+id/ed_password"
@@ -139,7 +139,7 @@
         android:gravity="center|center_horizontal"
         android:onClick="OnClickRegistrar"
         android:text="@string/bt_registrar"
-        android:textColor="@color/primary"
+        android:textColor="?attr/colorPrimary"
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
@@ -156,7 +156,7 @@
         android:gravity="center|center_horizontal"
         android:onClick="OnClickRestablecerPassword"
         android:text="@string/restablecerPassword"
-        android:textColor="@color/primary"
+        android:textColor="?attr/colorPrimary"
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
@@ -188,7 +188,7 @@
         android:paddingEnd="10dp"
         android:text="@string/or"
         android:textAlignment="center"
-        android:textColor="@color/primary"
+        android:textColor="?attr/colorPrimary"
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="@+id/textView2"

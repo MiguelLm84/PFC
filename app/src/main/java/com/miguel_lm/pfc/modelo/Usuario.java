@@ -14,8 +14,24 @@ public class Usuario {
     private String telefono;
     private String email;
     private String password;
+    private String rol;
+    private boolean isAdmin;
 
     public Usuario(){
+    }
+
+    public Usuario(String uid, String numSocio, String nombre, String apellido1, String apellido2, String fechaNaci, String telefono, String email, String password, String rol, boolean isAdmin) {
+        this.uid = uid;
+        this.numSocio = numSocio;
+        this.nombre = nombre;
+        this.apellido1 = apellido1;
+        this.apellido2 = apellido2;
+        this.fechaNaci = fechaNaci;
+        this.telefono = telefono;
+        this.email = email;
+        this.password = password;
+        this.rol = rol;
+        this.isAdmin = isAdmin;
     }
 
     public Usuario(String uid, String numSocio, String nombre, String apellido1, String apellido2, String fechaNaci, String telefono, String email, String password) {
@@ -28,6 +44,8 @@ public class Usuario {
         this.telefono = telefono;
         this.email = email;
         this.password = password;
+        this.rol = "user";
+        this.isAdmin = false;
     }
 
     public Usuario(String token,String uid, String numSocio, String nombre, String apellido1, String apellido2, String fechaNaci, String telefono, String email, String password) {
@@ -41,6 +59,8 @@ public class Usuario {
         this.telefono = telefono;
         this.email = email;
         this.password = password;
+        this.rol = "user";
+        this.isAdmin = false;
     }
 
     /*public Usuario(String token,String uid,String nombre){
@@ -151,6 +171,22 @@ public class Usuario {
         this.password = password;
 
         return password;
+    }
+
+    public String getRol() {
+        return rol;
+    }
+
+    public void setRol(String rol) {
+        this.rol = rol;
+    }
+
+    public boolean isAdmin() {
+        return isAdmin;
+    }
+
+    public void setAdmin(boolean admin) {
+        isAdmin = admin;
     }
 
     @NonNull

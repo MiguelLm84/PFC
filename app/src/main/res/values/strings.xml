@@ -75,4 +75,10 @@
     <string name="azul">Azul</string>
     <string name="organigrama">Organigrama</string>
     <string name="junta_directiva">Junta Directiva</string>
+    <string name="hora_evento">00:00</string>
+    <string name="fecha_evento">20/05/2020</string>
+    <string name="titulo_evento">Título Evento</string>
+    <string name="titulo_hora">h</string>
+    <string name="registrar_evento">Registrar Evento</string>
+    <string name="detalle_evento">Detalle Evento</string>
 </resources>
