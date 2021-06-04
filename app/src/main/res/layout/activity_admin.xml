@@ -11,10 +11,12 @@
         android:id="@+id/tabs"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:tabIndicatorColor="?attr/colorPrimaryDark"
-        app:tabSelectedTextColor="?attr/colorPrimaryDark"
+        app:tabBackground="?attr/colorSecondaryVariant"
+        app:tabIndicatorColor="@color/white"
+        app:tabRippleColor="@null"
+        app:tabSelectedTextColor="@color/white"
         app:tabTextAppearance="@style/Theme.PFC.EtiquetaSeleccion"
-        app:tabTextColor="?attr/colorPrimary">
+        app:tabTextColor="@color/white">
 
         <com.google.android.material.tabs.TabItem
             android:layout_width="wrap_content"
@@ -31,6 +33,7 @@
 
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/viewPage2_admin"
+        style="@style/ActionBarTitleTextStyle"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 

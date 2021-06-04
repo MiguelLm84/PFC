@@ -15,12 +15,12 @@ public class Usuario {
     private String email;
     private String password;
     private String rol;
-    private boolean isAdmin;
+    private boolean admin;
 
     public Usuario(){
     }
 
-    public Usuario(String uid, String numSocio, String nombre, String apellido1, String apellido2, String fechaNaci, String telefono, String email, String password, String rol, boolean isAdmin) {
+    public Usuario(String uid, String numSocio, String nombre, String apellido1, String apellido2, String fechaNaci, String telefono, String email, String password, String rol, boolean admin) {
         this.uid = uid;
         this.numSocio = numSocio;
         this.nombre = nombre;
@@ -31,7 +31,7 @@ public class Usuario {
         this.email = email;
         this.password = password;
         this.rol = rol;
-        this.isAdmin = isAdmin;
+        this.admin = admin;
     }
 
     public Usuario(String uid, String numSocio, String nombre, String apellido1, String apellido2, String fechaNaci, String telefono, String email, String password) {
@@ -45,7 +45,7 @@ public class Usuario {
         this.email = email;
         this.password = password;
         this.rol = "user";
-        this.isAdmin = false;
+        this.admin = false;
     }
 
     public Usuario(String token,String uid, String numSocio, String nombre, String apellido1, String apellido2, String fechaNaci, String telefono, String email, String password) {
@@ -60,16 +60,18 @@ public class Usuario {
         this.email = email;
         this.password = password;
         this.rol = "user";
-        this.isAdmin = false;
+        this.admin = false;
     }
 
-    /*public Usuario(String token,String uid,String nombre){
+    public Usuario(String token,String uid,String nombre,String apellido1, String apellido2){
         this.token = token;
         this.uid = uid;
         this.nombre = nombre;
-    }*/
+        this.apellido1 = apellido1;
+        this.apellido2 = apellido2;
+    }
 
-    public Usuario(String nombre,String apellido1, String apellido2){
+    public Usuario(String token,String nombre,String apellido1, String apellido2){
         this.nombre = nombre;
         this.apellido1 = apellido1;
         this.apellido2 = apellido2;
@@ -182,11 +184,11 @@ public class Usuario {
     }
 
     public boolean isAdmin() {
-        return isAdmin;
+        return admin;
     }
 
     public void setAdmin(boolean admin) {
-        isAdmin = admin;
+        this.admin = admin;
     }
 
     @NonNull

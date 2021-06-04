@@ -1,6 +1,5 @@
 package com.miguel_lm.pfc.ui;
 
-import androidx.appcompat.app.AppCompatActivity;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,14 +9,24 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.messaging.FirebaseMessaging;
 import com.miguel_lm.pfc.R;
 import com.miguel_lm.pfc.modelo.Usuario;
+import com.miguel_lm.pfc.singletons.ColorConfigurator;
+
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
+
 import javax.crypto.Cipher;
 import javax.crypto.KeyGenerator;
 import javax.crypto.SecretKey;
@@ -45,8 +54,25 @@ public class RegistroActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        ColorConfigurator.getInstance().readThemeNoBackgroundDrawable(this, getSupportActionBar());
         setContentView(R.layout.activity_registro);
         overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+
+        init();
+
+        btn_volver.setOnClickListener(v -> onBackPressed());
+        DatePickerFecha();
+        botonRegistrar();
+    }
+
+    @Override
+    public void onResume() {
+
+        super.onResume();
+        ColorConfigurator.getInstance().readThemeNoBackgroundDrawable(this, getSupportActionBar());
+    }
+
+    public void init(){
 
         ed_numSocio = findViewById(R.id.ed_numSocio);
         ed_nombre = findViewById(R.id.ed_nombre);
@@ -58,10 +84,6 @@ public class RegistroActivity extends AppCompatActivity {
         ed_password = findViewById(R.id.ed_Password);
         bt_registrar = findViewById(R.id.btn_registrar);
         btn_volver = findViewById(R.id.btn_volver);
-
-        btn_volver.setOnClickListener(v -> onBackPressed());
-        DatePickerFecha();
-        botonRegistrar();
     }
 
     public void DatePickerFecha(){
@@ -124,6 +146,7 @@ public class RegistroActivity extends AppCompatActivity {
             if(id != null){
                 mDatabase.child("Users").push().setValue(user);
                 mAuth.createUserWithEmailAndPassword(email, password);
+                suscribirAtopics();
                 Toast.makeText(RegistroActivity.this, "Usuario registrado correctamente.", Toast.LENGTH_SHORT).show();
 
                 Intent intent = new Intent(RegistroActivity.this, AuthActivity.class);
@@ -157,6 +180,17 @@ public class RegistroActivity extends AppCompatActivity {
         passwordEncriptado = ed_password.getText().toString();
 
         return passwordEncriptado;
+    }
+
+    public void suscribirAtopics(){
+
+        FirebaseMessaging.getInstance().subscribeToTopic("afiliados")
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        Log.i("TAG SUSCRIPCIÓN TOPIC","Usuario suscrito al topic 'afiliados'.");
+                    }
+                });
     }
 
     @Override

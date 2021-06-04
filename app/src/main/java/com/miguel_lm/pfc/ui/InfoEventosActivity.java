@@ -10,6 +10,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import com.miguel_lm.pfc.R;
+import com.miguel_lm.pfc.singletons.ColorConfigurator;
 
 public class InfoEventosActivity extends AppCompatActivity {
 
@@ -22,7 +23,7 @@ public class InfoEventosActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //setContentView(R.layout.activity_info_eventos);
+        ColorConfigurator.getInstance().readThemeNoBackgroundDrawable(this, getSupportActionBar());
         setContentView(R.layout.activity_add_eventos);
 
         init();
@@ -31,6 +32,13 @@ public class InfoEventosActivity extends AppCompatActivity {
         bt_volver_eventos.setOnClickListener(v -> onBackPressed());
         btn_aceptar_evento.setOnClickListener(v -> onBackPressed());
 
+    }
+
+    @Override
+    public void onResume() {
+
+        super.onResume();
+        ColorConfigurator.getInstance().readThemeNoBackgroundDrawable(this, getSupportActionBar());
     }
 
     public void init(){
@@ -89,7 +97,7 @@ public class InfoEventosActivity extends AppCompatActivity {
     public void onBackPressed() {
         Intent intent = new Intent(InfoEventosActivity.this, ActivityNavigationDrawer.class);
         intent.addCategory(Intent.CATEGORY_HOME);
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
         overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
     }

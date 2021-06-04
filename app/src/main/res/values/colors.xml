@@ -20,5 +20,6 @@
     <color name="colorPrimaryDarkAzul">#039BE5</color>
     <color name="colorPrimaryDarkRojo">#D50000</color>
     <color name="colorPrimaryDarkVerde">#B0018786</color>
-
+    <color name="backgroundDarkMode">#FF393E46</color>
+    <color name="backgroundDarkModeGray">#59606A</color>
 </resources>

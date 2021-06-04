@@ -1,422 +1,187 @@
 package com.miguel_lm.pfc.ui;
 
+import android.content.Context;
+import android.content.Intent;
+import android.content.res.Resources;
+import android.os.Bundle;
+import android.widget.CompoundButton;
+import android.widget.TextView;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
-import android.content.Context;
-import android.content.Intent;
-import android.content.SharedPreferences;
-import android.content.res.ColorStateList;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
-import android.os.Bundle;
-import android.widget.CompoundButton;
-
 import com.google.android.material.switchmaterial.SwitchMaterial;
 import com.miguel_lm.pfc.R;
+import com.miguel_lm.pfc.singletons.ColorConfigurator;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.function.Consumer;
 
 public class PersonalizacionActivity extends AppCompatActivity {
 
+
+    TextView tv_cambioColorApp;
     static SwitchMaterial switchAzul;
     static SwitchMaterial switchRojo;
     static SwitchMaterial switchVerde;
     static SwitchMaterial switchMorado;
     static SwitchMaterial switchNegro;
-    SharedPreferences preferencias;
 
     public static final String PREF_FICHERO = "preferencias";
     public static final String COLOR_APP = "color app";
     public static final String COLOR_PRIMARY = "color primary";
     public static final String BACKGRAUND = "backgraund";
-    public static final String CHECKED = "checked";
-    public static boolean SELECCIONADO = true;
-    public static final String THEME = "tema";
-    public static int TEMA = R.style.Theme_PFC;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        aplicarTema();
-        setTheme(TEMA);
+
+        ColorConfigurator.getInstance().readTheme(this, getSupportActionBar());
         setContentView(R.layout.activity_personalizacion);
         getSupportActionBar().setTitle("Personalización App");
         overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
 
-        switchAzul = findViewById(R.id.switch_azul);
-        switchRojo = findViewById(R.id.switch_rojo);
-        switchVerde = findViewById(R.id.switch_verde);
-        switchMorado = findViewById(R.id.switch_morado);
-        switchNegro = findViewById(R.id.switch_negro);
-
-        seleccionTemaConSwitch();
-        leerSharedPreferences();
-    }
-
-    @Override
-    public void onStart() {
-
-        super.onStart();
-        leerSharedPreferences();
-    }
-
-    @Override
-    public void onRestart() {
-
-        super.onRestart();
-        leerSharedPreferences();
+        initSwitch();
+        setPreviousCheckedSwitch();
+        selectTheme();
     }
 
     @Override
     public void onResume() {
 
         super.onResume();
-        leerSharedPreferences();
+        disableAllSwitchs();
+        ColorConfigurator.getInstance().readTheme(this, getSupportActionBar());
+        setPreviousCheckedSwitch();
+        selectTheme();
     }
-
-    public void cambiarColor(String colorApp, String colorPrimary, String backgraund){
-
-        getWindow().setStatusBarColor(Color.parseColor(colorApp));
-        getSupportActionBar().setBackgroundDrawable(new ColorDrawable(Color.parseColor(colorPrimary)));
-        getWindow().setBackgroundDrawable(new ColorDrawable(Color.parseColor(backgraund)));
-        getWindow().setNavigationBarColor(Color.parseColor(colorPrimary));
-
-        //getWindow().setLogo();
-    }
-
-    public void colorSwitch(String colorApp){
-
-        int colorAzul = R.color.colorPrimaryDarkAzul;
-        int colorRojo = R.color.rojoOscuro;
-        int colorVerde = R.color.teal_700;
-        int colorMorado = R.color.purple_500;
-        int colorNegro = R.color.black;
-
-        if(colorApp.equals("#039BE5")){
-            switchAzul.setThumbResource(colorAzul);
-            switchRojo.setThumbResource(colorAzul);
-            switchVerde.setThumbResource(colorAzul);
-            switchMorado.setThumbResource(colorAzul);
-            switchNegro.setThumbResource(colorAzul);
-        }
-        if(colorApp.equals("#B71C1C")){
-            switchAzul.setThumbResource(colorRojo);
-            switchRojo.setThumbResource(colorRojo);
-            switchVerde.setThumbResource(colorRojo);
-            switchMorado.setThumbResource(colorRojo);
-            switchNegro.setThumbResource(colorRojo);
-        }
-        if(colorApp.equals("#FF018786")){
-            switchAzul.setThumbResource(colorVerde);
-            switchRojo.setThumbResource(colorVerde);
-            switchVerde.setThumbResource(colorVerde);
-            switchMorado.setThumbResource(colorVerde);
-            switchNegro.setThumbResource(colorVerde);
-        }
-        if(colorApp.equals("#2D0091")){
-            switchAzul.setThumbResource(colorMorado);
-            switchRojo.setThumbResource(colorMorado);
-            switchVerde.setThumbResource(colorMorado);
-            switchMorado.setThumbResource(colorMorado);
-            switchNegro.setThumbResource(colorMorado);
-        }
-        if(colorApp.equals("#FF000000")){
-            switchAzul.setThumbResource(colorNegro);
-            switchRojo.setThumbResource(colorNegro);
-            switchVerde.setThumbResource(colorNegro);
-            switchMorado.setThumbResource(colorNegro);
-            switchNegro.setThumbResource(colorNegro);
-        }
-    }
-
-    public void aplicarTema(){
-
-        if(PersonalizacionActivity.TEMA == R.style.Theme_Azul){
-            setTheme(R.style.Theme_Azul);
-
-        }else if(PersonalizacionActivity.TEMA == R.style.Theme_Rojo){
-            setTheme(R.style.Theme_Rojo);
-
-        }else if(PersonalizacionActivity.TEMA == R.style.Theme_Verde){
-            setTheme(R.style.Theme_Verde);
-
-        }else if(PersonalizacionActivity.TEMA == R.style.Theme_Morado){
-            setTheme(R.style.Theme_Morado);
-
-        }else if(PersonalizacionActivity.TEMA == R.style.Theme_PFC){
-            setTheme(R.style.Theme_PFC);
-
-        }else{
-            setTheme(R.style.Theme_PFC);
-        }
-    }
-
-    public void seleccionTemaConSwitch() {
-
-        if (switchAzul != null) {
-
-            switchAzul.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-                @Override
-                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-
-                    if (isChecked) {
-
-                        TEMA = R.style.Theme_Azul;
-                        guardarEnSheredPreferences("#039BE5", "#82B1FF", "#FFFFFF", TEMA, SELECCIONADO);
-                        setTheme(TEMA);
-                        cambiarColor("#039BE5", "#82B1FF", "#FFFFFF");
-                        //colorSwitch("#039BE5");
-                        leerSharedPreferences();
-                        switchRojo.setChecked(false);
-                        switchVerde.setChecked(false);
-                        switchMorado.setChecked(false);
-                        switchNegro.setChecked(false);
-
-                    } else {
-
-                        TEMA = R.style.Theme_PFC;
-                        guardarEnSheredPreferences("#FF000000", "#273036", "#FFFFFF", TEMA, SELECCIONADO);
-                        setTheme(TEMA);
-                        cambiarColor("#FF000000", "#273036", "#FFFFFF");
-                    }
-                }
-            });
-            leerSharedPreferences();
-        }
-
-        if (switchRojo != null) {
-
-            switchRojo.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-                @Override
-                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-
-                    if (isChecked) {
-
-                        TEMA = R.style.Theme_Rojo;
-                        guardarEnSheredPreferences("#B71C1C", "#D50000", "#FFFFFF", TEMA, SELECCIONADO);
-                        setTheme(TEMA);
-                        cambiarColor("#B71C1C", "#D50000", "#FFFFFF");
-                        //colorSwitch("#B71C1C");
-                        leerSharedPreferences();
-                        switchAzul.setChecked(false);
-                        switchVerde.setChecked(false);
-                        switchMorado.setChecked(false);
-                        switchNegro.setChecked(false);
-
-                    } else {
-
-                        TEMA = R.style.Theme_PFC;
-                        guardarEnSheredPreferences("#FF000000", "#273036", "#FFFFFF", TEMA, SELECCIONADO);
-                        setTheme(TEMA);
-                        cambiarColor("#FF000000", "#273036", "#FFFFFF");
-                    }
-                }
-            });
-            leerSharedPreferences();
-        }
-
-        if (switchVerde != null) {
-
-            switchVerde.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-                @Override
-                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-
-                    if (isChecked) {
-
-                        TEMA = R.style.Theme_Verde;
-                        guardarEnSheredPreferences("#FF018786", "#B0018786", "#FFFFFF", TEMA, SELECCIONADO);
-                        setTheme(TEMA);
-                        cambiarColor("#FF018786", "#B0018786", "#FFFFFF");
-                        //colorSwitch("#FF018786");
-                        leerSharedPreferences();
-                        switchAzul.setChecked(false);
-                        switchRojo.setChecked(false);
-                        switchMorado.setChecked(false);
-                        switchNegro.setChecked(false);
-
-                    } else {
-
-                        TEMA = R.style.Theme_PFC;
-                        guardarEnSheredPreferences("#FF000000", "#273036", "#FFFFFF", TEMA, SELECCIONADO);
-                        setTheme(TEMA);
-                        cambiarColor("#FF000000", "#273036", "#FFFFFF");
-                    }
-                }
-            });
-            leerSharedPreferences();
-        }
-
-        if (switchMorado != null) {
-
-            switchMorado.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-                @Override
-                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-
-                    if (isChecked) {
-
-                        TEMA = R.style.Theme_Morado;
-                        guardarEnSheredPreferences("#2D0091", "#FF3700B3", "#FFFFFF", TEMA, SELECCIONADO);
-                        setTheme(TEMA);
-                        cambiarColor("#2D0091", "#FF3700B3", "#FFFFFF");
-                        //colorSwitch("#2D0091");
-                        leerSharedPreferences();
-                        switchAzul.setChecked(false);
-                        switchRojo.setChecked(false);
-                        switchVerde.setChecked(false);
-                        switchNegro.setChecked(false);
-
-                    } else {
-
-                        TEMA = R.style.Theme_PFC;
-                        guardarEnSheredPreferences("#FF000000", "#273036", "#FFFFFF", TEMA, SELECCIONADO);
-                        setTheme(TEMA);
-                        cambiarColor("#FF000000", "#273036", "#FFFFFF");
-                    }
-                }
-            });
-            leerSharedPreferences();
-        }
-
-        if (switchNegro != null) {
-
-            switchNegro.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-                @Override
-                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-
-                    if (isChecked) {
-
-                        TEMA = R.style.Theme_PFC;
-                        guardarEnSheredPreferences("#FF000000", "#273036", "#FFFFFF", TEMA, SELECCIONADO);
-                        setTheme(TEMA);
-                        cambiarColor("#FF000000", "#273036", "#FFFFFF");
-                        //colorSwitch("#FF000000");
-                        leerSharedPreferences();
-                        switchAzul.setChecked(false);
-                        switchRojo.setChecked(false);
-                        switchVerde.setChecked(false);
-                        switchMorado.setChecked(false);
-
-                    } else {
-
-                        TEMA = R.style.Theme_PFC;
-                        guardarEnSheredPreferences("#FF000000", "#273036", "#FFFFFF", TEMA, SELECCIONADO);
-                        setTheme(TEMA);
-                        cambiarColor("#FF000000", "#273036", "#FFFFFF");
-                    }
-                }
-            });
-            leerSharedPreferences();
-
-            /*if(switchAzul.isChecked()){
-                switchAzul.setChecked(SELECCIONADO);
-
-            }else{
-                switchAzul.setChecked(false);
+    // Desactiva todos los switches
+    public void disableAllSwitchs(){
+        // Recorro cada uno de los switch y proceso cada elemento con un consumidor (Java 8)
+        // Es igual que si hago un for(SwitchMaterial s: getSwitchs() )
+        getSwitchs().forEach(new Consumer<SwitchMaterial>() {
+            @Override
+            public void accept(SwitchMaterial switchMaterial) {
+                switchMaterial.setChecked(false);
             }
-            if(switchRojo.isChecked()){
-                switchRojo.setChecked(SELECCIONADO);
+        });
+    }
 
-            } else{
-                switchRojo.setChecked(false);
-            }
-            if(switchVerde.isChecked()){
-                switchVerde.setChecked(SELECCIONADO);
+    public void initSwitch(){
 
-            } else {
-                switchVerde.setChecked(false);
-            }
-            if(switchMorado.isChecked()){
-                switchMorado.setChecked(SELECCIONADO);
+        tv_cambioColorApp = findViewById(R.id.tv_cambioColorApp);
+        switchAzul = findViewById(R.id.switch_azul);
+        switchRojo = findViewById(R.id.switch_rojo);
+        switchVerde = findViewById(R.id.switch_verde);
+        switchMorado = findViewById(R.id.switch_morado);
+        switchNegro = findViewById(R.id.switch_negro);
+        disableAllSwitchs();
+    }
 
-            } else {
-                switchMorado.setChecked(false);
-            }
-            if(switchNegro.isChecked()){
-                switchNegro.setChecked(SELECCIONADO);
+    public List<SwitchMaterial> getSwitchs(){
 
-            } else{
-                switchNegro.setChecked(false);
-            }*/
+        List<SwitchMaterial> colorSwitch = new ArrayList<>();
+
+        colorSwitch.addAll(
+                // Convierto el array a lista (la lista es un collectionable)
+                Arrays.asList(
+                        // Array de materiales
+                        new SwitchMaterial[]{switchAzul,
+                                switchRojo,
+                                switchVerde,
+                                switchMorado,
+                                switchNegro
+                        }
+                )
+        );
+
+        return colorSwitch;
+
+    }
+
+    public void setPreviousCheckedSwitch(){
+        getSwitchs().get(ColorConfigurator.getInstance().getCheckedSwitch(this)).setChecked(true);
+    }
+
+    public void selectTheme(){
+
+        // Controla que solo pueda haber 1 activo
+        Context c = this;
+        for(int i = 0; i < getSwitchs().size(); i++){
+            SwitchMaterial s = getSwitchs().get(i);
+            int temporalPosicionSwitch = i;
+            s.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
+                    if(!isChecked){
+                        System.out.println("Se ha desactivad: " + temporalPosicionSwitch);
+                        int TEMA = R.style.Theme_PFC;
+                        Resources.Theme theme = c.getTheme();
+                        c.setTheme(TEMA);
+                        ColorConfigurator.getInstance().applyColorFromSwitches(c, getSupportActionBar(), theme, TEMA, getSwitchs(), tv_cambioColorApp );
+                    }
+
+                    if(isChecked){
+                        // Se activa i
+                        s.setChecked(true);
+                        ColorConfigurator.getInstance().saveCheckedSwitch(c, temporalPosicionSwitch);
+
+                        // Desactivo los demás
+                        for(int j = 0; j < getSwitchs().size(); j++){
+
+
+                            // Desactivo los demás
+                            if(temporalPosicionSwitch !=j){
+                                getSwitchs().get(j).setChecked(false);
+                            }
+                        }
+
+                        int TEMA = R.style.Theme_Azul;
+                        switch(temporalPosicionSwitch){
+                            case 0:
+                                TEMA = R.style.Theme_Azul;
+                                break;
+                            case 1:
+                                TEMA = R.style.Theme_Rojo;
+                                break;
+                            case 2:
+                                TEMA = R.style.Theme_Verde;
+                                break;
+                            case 3:
+                                TEMA = R.style.Theme_Morado;
+                                break;
+                            case 4:
+                                TEMA = R.style.Theme_PFC;
+                                break;
+                            default:
+                                TEMA = R.style.Theme_PFC;
+                                break;
+                        }
+
+                        System.out.println("Aplico el tema: " + TEMA);
+                        System.out.println("Se ha pulsado el swith: " + temporalPosicionSwitch);
+                        // Aplico el tema TEMA
+                        /*TypedValue typedValue = new TypedValue();
+                        Resources.Theme theme = c.getTheme();
+                        theme.resolveAttribute(TEMA, typedValue, true);*/
+                        Resources.Theme theme = c.getTheme();
+                        c.setTheme(TEMA);
+                        ColorConfigurator.getInstance().applyColorFromSwitches(c, getSupportActionBar(), theme, TEMA, getSwitchs(),tv_cambioColorApp );
+
+                    }
+                }
+
+            });
         }
-    }
-
-    public void guardarEnSheredPreferences(String colorApp, String colorPrimary, String backgraund, int tema, boolean checked){
-
-        preferencias = PersonalizacionActivity.this.getSharedPreferences(PREF_FICHERO, Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = preferencias.edit();
-
-        editor.putString(COLOR_APP, colorApp);
-        editor.putString(COLOR_PRIMARY, colorPrimary);
-        editor.putString(BACKGRAUND, backgraund);
-        editor.putInt(THEME, tema);
-        editor.putBoolean(CHECKED, checked);
-        editor.apply();
-    }
-
-    public void leerSharedPreferences(){
-
-        SharedPreferences preferencias = this.getSharedPreferences(PREF_FICHERO, Context.MODE_PRIVATE);
-        String colorApp = preferencias.getString(COLOR_APP, "#FF000000");
-        getWindow().setStatusBarColor(Color.parseColor(colorApp));
-
-        String colorPrimary = preferencias.getString(COLOR_PRIMARY,"#273036");
-        getSupportActionBar().setBackgroundDrawable(new ColorDrawable(Color.parseColor(colorPrimary)));
-        getWindow().setNavigationBarColor(Color.parseColor(colorPrimary));
-
-        String backgraund = preferencias.getString(BACKGRAUND,"#FFFFFF");
-        getWindow().setBackgroundDrawable(new ColorDrawable(Color.parseColor(backgraund)));
-
-        boolean checked = preferencias.getBoolean(CHECKED,SELECCIONADO);
-
-        if(switchAzul.isChecked()){
-            switchAzul.setChecked(checked);
-            switchRojo.setChecked(false);
-            switchVerde.setChecked(false);
-            switchMorado.setChecked(false);
-            switchNegro.setChecked(false);
-
-        } else if(switchRojo.isChecked()){
-            switchAzul.setChecked(false);
-            switchRojo.setChecked(checked);
-            switchVerde.setChecked(false);
-            switchMorado.setChecked(false);
-            switchNegro.setChecked(false);
-
-        } else if(switchVerde.isChecked()){
-            switchAzul.setChecked(false);
-            switchRojo.setChecked(false);
-            switchVerde.setChecked(checked);
-            switchMorado.setChecked(false);
-            switchNegro.setChecked(false);
-
-        } else if(switchMorado.isChecked()){
-            switchAzul.setChecked(false);
-            switchRojo.setChecked(false);
-            switchVerde.setChecked(false);
-            switchMorado.setChecked(checked);
-            switchNegro.setChecked(false);
-
-        } else if(switchNegro.isChecked()){
-            switchAzul.setChecked(false);
-            switchRojo.setChecked(false);
-            switchVerde.setChecked(false);
-            switchMorado.setChecked(false);
-            switchNegro.setChecked(checked);
-        }
-    }
-
-    public void eliminarDatosSheredPreferences(){
-
-        SharedPreferences preferencias = this.getSharedPreferences(PREF_FICHERO, Context.MODE_PRIVATE);
-        preferencias.edit().remove(COLOR_APP).apply();
-        preferencias.edit().remove(COLOR_PRIMARY).apply();
-        preferencias.edit().remove(BACKGRAUND).apply();
     }
 
     public void onBackPressed() {
 
         Intent intent = new Intent(PersonalizacionActivity.this, ActivityNavigationDrawer.class);
         intent.addCategory(Intent.CATEGORY_HOME);
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
         overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
     }

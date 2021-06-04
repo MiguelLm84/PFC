@@ -2,22 +2,18 @@ package com.miguel_lm.pfc.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
-import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+
+import androidx.fragment.app.Fragment;
+
 import com.miguel_lm.pfc.R;
 
 public class FragmentGestion extends Fragment {
 
     ImageButton btn_notificacion_individual,btn_recordatorios,btn_campanhas,btn_personalizacion_app,bt_volver_gestion,btn_juntaDirectiva;
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        getActivity().setTheme(PersonalizacionActivity.TEMA);
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -34,7 +30,7 @@ public class FragmentGestion extends Fragment {
 
         btn_notificacion_individual.setOnClickListener(v -> accederActivityNotificacion());
 
-        btn_recordatorios.setOnClickListener(v -> accederActivityNotificacion());
+        btn_recordatorios.setOnClickListener(v -> accederActivityNotificacionPorSegmentos());
 
         btn_campanhas.setOnClickListener(v -> accederActivityNotificacionPorSegmentos());
 
@@ -57,7 +53,7 @@ public class FragmentGestion extends Fragment {
 
     public void accederActivityNotificacionPorSegmentos(){
 
-        Intent intent = new Intent(getContext(), WebViewActivity.class);
+        Intent intent = new Intent(getContext(), NotificacionTopicActivity.class);
         startActivity(intent);
         getActivity().finish();
         getActivity().overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
@@ -83,17 +79,8 @@ public class FragmentGestion extends Fragment {
 
         Intent intent = new Intent(getContext(), ActivityNavigationDrawer.class);
         intent.addCategory(Intent.CATEGORY_HOME);
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
         getActivity().overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
-
-        /*FragmentManager fragmentManager = getChildFragmentManager();
-        transaction = fragmentManager.beginTransaction();
-        transaction.add(R.id.FragmentLayoutLista, fragInfo, null).commit();
-
-
-        Fragment fragGestion = new FragmentGestion();
-
-        getChildFragmentManager().beginTransaction().add(R.id.FrameLayoutGestion,fragGestion).setCustomAnimations(R.anim.fade_in, R.anim.fade_out).commit();*/
     }
 }

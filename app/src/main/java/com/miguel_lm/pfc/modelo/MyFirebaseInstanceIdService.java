@@ -1,4 +1,4 @@
-package com.miguel_lm.pfc.ui;
+package com.miguel_lm.pfc.modelo;
 
 import android.util.Log;
 

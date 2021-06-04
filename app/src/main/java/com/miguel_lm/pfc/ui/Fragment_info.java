@@ -2,17 +2,22 @@ package com.miguel_lm.pfc.ui;
 
 import android.app.DatePickerDialog;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
-import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
+
+import com.google.android.material.switchmaterial.SwitchMaterial;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -23,9 +28,12 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.miguel_lm.pfc.R;
 import com.miguel_lm.pfc.modelo.Usuario;
+import com.miguel_lm.pfc.singletons.FotoPerfilProvider;
+
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
+
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class Fragment_info extends Fragment {
@@ -34,6 +42,7 @@ public class Fragment_info extends Fragment {
     TextView tv_numSocio,tv_nombre, tv_ap1, tv_ap2, tv_fechaNaci, tv_telefono, tv_email, tv_password;
     Button bt_aceptar, btn_guardar;
     ImageView btn_eliminarUser, btn_editar;
+    SwitchMaterial switch_cuota;
     CircleImageView fotoPerfil;
     DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
     FirebaseAuth mAuth = FirebaseAuth.getInstance();
@@ -46,6 +55,7 @@ public class Fragment_info extends Fragment {
     String telf = "";
     String mail = "";
     String psswd = "";
+    View root;
 
     public Fragment_info(Usuario usuario) {
 
@@ -57,7 +67,21 @@ public class Fragment_info extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View root = inflater.inflate(R.layout.fragment_info, container, false);
+        root = inflater.inflate(R.layout.fragment_info, container, false);
+
+        init();
+        mostrarDatosUser(usuario);
+        switchSeleccion();
+        bt_aceptar.setOnClickListener(v -> aceptarInfo());
+        btn_editar.setOnClickListener(v -> editarInfo());
+        btn_eliminarUser.setOnClickListener(v -> eliminarInfo());
+        if(FotoPerfilProvider.fotoPerfil!=null) {
+            fotoPerfil.setImageBitmap(Bitmap.createScaledBitmap(FotoPerfilProvider.fotoPerfil, 100, 100, false));
+        }
+        return root;
+    }
+
+    public void init(){
 
         tv_numSocio = root.findViewById(R.id.ed_numSocio_infoUser);
         tv_nombre = root.findViewById(R.id.ed_nombre_infoUser);
@@ -68,17 +92,11 @@ public class Fragment_info extends Fragment {
         tv_email = root.findViewById(R.id.ed_correo_infoUser);
         tv_password = root.findViewById(R.id.ed_Password_infoUser);
         fotoPerfil = root.findViewById(R.id.foto_perfil);
+        switch_cuota = root.findViewById(R.id.switch_cuota);
         bt_aceptar = root.findViewById(R.id.bt_aceptar_infoUser);
         btn_guardar = root.findViewById(R.id.btn_guardar_infoUser);
         btn_eliminarUser = root.findViewById(R.id.btn_eliminar_infoUser);
         btn_editar = root.findViewById(R.id.btn_editar_infoUser);
-
-        mostrarDatosUser(usuario);
-        bt_aceptar.setOnClickListener(v -> aceptarInfo());
-        btn_editar.setOnClickListener(v -> editarInfo());
-        btn_eliminarUser.setOnClickListener(v -> eliminarInfo());
-
-        return root;
     }
 
     public void mostrarDatosUser(Usuario usuario){
@@ -94,7 +112,6 @@ public class Fragment_info extends Fragment {
             String email = getArguments().getString("email");
             String password = getArguments().getString("password");
 
-
             tv_numSocio.setText(numSocio);
             tv_nombre.setText(nombre);
             tv_ap1.setText(ap1);
@@ -108,6 +125,45 @@ public class Fragment_info extends Fragment {
         } else {
             Toast.makeText(getContext(),"ERROR, los datos no se han podido recuperar.",Toast.LENGTH_SHORT).show();
         }
+    }
+
+    public void switchSeleccion(){
+
+        switch_cuota.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+
+                if(switch_cuota.isChecked()){
+
+                    obtenerCondirmacionCuotaPagada();
+                    guardarSeleccionSwitchEnPreferences(switch_cuota.isChecked());
+
+                } else {
+                    Toast.makeText(getContext(),"ERROR, los datos no se han podido recuperar.",Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+    }
+
+    public void obtenerCondirmacionCuotaPagada(){
+
+        mDatabase.child("Users").addValueEventListener(new ValueEventListener() {
+
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+
+    public void guardarSeleccionSwitchEnPreferences(boolean swicthSeleccion){
+
+
     }
 
     public void aceptarInfo(){
@@ -330,7 +386,7 @@ public class Fragment_info extends Fragment {
     public void onBackPressed() {
         Intent intent = new Intent(getContext(), ActivityNavigationDrawer.class);
         intent.addCategory(Intent.CATEGORY_HOME);
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
         getActivity().overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
     }

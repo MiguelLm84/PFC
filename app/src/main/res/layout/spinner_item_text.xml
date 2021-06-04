@@ -14,7 +14,7 @@
     android:paddingStart="16dp"
     android:scrollHorizontally="true"
     android:singleLine="true"
-    android:textColor="?attr/colorPrimary"
+    android:textColor="?attr/colorPrimaryDark"
     android:textSize="14sp"
     app:drawableStartCompat="@drawable/ic_baseline_person"
     tools:ignore="RtlSymmetry" />

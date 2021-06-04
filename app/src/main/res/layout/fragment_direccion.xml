@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/FrameLayoutDireccion"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    tools:context=".ui.ui.direccion.DireccionFragment">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <fragment
+            android:id="@+id/fragment4"
+            android:name="com.miguel_lm.pfc.ui.ui.direccion.MapsFragment"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="50dp"
+            android:layout_marginTop="100dp"
+            android:layout_marginEnd="50dp"
+            android:layout_marginBottom="300dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_titulo_direccion"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="50dp"
+            android:layout_marginTop="32dp"
+            android:fontFamily="@font/amaranth"
+            android:text="@string/direccion_titulo"
+            android:textColor="?attr/colorPrimaryDark"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/fragment4" />
+
+        <TextView
+            android:id="@+id/tv_direccion_sede"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="32dp"
+            android:layout_marginEnd="50dp"
+            android:fontFamily="@font/amaranth"
+            android:text="@string/direccion_sede"
+            android:textColor="?attr/colorPrimaryDark"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/tv_titulo_direccion"
+            app:layout_constraintTop_toBottomOf="@+id/fragment4" />
+
+        <TextView
+            android:id="@+id/tv_titulo_cp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="50dp"
+            android:layout_marginTop="16dp"
+            android:fontFamily="@font/amaranth"
+            android:text="@string/titulo_cp"
+            android:textColor="?attr/colorPrimaryDark"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_titulo_direccion" />
+
+        <TextView
+            android:id="@+id/tv_cp_sede"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="50dp"
+            android:fontFamily="@font/amaranth"
+            android:text="@string/codigoPostal"
+            android:textColor="?attr/colorPrimaryDark"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/tv_titulo_cp"
+            app:layout_constraintTop_toBottomOf="@+id/tv_direccion_sede" />
+
+        <TextView
+            android:id="@+id/tv_titulo_provincia"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="50dp"
+            android:layout_marginTop="16dp"
+            android:fontFamily="@font/amaranth"
+            android:text="@string/titulo_provincia"
+            android:textColor="?attr/colorPrimaryDark"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_titulo_cp" />
+
+        <TextView
+            android:id="@+id/tv_provincia_sede"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="50dp"
+            android:fontFamily="@font/amaranth"
+            android:text="@string/Provincia"
+            android:textColor="?attr/colorPrimaryDark"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/tv_titulo_provincia"
+            app:layout_constraintTop_toBottomOf="@+id/tv_cp_sede" />
+
+        <TextView
+            android:id="@+id/tv_titulo_telefono"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="50dp"
+            android:layout_marginTop="16dp"
+            android:fontFamily="@font/amaranth"
+            android:text="@string/titulo_telefono"
+            android:textColor="?attr/colorPrimaryDark"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_titulo_provincia" />
+
+        <TextView
+            android:id="@+id/tv_telefono_sede"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="50dp"
+            android:fontFamily="@font/amaranth"
+            android:text="@string/telefono_sede"
+            android:textColor="?attr/colorPrimaryDark"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@+id/tv_titulo_telefono"
+            app:layout_constraintTop_toBottomOf="@+id/tv_provincia_sede" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</FrameLayout>

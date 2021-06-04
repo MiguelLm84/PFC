@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="@dimen/nav_header_height"
-    android:background="?attr/colorPrimary"
+    android:background="@drawable/fondo_azul_oscuro_elementos_linea_181182_594"
     android:gravity="bottom"
     android:orientation="vertical"
     android:paddingLeft="@dimen/activity_horizontal_margin"
@@ -11,18 +11,6 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:theme="@style/ThemeOverlay.AppCompat.Dark">
-
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="60dp"
-        android:layout_height="70dp"
-        android:adjustViewBounds="false"
-        android:background="@drawable/ic_launcher"
-        android:contentDescription="@string/nav_header_desc"
-        android:paddingTop="@dimen/nav_header_vertical_spacing"
-        android:scaleType="centerCrop"
-        android:visibility="gone"
-        app:srcCompat="@drawable/round_background_icono" />
 
     <androidx.cardview.widget.CardView
         android:layout_width="60dp"
@@ -46,6 +34,7 @@
         android:paddingTop="@dimen/nav_header_vertical_spacing"
         android:text="@string/nav_header_title"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+        android:textColor="@color/white"
         android:textSize="14sp" />
 
     <TextView
@@ -54,6 +43,7 @@
         android:layout_height="wrap_content"
         android:fontFamily="@font/amaranth"
         android:text="@string/nav_header_subtitle"
+        android:textColor="@android:color/secondary_text_dark"
         android:textSize="14sp" />
 
 </LinearLayout>

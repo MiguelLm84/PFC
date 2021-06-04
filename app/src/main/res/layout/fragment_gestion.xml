@@ -10,7 +10,8 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/white">
 
         <ImageButton
             android:id="@+id/bt_volver_gestion"
@@ -21,7 +22,7 @@
             android:background="@null"
             android:contentDescription="@string/todo"
             android:src="@drawable/flecha"
-            android:tint="?attr/colorPrimary"
+            android:tint="?attr/colorPrimaryDark"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 

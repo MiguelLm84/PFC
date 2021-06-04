@@ -3,10 +3,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.ui.facebook.WebViewFacebookFragment">
+    tools:context=".ui.ui.youtube.YouTubeFragment">
 
     <WebView
-        android:id="@+id/WebViewFacebook"
+        android:id="@+id/WebViewYouTube"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 </FrameLayout>

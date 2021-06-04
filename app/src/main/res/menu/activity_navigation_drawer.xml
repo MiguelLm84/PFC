@@ -1,19 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
     <item
         android:id="@+id/accionAdmin"
         android:icon="@drawable/ic_baseline_admin"
         android:title="@string/admin"
         app:showAsAction="always" />
     <item
-        android:id="@+id/action_settings"
-        android:orderInCategory="100"
-        android:title="@string/action_settings"
-        app:showAsAction="never" />
+        android:id="@+id/light_dark_theme"
+        android:icon="@drawable/sun"
+        android:title="@string/sun"
+        app:showAsAction="always" />
     <item
         android:id="@+id/accionCerrarSesion"
         android:icon="@drawable/ic_baseline_exit_to_app_24"
         android:title="@string/titulo_salir_sesion"
-        app:showAsAction="ifRoom|ifRoom" />
+        app:showAsAction="always" />
 </menu>

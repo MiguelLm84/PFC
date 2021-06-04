@@ -1,6 +1,7 @@
 package com.miguel_lm.pfc.ui;
 
 import android.content.Intent;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -8,8 +9,12 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -18,18 +23,14 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.messaging.FirebaseMessaging;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 import com.miguel_lm.pfc.R;
 import com.miguel_lm.pfc.modelo.Usuario;
-import java.security.InvalidKeyException;
-import java.security.NoSuchAlgorithmException;
+import com.miguel_lm.pfc.singletons.ColorConfigurator;
+import com.miguel_lm.pfc.singletons.FotoPerfilProvider;
+
 import java.util.Objects;
-import javax.crypto.BadPaddingException;
-import javax.crypto.Cipher;
-import javax.crypto.IllegalBlockSizeException;
-import javax.crypto.KeyGenerator;
-import javax.crypto.NoSuchPaddingException;
-import javax.crypto.SecretKey;
-import javax.crypto.spec.SecretKeySpec;
 
 public class AuthActivity extends AppCompatActivity {
 
@@ -43,17 +44,23 @@ public class AuthActivity extends AppCompatActivity {
     FirebaseAuth  mAuth = FirebaseAuth.getInstance();
     FirebaseUser  user = mAuth.getCurrentUser();
     DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
-    String passwordEncriptado = "";
-
-    private final static String AES ="AES";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        ColorConfigurator.getInstance().readThemeNoBackgroundDrawable(this, getSupportActionBar());
         setContentView(R.layout.activity_auth);
         overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
 
         init();
+    }
+
+    @Override
+    public void onResume() {
+
+        super.onResume();
+        ColorConfigurator.getInstance().readThemeNoBackgroundDrawable(this, getSupportActionBar());
+        //ColorConfigurator.getInstance().readTheme(this, getSupportActionBar());
     }
 
     @Override
@@ -76,10 +83,31 @@ public class AuthActivity extends AppCompatActivity {
     private void updateUI(FirebaseUser user) {
 
         if(user != null){
+
+
+            StorageReference dondeEstaLaImagen = FirebaseStorage.getInstance().getReference("profileImages/"+ FirebaseAuth.getInstance().getUid());
+            dondeEstaLaImagen.getBytes(1024*1024*4).addOnSuccessListener(new OnSuccessListener<byte[]>() {
+                @Override
+                public void onSuccess(byte[] bytes) {
+                    System.out.println("He encontrado la imagen y la vamos a meter en el hueco del image view");
+                    FotoPerfilProvider.fotoPerfil = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+                    //Bitmap bmp = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+
+                    //holder.foto.setImageBitmap(Bitmap.createScaledBitmap(bmp, holder.foto.getWidth(), holder.foto.getHeight(), false));
+
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    System.out.println("No se pudo abrir el socker");
+                }
+            });
+
             Intent intent = new Intent(AuthActivity.this, ActivityNavigationDrawer.class);
             startActivity(intent);
             finish();
             overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+            //obtenerToken();
         }
     }
 
@@ -95,7 +123,7 @@ public class AuthActivity extends AppCompatActivity {
                 String token = task.getResult();
                 Log.d("TOKEN_ID", token);
 
-                mDatabase.child("Users");
+                mDatabase = FirebaseDatabase.getInstance().getReference().child("Users");
                 mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
 
                     @Override
@@ -106,31 +134,30 @@ public class AuthActivity extends AppCompatActivity {
                             for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
 
                                 String id = dataSnapshot.getKey();
-                                if(id != null){
-                                    Usuario usuario = dataSnapshot.getValue(Usuario.class);
+                                assert id != null;
 
-                                    String email = usuario.getEmail();
-                                    String emailUser = user.getEmail();
+                                Usuario usuario = dataSnapshot.getValue(Usuario.class);
+                                assert usuario != null;
+                                String email = usuario.getEmail();
+                                assert user != null;
+                                String emailUser = user.getEmail();
 
-                                    if(user != null && email != null){
-                                        DatabaseReference database = mDatabase.child(id);
-                                        database.addListenerForSingleValueEvent(new ValueEventListener() {
+                                DatabaseReference database = mDatabase.child(id);
+                                database.addListenerForSingleValueEvent(new ValueEventListener() {
 
-                                            @Override
-                                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                    @Override
+                                    public void onDataChange(@NonNull DataSnapshot snapshot) {
 
-                                                if (email.equals(emailUser)) {
-                                                    database.child("Token").child(Objects.requireNonNull(mAuth.getUid())).setValue(token);
-                                                }
-                                            }
-
-                                            @Override
-                                            public void onCancelled(@NonNull DatabaseError error) {
-
-                                            }
-                                        });
+                                        if (email.equals(emailUser)) {
+                                            database.child("Token").child(Objects.requireNonNull(mAuth.getUid())).setValue(token);
+                                        }
                                     }
-                                }
+
+                                    @Override
+                                    public void onCancelled(@NonNull DatabaseError error) {
+
+                                    }
+                                });
                             }
                         }
                     }
@@ -142,41 +169,6 @@ public class AuthActivity extends AppCompatActivity {
                 });
             }
         });
-    }
-
-    private String encriptar(String password) throws Exception {
-
-        KeyGenerator keyGenerator = KeyGenerator.getInstance(AES);
-        keyGenerator.init(128);
-        SecretKey secretKey = keyGenerator.generateKey();
-        byte[] bytesSecretKey = secretKey.getEncoded();
-        SecretKeySpec secretKeySpec = new SecretKeySpec(bytesSecretKey,AES);
-        Cipher cipher = Cipher.getInstance(AES);
-        cipher.init(Cipher.ENCRYPT_MODE,secretKeySpec);
-        byte[] passwordEncript = cipher.doFinal(password.getBytes());
-        String pswd = new String(passwordEncript);
-        Log.d("PASSWORD_ENCRIPTADO", pswd);
-
-        ed_password.setText(pswd);
-        passwordEncriptado = ed_password.getText().toString();
-
-        return passwordEncriptado;
-    }
-
-    public String desemcriptarPassword(String password) throws NoSuchAlgorithmException, NoSuchPaddingException, InvalidKeyException, BadPaddingException, IllegalBlockSizeException {
-
-        KeyGenerator keyGenerator = KeyGenerator.getInstance(AES);
-        keyGenerator.init(128);
-        SecretKey secretKey = keyGenerator.generateKey();
-        byte[] bytesSecretKey = secretKey.getEncoded();
-        SecretKeySpec secretKeySpec = new SecretKeySpec(bytesSecretKey,AES);
-        Cipher cipher = Cipher.getInstance(AES);
-        cipher.init(Cipher.DECRYPT_MODE,secretKeySpec);
-        byte[] passwordDesencript = cipher.doFinal(password.getBytes());
-        String pswd = new String(passwordDesencript);
-        Log.d("PASSWORD_DESENCRIPTADO", pswd);
-
-        return pswd;
     }
 
     public void OnClickRegistrar(View view){
@@ -197,13 +189,27 @@ public class AuthActivity extends AppCompatActivity {
 
     public void OnClickAcceder(View view){
 
-        login();
+        login(new OnLoginSuccess() {
+            @Override
+            public void onLoginCompleted() {
+                obtenerToken();
+            }
+        });
     }
 
-    public void login(){
+    public void login(OnLoginSuccess ols){
+        // Leer del sahred prefference
+        // SI la lecuta del share es nula
+        // y si no es nula
 
-        email = ed_email.getText().toString();
-        password = ed_password.getText().toString();
+
+
+        email = ed_email.getText().toString(); // ""
+        password = ed_password.getText().toString(); // ""
+
+        // Si no es nula la lectura del sahred pereference
+        // email = lecutra.email
+        // pass = lecuta.password
 
         if(email.isEmpty() && password.isEmpty()){
             Toast.makeText(AuthActivity.this, "Error, los campos no pueden estar vacios", Toast.LENGTH_SHORT).show();
@@ -227,8 +233,11 @@ public class AuthActivity extends AppCompatActivity {
 
                             if(password.length() >= 6){
 
+
+
+
+                                ols.onLoginCompleted();
                                 comprobarIsAdmin(email);
-                                obtenerToken();
 
                             } else {
                                 Toast.makeText(AuthActivity.this, "La contarseña debe tener al menos 6 caracteres.", Toast.LENGTH_SHORT).show();
@@ -267,9 +276,12 @@ public class AuthActivity extends AppCompatActivity {
                         Usuario user = dataSnapshot.getValue(Usuario.class);
 
                         if (user != null && email.equals(user.getEmail())) {
+
                             String rol = user.getRol();
                             boolean admin = user.isAdmin();
 
+                            System.out.println("Desde auth envio" + rol);
+                            System.out.println("Desde auth envio" + admin);
                             Intent intent = new Intent(AuthActivity.this, ActivityNavigationDrawer.class);
                             intent.putExtra("rol", rol);
                             intent.putExtra("isAdmin", admin);

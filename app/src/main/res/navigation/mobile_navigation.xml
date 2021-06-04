@@ -13,32 +13,65 @@
 
     <fragment
         android:id="@+id/Facebook"
-        android:name="com.miguel_lm.pfc.ui.ui.facebook.WebViewFacebookFragment"
+        android:name="com.miguel_lm.pfc.ui.ui.facebook.FacebookFragment"
         android:label="Facebook"
-        tools:layout="@layout/fragment_web_view_facebook" />
+        tools:layout="@layout/fragment_facebook" >
+        <action
+            android:id="@+id/action_Facebook_to_nav_eventos"
+            app:destination="@id/nav_eventos" />
+    </fragment>
     <fragment
         android:id="@+id/Perfil"
         android:name="com.miguel_lm.pfc.ui.ui.perfil.PerfilFragment"
         android:label="@string/perfil"
-        tools:layout="@layout/fragment_perfil" />
+        tools:layout="@layout/fragment_perfil" >
+        <action
+            android:id="@+id/action_Perfil_to_nav_eventos"
+            app:destination="@id/nav_eventos" />
+    </fragment>
     <fragment
         android:id="@+id/Twitter"
-        android:name="com.miguel_lm.pfc.ui.ui.twitter.WebViewTwitterFragment"
+        android:name="com.miguel_lm.pfc.ui.ui.twitter.TwitterFragment"
         android:label="Twitter"
-        tools:layout="@layout/fragment_web_view_twitter" />
+        tools:layout="@layout/fragment_twitter" >
+        <action
+            android:id="@+id/action_Twitter_to_nav_eventos"
+            app:destination="@id/nav_eventos" />
+    </fragment>
     <fragment
         android:id="@+id/Instagram"
-        android:name="com.miguel_lm.pfc.ui.ui.instagram.WebViewInstagramFragment"
+        android:name="com.miguel_lm.pfc.ui.ui.instagram.InstagramFragment"
         android:label="Instagram"
-        tools:layout="@layout/fragment_web_view_instagram" />
+        tools:layout="@layout/fragment_instagram" >
+        <action
+            android:id="@+id/action_Instagram_to_nav_eventos"
+            app:destination="@id/nav_eventos" />
+    </fragment>
     <fragment
         android:id="@+id/YouTube"
-        android:name="com.miguel_lm.pfc.ui.ui.youtube.WebViewYouTubeFragment"
+        android:name="com.miguel_lm.pfc.ui.ui.youtube.YouTubeFragment"
         android:label="YouTube"
-        tools:layout="@layout/fragment_web_view_you_tube" />
+        tools:layout="@layout/fragment_youtube" >
+        <action
+            android:id="@+id/action_YouTube_to_nav_eventos"
+            app:destination="@id/nav_eventos" />
+    </fragment>
     <fragment
         android:id="@+id/Organigrama"
         android:name="com.miguel_lm.pfc.ui.ui.organigrama.OrganigramaFragment"
         android:label="@string/organigrama"
-        tools:layout="@layout/fragment_organigrama" />
+        tools:layout="@layout/fragment_organigrama" >
+        <action
+            android:id="@+id/action_Organigrama_to_nav_eventos"
+            app:destination="@id/nav_eventos" />
+    </fragment>
+    <fragment
+        android:id="@+id/Direccion"
+        android:name="com.miguel_lm.pfc.ui.ui.direccion.DireccionFragment"
+        android:label="@string/direccion"
+        tools:layout="@layout/fragment_direccion">
+        <action
+            android:id="@+id/action_direccionFragment_to_nav_eventos"
+            app:destination="@id/nav_eventos" />
+    </fragment>
 </navigation>

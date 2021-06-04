@@ -6,10 +6,12 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
 import com.google.android.material.bottomappbar.BottomAppBar;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
@@ -23,12 +25,11 @@ import com.google.firebase.database.ValueEventListener;
 import com.miguel_lm.pfc.R;
 import com.miguel_lm.pfc.modelo.Evento;
 import com.miguel_lm.pfc.modelo.Usuario;
-import com.miguel_lm.pfc.ui.ActivityNavigationDrawer;
 import com.miguel_lm.pfc.ui.AdapterEventos;
 import com.miguel_lm.pfc.ui.AddEventosActivity;
-import com.miguel_lm.pfc.ui.AuthActivity;
 import com.miguel_lm.pfc.ui.InfoEventosActivity;
 import com.miguel_lm.pfc.ui.SeleccionarEvento;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -39,24 +40,23 @@ public class EventoFragment extends Fragment implements SeleccionarEvento {
     DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
     BottomAppBar bottomAppBarEventos;
     FloatingActionButton fab_eventos;
+    RecyclerView recyclerViewEventos;
     String id = "";
     String titulo = "";
     String body = "";
     String fecha = "";
     String hora = "";
     Evento evento;
-    Bundle bundle;
     FirebaseAuth mAuth = FirebaseAuth.getInstance();
     FirebaseUser user = mAuth.getCurrentUser();
     boolean emailVerified;
+    View root;
+
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View root = inflater.inflate(R.layout.fragment_eventos, container, false);
-
-        fab_eventos = root.findViewById(R.id.fab_eventos);
-        bottomAppBarEventos = root.findViewById(R.id.bottomAppBarEventos);
-        RecyclerView recyclerViewEventos = root.findViewById(R.id.RecycleViewEventos);
         comprobarIsAdmin();
+        root = inflater.inflate(R.layout.fragment_eventos, container, false);
+        init();
 
         recyclerViewEventos.setLayoutManager(new LinearLayoutManager(getContext()));
         listaEventos = new ArrayList<>();
@@ -69,6 +69,20 @@ public class EventoFragment extends Fragment implements SeleccionarEvento {
         return root;
     }
 
+    @Override
+    public void onResume() {
+
+        super.onResume();
+       //ColorConfigurator.getInstance().readTheme(getContext(), getSupportActionBar());
+    }
+
+    public void init(){
+
+        fab_eventos = root.findViewById(R.id.fab_eventos);
+        bottomAppBarEventos = root.findViewById(R.id.bottomAppBarEventos);
+        recyclerViewEventos = root.findViewById(R.id.RecycleViewEventos);
+    }
+
     public void comprobarIsAdmin() {
 
         if (user != null) {
@@ -76,7 +90,7 @@ public class EventoFragment extends Fragment implements SeleccionarEvento {
 
             emailVerified = user.isEmailVerified();
 
-            if (!emailUser.isEmpty()) {
+            if (emailUser != null) {
                 mDatabase.child("Users").addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -90,9 +104,9 @@ public class EventoFragment extends Fragment implements SeleccionarEvento {
                                 if (user != null && emailUser.equals(user.getEmail())) {
                                     String rol = user.getRol();
                                     boolean admin = user.isAdmin();
-                                    if(rol.equals("user") && !admin){
-                                        bottomAppBarEventos.setVisibility(View.GONE);
-                                        fab_eventos.setVisibility(View.GONE);
+                                    if(!rol.equals("user") && admin){
+                                        bottomAppBarEventos.setVisibility(View.VISIBLE);
+                                        fab_eventos.setVisibility(View.VISIBLE);
                                     }
                                 }
                             }

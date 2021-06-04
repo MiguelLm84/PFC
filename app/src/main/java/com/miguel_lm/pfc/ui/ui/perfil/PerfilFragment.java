@@ -2,10 +2,8 @@ package com.miguel_lm.pfc.ui.ui.perfil;
 
 import android.app.DatePickerDialog;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +11,10 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -23,20 +25,25 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.miguel_lm.pfc.R;
 import com.miguel_lm.pfc.modelo.Usuario;
+import com.miguel_lm.pfc.singletons.FotoPerfilProvider;
 import com.miguel_lm.pfc.ui.ActivityNavigationDrawer;
 import com.miguel_lm.pfc.ui.AuthActivity;
+
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
 
 public class PerfilFragment extends Fragment {
 
+    // upper Camel Case miImagenView
+    // snack case <--> kebab_case mi_imagen_view
+
     TextView tv_numSocio,tv_nombre, tv_ap1, tv_ap2, tv_fechaNaci, tv_telefono, tv_email, tv_password;
     Button bt_aceptar, btn_guardar;
-    ImageView btn_eliminarUser, btn_editar;
-    DatabaseReference mDatabase;
-    FirebaseAuth mAuth;
-    FirebaseUser user;
+    ImageView btn_eliminarUser, btn_editar, btn_fotoPerfil;
+    DatabaseReference  mDatabase = FirebaseDatabase.getInstance().getReference();
+    FirebaseAuth mAuth = FirebaseAuth.getInstance();
+    FirebaseUser  user = mAuth.getCurrentUser();
     String numSoci = "";
     String name = "";
     String apell1 = "";
@@ -45,12 +52,65 @@ public class PerfilFragment extends Fragment {
     String telf = "";
     String mail = "";
     String psswd = "";
+    View root;
 
+    public static final int PICK_IMAGE = 1;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View root = inflater.inflate(R.layout.fragment_perfil, container, false);
-
+        root = inflater.inflate(R.layout.fragment_perfil, container, false);
         getActivity().overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+
+        init();
+        if(FotoPerfilProvider.fotoPerfil!=null){
+            btn_fotoPerfil.setImageBitmap(Bitmap.createScaledBitmap(FotoPerfilProvider.fotoPerfil, 100,100, false));
+        }
+
+        /*StorageReference dondeEstaLaImagen = FirebaseStorage.getInstance().getReference("profileImages/"+FirebaseAuth.getInstance().getUid());
+        dondeEstaLaImagen.getBytes(1024*1024*4).addOnSuccessListener(new OnSuccessListener<byte[]>() {
+            @Override
+            public void onSuccess(byte[] bytes) {
+                System.out.println("He encontrado la imagen y la vamos a meter en el hueco del image view");
+                Bitmap bmp = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+                btn_fotoPerfil.setImageBitmap(Bitmap.createScaledBitmap(bmp, btn_fotoPerfil.getWidth(), btn_fotoPerfil.getHeight(), false));
+
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                System.out.println("No se pudo abrir el socker");
+            }
+        });*/
+        //dondeEstaLaImagen.getFile(new Uri.parse(FirebaseAuth.getInstance().getUid()));
+
+        mostrarDatosUser();
+
+        btn_eliminarUser.setOnClickListener(v -> onClickEliminar());
+        btn_editar.setOnClickListener(v -> onClickModificar());
+        bt_aceptar.setOnClickListener(v -> onClickAceptar());
+
+
+        btn_fotoPerfil.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                System.out.println("Quiero cambiar la foto de perfil");
+
+                // Creando una intencion implicita
+                // Miguel siempre usa explicitas (Intent t = new Intent(this, AdondeVoy.class)
+                Intent galeria = new Intent();
+                galeria.setType("image/*");
+                galeria.setAction(Intent.ACTION_GET_CONTENT);
+                getActivity().startActivityForResult(Intent.createChooser(galeria, "Selecciona una imagen de perfil"),PICK_IMAGE);
+
+
+            }
+        });
+
+        return root;
+    }
+
+
+
+    public void init(){
 
         tv_numSocio = root.findViewById(R.id.tv_numero_socio);
         tv_nombre = root.findViewById(R.id.tv_nombre);
@@ -65,19 +125,7 @@ public class PerfilFragment extends Fragment {
         btn_editar = root.findViewById(R.id.bt_editar);
         btn_guardar = root.findViewById(R.id.bt_guardar);
 
-        mAuth = FirebaseAuth.getInstance();
-        mDatabase = FirebaseDatabase.getInstance().getReference();
-        user = mAuth.getCurrentUser();
-
-        mostrarDatosUser();
-
-        btn_eliminarUser.setOnClickListener(v -> onClickEliminar());
-
-        btn_editar.setOnClickListener(v -> onClickModificar());
-
-        bt_aceptar.setOnClickListener(v -> onClickAceptar());
-
-        return root;
+        btn_fotoPerfil = root.findViewById(R.id.foto_perfil2);
     }
 
     public void mostrarDatosUser(){
@@ -351,7 +399,7 @@ public class PerfilFragment extends Fragment {
     public void onBackPressed() {
         Intent intent = new Intent(getContext(), ActivityNavigationDrawer.class);
         intent.addCategory(Intent.CATEGORY_HOME);
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
         getActivity().overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
     }

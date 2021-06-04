@@ -16,8 +16,8 @@
     <string name="title_activity_navigation_drawer">ActivityNavigationDrawer</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
-    <string name="nav_header_title">Asociation Manager</string>
-    <string name="nav_header_subtitle">asociation_manager@gmail.com</string>
+    <string name="nav_header_title">Association Manager</string>
+    <string name="nav_header_subtitle">association.manager.pro@gmail.com</string>
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
     <string name="menu_home">Home</string>
@@ -32,8 +32,6 @@
     <string name="bt_guardar">Guardar</string>
     <string name="listado">Listado</string>
     <string name="gestion">Gestión</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="admin">Admin</string>
     <string name="apellido_1">Apellido 1</string>
     <string name="apellido_2">Apellido 2</string>
@@ -59,11 +57,11 @@
     <string name="tesorero">Tesorero</string>
     <string name="vocales">Vocales</string>
     <string name="aceptar">Aceptar</string>
-    <string name="facebook">Facebook</string>
+    <string name="facebook">association.manager.pro</string>
     <string name="perfil">Perfil</string>
-    <string name="twitter">Twitter</string>
-    <string name="instagram">Instagram</string>
-    <string name="youtube">YouTube</string>
+    <string name="twitter">associationman4</string>
+    <string name="instagram">associationmanager</string>
+    <string name="youtube">Association Manager</string>
     <string name="redes_sociales">Redes Sociales</string>
     <string name="direccion">Dirección</string>
     <string name="customizacion_app">Customización App</string>
@@ -81,4 +79,18 @@
     <string name="titulo_hora">h</string>
     <string name="registrar_evento">Registrar Evento</string>
     <string name="detalle_evento">Detalle Evento</string>
+    <string name="preferencias">preferencias</string>
+    <string name="light_dark_theme">light_dark_theme</string>
+    <string name="sun">Sun</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="direccion_titulo">Dirección:</string>
+    <string name="titulo_telefono">Teléfono:</string>
+    <string name="direccion_sede">C/ Los Olmos 34, San Millán</string>
+    <string name="codigoPostal">77890</string>
+    <string name="Provincia">Pontevedra</string>
+    <string name="telefono_sede">600923677</string>
+    <string name="titulo_cp">CP:</string>
+    <string name="titulo_provincia">Provincia:</string>
+    <string name="notificaciones_por_suscripcion">Notificaciones suscripción</string>
 </resources>

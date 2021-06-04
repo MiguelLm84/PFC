@@ -1,8 +1,5 @@
 package com.miguel_lm.pfc.ui;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -10,6 +7,10 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -19,6 +20,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.miguel_lm.pfc.R;
 import com.miguel_lm.pfc.modelo.Usuario;
+import com.miguel_lm.pfc.singletons.ColorConfigurator;
+import com.miguel_lm.pfc.singletons.FotoPerfilProvider;
 
 public class LogoutActivity extends AppCompatActivity {
 
@@ -33,6 +36,7 @@ public class LogoutActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        ColorConfigurator.getInstance().readThemeNoBackgroundDrawable(this, getSupportActionBar());
         setContentView(R.layout.activity_logout);
 
         mAuth = FirebaseAuth.getInstance();
@@ -48,8 +52,15 @@ public class LogoutActivity extends AppCompatActivity {
         mostrarDatosUser();
     }
 
-    public void cerrarSesion(View view){
+    @Override
+    public void onResume() {
 
+        super.onResume();
+        ColorConfigurator.getInstance().readThemeNoBackgroundDrawable(this, getSupportActionBar());
+    }
+
+    public void cerrarSesion(View view){
+        FotoPerfilProvider.fotoPerfil=null;
         mAuth.signOut();
         startActivity(new Intent(LogoutActivity.this, AuthActivity.class));
         finish();
@@ -103,6 +114,22 @@ public class LogoutActivity extends AppCompatActivity {
         }
     }
 
+    /*public String desemcriptarPassword(String password) throws NoSuchAlgorithmException, NoSuchPaddingException, InvalidKeyException, BadPaddingException, IllegalBlockSizeException {
+
+        KeyGenerator keyGenerator = KeyGenerator.getInstance(AES);
+        keyGenerator.init(128);
+        SecretKey secretKey = keyGenerator.generateKey();
+        byte[] bytesSecretKey = secretKey.getEncoded();
+        SecretKeySpec secretKeySpec = new SecretKeySpec(bytesSecretKey,AES);
+        Cipher cipher = Cipher.getInstance(AES);
+        cipher.init(Cipher.DECRYPT_MODE,secretKeySpec);
+        byte[] passwordDesencript = cipher.doFinal(password.getBytes());
+        String pswd = new String(passwordDesencript);
+        Log.d("PASSWORD_DESENCRIPTADO", pswd);
+
+        return pswd;
+    }*/
+
     @Override
     public void onBackPressed(){
 
@@ -121,7 +148,7 @@ public class LogoutActivity extends AppCompatActivity {
 
         Intent intent = new Intent(this, ActivityNavigationDrawer.class);
         intent.addCategory(Intent.CATEGORY_HOME);
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP | Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
     }
 }

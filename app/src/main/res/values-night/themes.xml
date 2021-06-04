@@ -1,17 +1,93 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Theme.PFC" parent="Theme.AppCompat.DayNight.DarkActionBar">
+    <style name="Theme.PFC_DARK" parent="Theme.AppCompat.DayNight.DarkActionBar">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/primary</item>
-        <item name="colorPrimaryVariant">@color/black
-        </item>
-        <item name="colorOnPrimary">@color/primary</item>
+        <item name="colorPrimary">#00C853</item>
+        <item name="colorPrimaryVariant">#00E676</item>
+        <item name="colorOnPrimary">#4CAF50</item>
         <!-- Secondary brand color. -->
-        <item name="colorSecondary">@color/teal_200</item>
-        <item name="colorSecondaryVariant">@color/teal_200</item>
-        <item name="colorOnSecondary">@color/black</item>
+        <item name="colorSecondary">#69F0AE</item>
+        <item name="colorSecondaryVariant">#4CAF50</item>
+        <item name="colorOnSecondary">#00E676</item>
+        <item name="actionBarStyle">@style/ActionBarStyle</item>
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
+        <item name="android:windowBackground">@color/backgroundDarkMode</item>
     </style>
+
+    <style name="ActionBarStyle" parent="Widget.AppCompat.ActionBar">
+        <item name="titleTextStyle">@style/ActionBarTitleTextStyle</item>
+        <item name="background">?attr/colorPrimary</item>
+        <item name="android:textSize">14sp</item>
+        <item name="fontFamily">@font/amaranth</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="ActionBarTitleTextStyle" parent="TextAppearance.AppCompat.Widget.ActionBar.Title">
+        <!--item name="android:fontFamily">@font/russo_one</item-->
+        <item name="android:textSize">20sp</item>
+        <item name="fontFamily">@font/amaranth</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="TitleTextStyle" parent="TextAppearance.AppCompat.Widget.ActionBar.Title">
+        <!--item name="android:fontFamily">@font/russo_one</item-->
+        <item name="android:textSize">14sp</item>
+        <item name="fontFamily">@font/amaranth</item>
+        <item name="android:textColor">?attr/colorPrimary</item>
+    </style>
+
+    <style name="SplashTheme" parent="Theme.AppCompat.NoActionBar">
+        <item name="android:windowContentTransitions">true</item>
+        <!--item name="android:windowEnterTransition">@transition/explode_transition</item-->
+        <!--item name="android:windowExitTransition">@transition/explode_transition</item-->
+    </style>
+
+    <style name="Theme.PFC.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="Theme.PFC.EtiquetaSeleccion">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="textAllCaps">true</item>
+        <!--item name="tabTextAppearance">@color/primary</item>
+        <item name="tabSelectedTextColor">?attr/colorPrimary</item-->
+        <item name="tabTextAppearance">@color/white</item>
+        <item name="tabSelectedTextColor">@color/white</item>
+        <item name="fontFamily">@font/amaranth</item>
+    </style>
+    <style name="Theme.PFC.Spinner">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">?attr/colorPrimary</item>
+        <item name="android:textStyle">bold</item>
+        <item name="fontFamily">@font/amaranth</item>
+        <item name="android:windowBackground">@drawable/round_border</item>
+        <!--item name="android:textAlignment">viewStart</item-->
+    </style>
+    <style name="Theme.PFC.ActionBarActive">
+        <item name="windowActionBar">true</item>
+        <item name="windowNoTitle">false</item>
+        <item name="android:text">Administración Usuarios</item>
+    </style>
+
+    <style name="Theme.PFC.TitleTextStyle">
+        <item name="android:textSize">20sp</item>
+        <item name="fontFamily">@font/amaranth</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+    <style name="Theme.PFC.Switch">
+        <item name="android:textSize">14sp</item>
+        <item name="android:thumbTint">?attr/colorPrimaryDark</item>
+        <item name="android:trackTint">#FFC8C8</item>
+    </style>
+
+    <style name="Theme.PFC.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="Theme.PFC.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
 </resources>

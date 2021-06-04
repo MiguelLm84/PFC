@@ -96,13 +96,12 @@ public class OrganigramaFragment extends Fragment {
 
         String presidente = "presidente";
         String vicepresidente = "vicepresidente";
-        String secretarioGeneral = "secretarioGeneral";
+        String secretarioGeneral = "secretario general";
         String tesorero = "tesorero";
-        String vocal1 = "vocal1";
-        String vocal2 = "vocal2";
-
-        String vocal3 = "vocal3";
-        String vocal4 = "vocal4";
+        String vocal1 = "vocal 1";
+        String vocal2 = "vocal 2";
+        String vocal3 = "vocal 3";
+        String vocal4 = "vocal 4";
 
         if(user != null && presidente.equals(user.getRol())){
             tv_presidente.setText(obtenerNombreCargo(user));
